@@ -84,16 +84,22 @@ class Wrapper {
             office.addTrain();
             mbo 		= new MovingBlockOverlayUI();
 
+            /*Office Listeners*/
             addIncreaseClockSpeedListener(office.buttonIncreaseClockSpeed);
             addDecreaseClockSpeedListener(office.buttonDecreaseClockSpeed);
             
+            /*MBO Listeners*/
             addStartButtonListener(mbo.StartButton);
+            
+            /*Track Model Listeners*/
             addBlockSpeedListener(trackModelInterface.trainSpeed);
             addBlockLengthListener(trackModelInterface.trainLength);
             addIsStationListener(trackModelInterface.trainIsStation);
             addMBRBListener(mbo.MovingBlockRadio);
             
-            
+            /*TrainModel Listeners*/
+            /*Train Controller Listeners*/
+        
             
             
 
