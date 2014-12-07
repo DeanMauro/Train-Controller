@@ -41,6 +41,17 @@ public class Office extends javax.swing.JPanel {
         innerPanel.repaint();
     }// </editor-fold> 
     
+    public double getSuggestedAuthority(int ID){
+        return Train.getAuthority(trainsOnTracks.get(ID));
+    }
+    
+    public double getSuggestedSpeed(int ID){
+        return Train.getSpeed(trainsOnTracks.get(ID));
+    }
+    
+    public double getSuggestedPosition(int ID){
+        return Train.getPosition(trainsOnTracks.get(ID));
+    }
     
     public void setMovingBlock(){
     // <editor-fold defaultstate="collapsed" desc="Moving Block"> 

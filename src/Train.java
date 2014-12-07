@@ -13,6 +13,8 @@ public class Train extends javax.swing.JPanel {
     public Train(int numTrain) {
         initComponents();
         labelTrainNum.setText("Train "+numTrain);
+        this.buttonSend.setActionCommand(String.valueOf(numTrain));  //Set Action Command to be the
+                                                                     //train ID
         addListeners(this);
     }
 
@@ -107,29 +109,29 @@ public class Train extends javax.swing.JPanel {
         t.textPosition.setText(str);
     }// </editor-fold> 
     
-    public static int getSpeed(Train t){
+    public static double getSpeed(Train t){
     // <editor-fold defaultstate="collapsed" desc="Get Speed">
         String[] speed;
         speed = t.textSpeed.getText().split(" ", 2);
         
-        return Integer.parseInt(speed[0]);
+        return 0.44704 * Double.parseDouble(speed[0]);  //Send m/s
     }
     // </editor-fold> 
     
-    public static int getAuthority(Train t){
+    public static double getAuthority(Train t){
     // <editor-fold defaultstate="collapsed" desc="Get Authority">
         String[] authority;
         authority = t.textAuthority.getText().split(" ", 2);
         
-        return Integer.parseInt(authority[0]);
+        return 0.3048 * Double.parseDouble(authority[0]);  //Send meters
     }// </editor-fold> 
     
-    public static int getPosition(Train t){
+    public static double getPosition(Train t){
     // <editor-fold defaultstate="collapsed" desc="Get Position">
         String[] position;
         position = t.textPosition.getText().split(" ", 2);
         
-        return Integer.parseInt(position[0]);
+        return Double.parseDouble(position[0]);
     }// </editor-fold> 
     
         

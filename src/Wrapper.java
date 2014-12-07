@@ -191,9 +191,8 @@ class Wrapper {
             Reroute.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e)
                 {
-                    /*If the "reroute" button on a train module in the Office is
-                     pressed, the code here will send a new route to the
-                     Train Controller for that specific train. */
+                    int ID = Integer.parseInt(((JButton)e.getSource()).getActionCommand());
+                    //trainController.get(ID).setCtcPosition(office.getSuggestedPosition(ID));
                 }
             });
 
@@ -204,7 +203,9 @@ class Wrapper {
             Send.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e)
                 {
-                
+                    int ID = Integer.parseInt(((JButton)e.getSource()).getActionCommand());
+                    //trainController.get(ID).setCtcAuthority(office.getSuggestedAuthority(ID));
+                    //trainController.get(ID).setCtcSpeed(office.getSuggestedAuthority(ID));
                 }
             });
 
