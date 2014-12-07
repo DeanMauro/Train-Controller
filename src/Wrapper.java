@@ -11,7 +11,8 @@ class Wrapper {
 	protected static Office office;
         protected static TrackModelInterface trackModelInterface;
 	protected static Vector<TrainModel> trainModel;
-	protected static TrainController trainController;
+	protected static Vector<TrainController> trainController;
+        protected static TrainControllerUI trainControllerUI;
 	protected static MovingBlockOverlayUI mbo;
         
         protected static ArrayList<ScheduleNode> schedule;
@@ -45,7 +46,7 @@ class Wrapper {
             //Add visible components
 	    officeFrame                 .add(office);
             trackModelFrame		.add(trackModelInterface);
-            trainControllerFrame	.add(trainController.getTrainControllerUI());
+            trainControllerFrame	.add(trainControllerUI);
 		
             //Reset JFrames
 	    officeFrame			.pack();
@@ -80,7 +81,9 @@ class Wrapper {
             office 		= new Office();
             trackModelInterface = new TrackModelInterface();
             trainModel          = new Vector();
-            trainController     = new TrainController(1, trainModel.get(0));
+            trainController     = new Vector();
+            trainControllerUI   = new TrainControllerUI();
+            /*vvv Remove once addTrain method is written vvv*/
             office.addTrain(numberOfTrains);
             mbo 		= new MovingBlockOverlayUI();
 
@@ -126,8 +129,9 @@ class Wrapper {
                   holder.calculatePosition();
                   holder.calculateDeltaT(totalSeconds);
 
-                  /*Update MBO and Office with new Train speeds*/
+                  /*Update MBO, Office, and Track Model with new Train speeds*/
                   mbo.updateSpeed(holder.getCurrentSpeed());
+                  trackModelInterface.getTrackModel().updateSpeed(holder.getCurrentSpeed());
                   office.trainsOnTracks.get(0).textSpeed.setText(String.valueOf(holder.getCurrentSpeed()));
 
                   /*Update MBO, Office, and Track Model with new Train positions*/
@@ -137,8 +141,8 @@ class Wrapper {
 
                   /*Update Train Controllers with new MBO Authorities*/
                   mbo.updateBlockAuthority(mbo.getbauth());
-                  trainController.setMboAuthority(mbo.getbauth());
-                  trainController.setMboSpeed(mbo.getbspeed());
+                  trainController.get(i).setMboAuthority(mbo.getbauth());
+                  trainController.get(i).setMboSpeed(mbo.getbspeed());
 
                   trackModelInterface.queryButton();
 
@@ -204,35 +208,13 @@ class Wrapper {
                 public void actionPerformed(ActionEvent e)
                 {
                     int ID = Integer.parseInt(((JButton)e.getSource()).getActionCommand());
-                    //trainController.get(ID).setCtcAuthority(office.getSuggestedAuthority(ID));
-                    //trainController.get(ID).setCtcSpeed(office.getSuggestedAuthority(ID));
+                    trainController.get(ID).setCtcAuthority(office.getSuggestedAuthority(ID));
+                    trainController.get(ID).setCtcSpeed(office.getSuggestedAuthority(ID));
                 }
             });
 
 	}// </editor-fold> 
-	
-	private static void addRouteEnableListener(JTextField NewRoute){
-            // <editor-fold defaultstate="collapsed" desc="Enable Reroute">
-            NewRoute.getDocument().addDocumentListener(new DocumentListener() {
-
-                  public void changedUpdate(DocumentEvent documentEvent) {
-                    /*The value in the "NewRoute" textfield will be tested.
-                    If it is the name of a valid route, the "Reroute" button
-                    will be enabled. If not, nothing will happen.*/
-                  }
-                  public void insertUpdate(DocumentEvent documentEvent) {
-                    /*The value in the "NewRoute" textfield will be tested.
-                    If it is the name of a valid route, the "Reroute" button
-                    will be enabled. If not, nothing will happen.*/
-                  }
-                  public void removeUpdate(DocumentEvent documentEvent) {
-                    /*The value in the "NewRoute" textfield will be tested.
-                    If it is the name of a valid route, the "Reroute" button
-                    will be enabled. If not, nothing will happen.*/
-                  }
-
-                });
-	}// </editor-fold> 
+	 
 
 	/////////////////////////////////
 	//TRACK MODEL LISTENERS
@@ -302,49 +284,6 @@ class Wrapper {
 	/////////////////////////////////
 	//TRAIN MODEL LISTENERS
 	/////////////////////////////////
-        private static void addSpeedListener(JTextField S){
-        // <editor-fold defaultstate="collapsed" desc="Train Speed">
-        S.getDocument().addDocumentListener(new DocumentListener(){
-            
-            public void changedUpdate(DocumentEvent documentEvent) {
-                double speed = Double.parseDouble(S.getText());
-                mbo.updateSpeed(speed);
-                trackModelInterface.getTrackModel().updateSpeed(speed);
-            }
-            public void insertUpdate(DocumentEvent documentEvent) {
-                double speed = Double.parseDouble(S.getText());
-                mbo.updateSpeed(speed);
-                trackModelInterface.getTrackModel().updateSpeed(speed);
-            }
-            public void removeUpdate(DocumentEvent documentEvent) {
-                double speed = Double.parseDouble(S.getText());
-                mbo.updateSpeed(speed);
-                trackModelInterface.getTrackModel().updateSpeed(speed);
-            }
-        });        
-    }// </editor-fold> 
-        
-        private static void addPositionListener(JTextField P){
-        // <editor-fold defaultstate="collapsed" desc="Train Position">
-        P.getDocument().addDocumentListener(new DocumentListener(){
-            
-            public void changedUpdate(DocumentEvent documentEvent) {
-                double position = Double.parseDouble(P.getText());
-                mbo.updatePosition(position);
-                trackModelInterface.getTrackModel().updatePosition(position);
-            }
-            public void insertUpdate(DocumentEvent documentEvent) {
-                double position = Double.parseDouble(P.getText());
-                mbo.updatePosition(position);
-                trackModelInterface.getTrackModel().updatePosition(position);
-            }
-            public void removeUpdate(DocumentEvent documentEvent) {
-                double position = Double.parseDouble(P.getText());
-                mbo.updatePosition(position);
-                trackModelInterface.getTrackModel().updatePosition(position);
-            }
-        });        
-    }// </editor-fold> 
         
 	/////////////////////////////////
 	//TRAIN CONTROLLER LISTENERS
