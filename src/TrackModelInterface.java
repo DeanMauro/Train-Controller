@@ -1,5 +1,8 @@
 
 import java.awt.Color;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
@@ -37,21 +40,36 @@ public class TrackModelInterface extends javax.swing.JPanel {
         initComponents();
     }
     
+    /**queryButton - currently only used to testing
+     * will be updated to be able to press button and call updateInfo function with selected block object
+     */
     public void queryButton(){
         double x = 0;
             //trackModel.updatePosition(x);
             //x += .01;
+        System.out.println("Query");
         Block ID = trackModel.findBlockID();
-        System.out.println("On block: " + ID.getBlockID());
-        trainSpeed.setText(String.valueOf(ID.getSpeedLimit()));
-        trainLength.setText(String.valueOf(ID.getLength()));
-        trainBlockID.setText(String.valueOf(ID.getBlockID()));
-        trainIsStation.setText(String.valueOf(ID.isStation()));
+        System.out.println("On block: " + ID.getBlockId());
+        //trainSpeed.setText(String.valueOf(ID.getSpeedLimit()));
+        //trainLength.setText(String.valueOf(ID.getLength()));
+        //trainBlockID.setText(String.valueOf(ID.getBlockId()));
+        //trainIsStation.setText(String.valueOf(ID.isStation()));
     }
     
-    
-    private void updateInfo(boolean train, int ID, int speed, int grade, int elevation, int length, int failure)
-    {
+    /**updateInfo - Used to update the display which will show specific block information.
+     * Parameters:
+     * @param train - is there a train?
+     * @param ID - Block ID num
+     * @param speed - block speed
+     * @param grade - block grade
+     * @param elevation - block elevation
+     * @param length - block length
+     * @param failure - is there a failure?
+     * 
+     * UPDATE:  NEEDS to accepts a block object, not the individual stats
+     * 
+     */
+    private void updateInfo(boolean train, int ID, int speed, int grade, int elevation, int length, int failure){
         failureMode.setText(Integer.toString(failure));
         if(failure == 0)
         {
@@ -77,7 +95,7 @@ public class TrackModelInterface extends javax.swing.JPanel {
         blockElevation.setText(Integer.toString(elevation).concat("m"));
         blockLength.setText(Integer.toString(length).concat("m"));
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1477,12 +1495,10 @@ public class TrackModelInterface extends javax.swing.JPanel {
         {
             System.out.println("bad file");
         }
-        Block ID = trackModel.findBlockID();
+        //Block ID = trackModel.findBlockID();
 
     }//GEN-LAST:event_ImportTrackActionPerformed
 
-    
-    
     private void IDTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_IDTextFieldActionPerformed
@@ -1491,6 +1507,7 @@ public class TrackModelInterface extends javax.swing.JPanel {
         // TODO add your handling code here:
         //int ID = Integer.parseInt(IDTextField.getText());
         //updateInfo(false, 12, 10, 1, 5, 50, 0);
+        queryButton();
         
     }//GEN-LAST:event_QueryActionPerformed
 
@@ -1511,7 +1528,167 @@ public class TrackModelInterface extends javax.swing.JPanel {
         System.out.println("button");
     }//GEN-LAST:event_buttonPressed
 
+   /**class track Model
+    * track class that contains methods for finding blocks, trains, and information
+    */ 
+public class TrackModel {
 
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String[] args) {
+//        // TODO code application logic here
+//    }
+    TrackObject trckOb; 
+    //blockList blockLinkList;
+    double trainSpeed;
+    double trainDistance;
+    int nodePostion;
+    int nodeNum;
+    public TrackModel()
+    {
+        trckOb = new TrackObject();
+        //blockLinkList = new blockList();
+        trainSpeed = 0;
+        trainDistance = 1000;
+        nodePostion = 0;
+        nodeNum = 77;
+    }
+    
+    
+    public void updateSpeed(double speed)
+    {
+        trainSpeed = speed;
+    }
+    
+    public void updatePosition(double position)
+    {
+        trainDistance = position;
+    }
+    
+    public Block findBlockID(){
+        double blockLength = 0;
+        int blockSpeed = 0;
+        double postion = trainDistance;
+        Block x;
+        while(true)
+        {
+            postion = trainDistance;
+            //System.out.println("1");
+            x = trckOb.getBlock(nodeNum);
+            System.out.println("on block: "+x.getBlockId());
+            //System.out.println("2");
+            blockLength = x.getLength();
+            //System.out.println("block length: "+ blockLength);
+            //System.out.println("postion: "+ postion);
+            blockSpeed = x.getSpeedLimit();
+            if(blockLength > postion)
+                break;
+            else
+            {
+                trainDistance -= blockLength;
+                nodeNum = trckOb.getBlock(nodeNum).getNextBlockId();
+                nodePostion += 1;
+            }
+                        
+        }
+        return x;
+    }
+    //import csv track file
+    public int InternalImport(String text){
+    	
+        //System.out.println(text);
+    	String trackLineColor=null;
+    	try 
+        {
+                Scanner fileScan = new Scanner(new File(text));
+
+                String linetwo = fileScan.nextLine();
+                int i  =0;
+                while (fileScan.hasNextLine()) 
+                {
+                    String line = fileScan.nextLine();
+                    //System.out.println(line);
+                    String[] blockInfo = line.split(",");
+                    //System.out.println("number of items:"+blockInfo.length);
+
+                    trackLineColor=blockInfo[0];
+                    trckOb.setLine(blockInfo[0]);
+                    Block newBlock = new Block(blockInfo);
+                    i++;
+                    trckOb.addBlock(newBlock);
+                    //blockLinkList.add(newBlock);
+                    
+          
+                    /*
+                    System.out.print(blockInfo[0] + " ");
+                    System.out.print(blockInfo[1] + " ");
+                    System.out.print(blockInfo[2] + " ");
+                    System.out.print(blockInfo[3] + " ");
+                    System.out.print(blockInfo[4] + " ");
+                    System.out.print(blockInfo[5] + " ");
+                    System.out.print(blockInfo[6] + " ");
+                    System.out.print(blockInfo[7] + " ");
+                    System.out.print(blockInfo[8] + " ");
+                    System.out.print(blockInfo[9] + " ");
+
+                    System.out.println();
+                    */
+                }
+                fileScan.close();
+                System.out.println("Num blocks: "+i);
+                
+                //refactor hashtable
+                
+                
+                //link list only
+                /**Refactor the linked list
+                 * 1 - the current list just reads the csv file from head to tail, doesnt take into account switches, etc
+                 * 2 - this method will scan through the linked list and arrange the list so that branches due to switches will be correct
+                 */
+                //blockLinkList.refactor();
+                //Track.trackArray.put(trckOb.getLine(), trckOb);
+                //Track.trackListData.add(trackLineColor);
+                //for(int j = 1; j< 78;j++)
+                //{
+                    //System.out.println(j);
+                    //Block y = blockLinkList.get(j);
+                    //System.out.println(y);
+                    
+                //}
+
+                trckOb.refactor();
+                for(int x = 1;x<trckOb.getNumBlocks()+1;x++)
+                {
+                    Block temp = trckOb.getBlock(x);
+                    
+                    
+                    System.out.println("iterator: "+x);//print iterator
+                    System.out.println("blockID: "+temp.getBlockId());//print block ID
+                    System.out.println("nextBlock: "+temp.getNextBlockId());//print next block ID 
+                    System.out.println("is main switch: "+temp.isSwitchInfra());//print if main switch
+                    System.out.println("currently switched to: "+temp.getCurrentlySwitchedTo());//print who it is switched to
+                    System.out.println("switch option 1: "+temp.getBlockSwitchID1());//print switch option 1
+                    System.out.println("switch option 2: "+temp.getBlockSwitchID2());//print switch option 2
+                    System.out.println("Prev block: "+temp.getPrevBlockId());//print switch option 2
+                    System.out.println("");//print 
+                    System.out.println("");//print 
+                }
+                return 1;
+        } 
+        catch (FileNotFoundException e) 
+        {
+                return 0;
+        }	
+    }
+    
+}
+    
+    
+    
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     protected javax.swing.JButton DeleteTrack;
     protected javax.swing.JTextField IDTextField;
