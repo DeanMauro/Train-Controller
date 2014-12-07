@@ -24,33 +24,24 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="238" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" pref="90" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="currentPosisiontLB" max="32767" attributes="0"/>
-                          <Component id="currentSpeedLB" max="32767" attributes="0"/>
-                          <Component id="setSpeedLB" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="setPowerTF" min="-2" pref="116" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
-                              <Component id="SubmitBotton" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="currentPositionTF" alignment="0" pref="247" max="32767" attributes="0"/>
-                              <Component id="currentSpeedTF" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                  </Group>
+              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="currentPosisiontLB" max="32767" attributes="0"/>
+                  <Component id="currentSpeedLB" max="32767" attributes="0"/>
+                  <Component id="setSpeedLB" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="128" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="setPowerTF" max="32767" attributes="0"/>
+                  <Component id="currentPositionTF" alignment="0" max="32767" attributes="0"/>
+                  <Component id="currentSpeedTF" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="155" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -73,9 +64,8 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="setSpeedLB" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="setPowerTF" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="SubmitBotton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="303" max="32767" attributes="0"/>
+              <EmptySpace pref="307" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -105,30 +95,16 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Set Power"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="setPowerTFActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="currentPositionTF">
       <Properties>
         <Property name="text" type="java.lang.String" value="Current Position"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="currentPositionTFActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="currentSpeedTF">
       <Properties>
         <Property name="text" type="java.lang.String" value="Current Speed"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="SubmitBotton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Submit"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SubmitBottonActionPerformed"/>
-      </Events>
     </Component>
   </SubComponents>
 </Form>
