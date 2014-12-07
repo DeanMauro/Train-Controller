@@ -1,8 +1,15 @@
 
-/**
- *
- * @author Brian
- */
+//unit assumptions
+//velocity: meters/second
+//distances: meters
+//power: watts
+//acceleration: meters/second^2
+
+
+//signals to train
+//power in watts
+//door open boolean
+//light on/off boolean
 public class TrainController {
     
     private int trainID;
@@ -27,7 +34,7 @@ public class TrainController {
     private double maxTrainDeceleration;
     private double maxTrainPower;
     private final double KP = 10;//proportional gain
-    private final double KI = 1;//integral gain
+    private final double KI = 3;//integral gain
     private double uk = 0; //integral error
     private double ek = 0;//proportional error
     private double T = 0.1;
@@ -46,19 +53,19 @@ public class TrainController {
         tcUI = new TrainControllerUI(this);
         train = newTrain; 
        
-        velocitySetpoint = 0;        
-        vAct = 0;
+        velocitySetpoint = 0;     
+       
         
         speedLimit = 0;
         
-        authority = 0;
+        authority = 0;//m
         doorStatus = false;
         lightStatus = false;
         brakeStatus = false;
         failureCode = 0;
         failureInfo = null;
-        power = 0;
-        vAct = 0;
+        power = 0; //watts
+        vAct = 0; //m/s
         
         ctcSuggestedSpeed=0;
         ctcSuggestedAuthority=0;
@@ -71,13 +78,10 @@ public class TrainController {
         maxTrainDeceleration = 1.2;
         maxTrainPower = 120000;
     }
-    //hi
-    //changing somekj
+    
         
     public TrainControllerUI getTrainControllerUI()
     {
-        int i;
-        i=2;
         return this.tcUI;
     }
     
@@ -122,7 +126,11 @@ public class TrainController {
     public void setPower()
     {
         //actual train velcity
-        vAct = train.getSpeed();       
+        vAct = train.getCurrentSpeed();
+       
+        //convert vAct to m/s
+        
+        
         tcUI.currentSpeedDisplay.setText(String.format("%.2f", vAct));
         
         //Need to calculate a velocity such that train stops moving 
@@ -134,14 +142,14 @@ public class TrainController {
         
         //authority = Math.min(ctcSuggestedAuthority,mboCommandedAuthority);
         authority = mboCommandedAuthority;
-        authority = 5000;
+        //authority = 5000;
         if(authority <= 0)
         {
             authority = 0.1;            
         }        
         
         double vLimit = Math.sqrt(2*maxTrainDeceleration*authority);
-       System.out.println("vlimit="+vLimit);
+       //System.out.println("vlimit="+vLimit);
         //decide what speed setpoint to use
         this.evaluateVelocity();
         //check that setpoint is not greater than track speed limit or velocity limit
@@ -151,14 +159,26 @@ public class TrainController {
         }
         System.out.println("velSetpoint="+velocitySetpoint);
         tcUI.safeSpeedSetpointDisplay.setText(String.valueOf(velocitySetpoint));
-        uk = uk + (T/2)*(ek + (velocitySetpoint - vAct));
-        System.out.println("uk="+uk);
+        
+        if(power < maxTrainPower)//if pcm < pmax
+        {
+             uk = uk + (T/2)*(ek + (velocitySetpoint - vAct));
+        }
+       
+       // System.out.println("uk="+uk);
         ek = velocitySetpoint - vAct;
-        System.out.println("ek="+ek);
+        //System.out.println("ek="+ek);
         power = (KP*ek) + (KI * uk);
-        power = Math.min(power, maxTrainPower);
+        
+        //Add redundant power check here
+        
+        
         tcUI.powerOutputDisplay.setText(String.format("%.2f", power));
+        
+        //set power to kW to send to TrainModel
+        //power = power/1000;
         train.setPower(power); 
+        
         
     }
     
