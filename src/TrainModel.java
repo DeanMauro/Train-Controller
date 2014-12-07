@@ -28,8 +28,10 @@ public class TrainModel extends javax.swing.JFrame {
     
     
     
-    public TrainModel() {
+    public TrainModel(int trainID) {
         initComponents();
+        
+        this.ID = trainID;
     }
     
 
@@ -185,7 +187,7 @@ public class TrainModel extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TrainModel().setVisible(true);
+                new TrainModel(1).setVisible(true);
             }
         });
     }
