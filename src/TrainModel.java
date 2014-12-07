@@ -25,6 +25,8 @@ public class TrainModel extends javax.swing.JFrame {
     Double setPower = 0.0;
     double mass = 100;
     double time = 200;
+    double currentSpeed;
+    
     /**
      * Creates new form TrainModel
      */
@@ -32,7 +34,9 @@ public class TrainModel extends javax.swing.JFrame {
         initComponents();
     }
     
-    EngineModel Engine = new EngineModel();
+
+    
+    EngineModel Engine = new EngineModel(time, 5);
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -146,13 +150,18 @@ public class TrainModel extends javax.swing.JFrame {
     private void SubmitBottonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitBottonActionPerformed
         // TODO add your handling code here:
         double power = Double.parseDouble(setPowerTF.getText());
-        double currentSpeed = Engine.currentSpeed(power, mass, time);
+        currentSpeed = Engine.currentSpeed(power, mass, time);
         currentSpeedTF.setText(Double.toString(currentSpeed));
         
         double currentPosition = Engine.currentPosition(power, mass, time);
         currentPositionTF.setText(Double.toString(currentPosition));
     }//GEN-LAST:event_SubmitBottonActionPerformed
 
+    public double calculateSpeed(){
+        
+        return currentSpeed;
+        
+    }
     /**
      * @param args the command line arguments
      */
