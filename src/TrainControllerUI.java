@@ -74,6 +74,11 @@ public class TrainControllerUI extends javax.swing.JPanel {
         
     }
     
+    void setTrainList(Vector<TrainController> l)
+    {
+        this.trainList = l;      
+        updateTrainList();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
