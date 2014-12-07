@@ -1605,17 +1605,20 @@ public class TrackModel {
 
                 String linetwo = fileScan.nextLine();
                 int i  =0;
+                String[] blockInfo = null;
+                Block newBlock;
                 while (fileScan.hasNextLine()) 
                 {
                     String line = fileScan.nextLine();
                     //System.out.println(line);
-                    String[] blockInfo = line.split(",");
+                    blockInfo = line.split(",");
                     //System.out.println("number of items:"+blockInfo.length);
 
                     trackLineColor=blockInfo[0];
                     trckOb.setLine(blockInfo[0]);
-                    Block newBlock = new Block(blockInfo);
+                    newBlock = new Block(blockInfo);
                     i++;
+                    newBlock.setYard(false);
                     trckOb.addBlock(newBlock);
                     //blockLinkList.add(newBlock);
                     
@@ -1636,6 +1639,13 @@ public class TrackModel {
                     */
                 }
                 fileScan.close();
+                if(i>0)
+                {
+                    newBlock = new Block(blockInfo);
+                    newBlock.setYard(true);
+                    trckOb.addBlock(newBlock);
+                    i++;
+                }
                 System.out.println("Num blocks: "+i);
                 
                 //refactor hashtable

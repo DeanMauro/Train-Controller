@@ -109,7 +109,7 @@ public class TrackObject {
                 b.setPrevBlockId(i-1);
 
             }
-            
+ 
             for(int i = 1;i<numBlocks+1;i++)
             {
                 Block b = getBlock(i);
@@ -154,6 +154,10 @@ public class TrackObject {
                     {
                         b.setNextBlockId(ID-1);
                     }
+                    if(b.getPrevBlockId() == b.getBlockSwitchID1() || b.getPrevBlockId() == b.getBlockSwitchID2())
+                    {
+                        b.setPrevBlockId(ID+1);
+                    }
                 }
                 //else
                 //{
@@ -162,6 +166,22 @@ public class TrackObject {
                 //    if(b.getPrevBlockId() == 999)
                 //        b.setPrevBlockId(ID-1);
                 //}
+            }
+            
+            int ID = 0;
+            for(int i = 1;i<numBlocks+1;i++)
+            {
+                Block b = getBlock(i);
+                ID = b.getBlockId();
+                if(b.isYard())
+                {
+                    break;
+                }
+            }
+            while(true)
+            {
+                ID = ID -1;
+                Block b = getBlock(ID);
             }
         }
 

@@ -161,6 +161,7 @@ public class Block {
                     switchFromYard = true;
             }
             if(infrastructure.contains("SWITCH TO/FROM YARD")){
+                    switchToYard = true;
                     switchFromYard = true;
             }
             if(infrastructure.contains("YARD")){
