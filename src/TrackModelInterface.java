@@ -1696,7 +1696,10 @@ public class TrackModel {
     
     
     
-    
+    public TrackModel getTrackModel()
+    {
+        return this.trackModel;
+    }
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
