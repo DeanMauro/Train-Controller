@@ -91,23 +91,47 @@ public class Train extends javax.swing.JPanel {
     
     
     public static void setSpeed(Train t, String str){
+    // <editor-fold defaultstate="collapsed" desc="Set Speed">
         t.textSpeed.setText(str + " mph");
-    }
+    }// </editor-fold> 
     
     public static void setAuthority(Train t, String str){
+    // <editor-fold defaultstate="collapsed" desc="Set Authority">
         t.textAuthority.setText(str + " ft.");
-    }
+    }// </editor-fold> 
     
     public static void setPosition(Train t, String str){
+    // <editor-fold defaultstate="collapsed" desc="Set Position">
         t.textPosition.setText(str);
+    }// </editor-fold> 
+    
+    public static int getSpeed(Train t){
+    // <editor-fold defaultstate="collapsed" desc="Get Speed">
+        String[] speed;
+        speed = t.textSpeed.getText().split(" ", 2);
+        
+        return Integer.parseInt(speed[0]);
     }
+    // </editor-fold> 
     
-    /*public static void addObserver(TrainModel o){
-        observer = o;
-    }*/
+    public static int getAuthority(Train t){
+    // <editor-fold defaultstate="collapsed" desc="Get Authority">
+        String[] authority;
+        authority = t.textAuthority.getText().split(" ", 2);
+        
+        return Integer.parseInt(authority[0]);
+    }// </editor-fold> 
     
+    public static int getPosition(Train t){
+    // <editor-fold defaultstate="collapsed" desc="Get Position">
+        String[] position;
+        position = t.textPosition.getText().split(" ", 2);
+        
+        return Integer.parseInt(position[0]);
+    }// </editor-fold> 
     
-    
+        
+        
     
     
 

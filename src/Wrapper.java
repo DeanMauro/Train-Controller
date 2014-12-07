@@ -84,6 +84,9 @@ class Wrapper {
             office.addTrain();
             mbo 		= new MovingBlockOverlayUI();
 
+            addIncreaseClockSpeedListener(office.buttonIncreaseClockSpeed);
+            addDecreaseClockSpeedListener(office.buttonDecreaseClockSpeed);
+            
             addStartButtonListener(mbo.StartButton);
             addBlockSpeedListener(trackModelInterface.trainSpeed);
             addBlockLengthListener(trackModelInterface.trainLength);
@@ -142,32 +145,53 @@ class Wrapper {
 	/////////////////////////////////
 	//OFFICE LISTENERS
 	/////////////////////////////////
+        private static void addIncreaseClockSpeedListener(JButton IncreaseSpeed){
+		
+            IncreaseSpeed.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e)
+                {
+                    timerDelay = 100;
+                    timer.setDelay(timerDelay);
+                }
+            });
+
+	}
+        
+        private static void addDecreaseClockSpeedListener(JButton DecreaseSpeed){
+		
+            DecreaseSpeed.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e)
+                {
+                    timerDelay = 1000;
+                    timer.setDelay(timerDelay);
+                }
+            });
+
+	}
+        
+        
+        
 	private static void addOfficeRerouteListener(JButton Reroute){
 		
-       Reroute.addActionListener(new ActionListener() {
-           public void actionPerformed(ActionEvent e)
-           {
-               /*If the "reroute" button on a train module in the Office is
-				  pressed, the code here will send a new route to the
-				  Train Controller for that specific train. */
-           }
-       });
+            Reroute.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e)
+                {
+                    /*If the "reroute" button on a train module in the Office is
+                     pressed, the code here will send a new route to the
+                     Train Controller for that specific train. */
+                }
+            });
 
 	}
         
         private static void addSpeedAndAuthorityListener(JButton Send){
 		
-       Send.addActionListener(new ActionListener() {
-           public void actionPerformed(ActionEvent e)
-           {
-               
-               
-               
-               /*If the "reroute" button on a train module in the Office is
-                pressed, the code here will send a new route to the
-                Train Controller for that specific train. */
-           }
-       });
+            Send.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e)
+                {
+                
+                }
+            });
 
 	}
 	
@@ -177,18 +201,18 @@ class Wrapper {
 
                   public void changedUpdate(DocumentEvent documentEvent) {
                     /*The value in the "NewRoute" textfield will be tested.
-                               If it is the name of a valid route, the "Reroute" button
-                               will be enabled. If not, nothing will happen.*/
+                    If it is the name of a valid route, the "Reroute" button
+                    will be enabled. If not, nothing will happen.*/
                   }
                   public void insertUpdate(DocumentEvent documentEvent) {
                     /*The value in the "NewRoute" textfield will be tested.
-                               If it is the name of a valid route, the "Reroute" button
-                               will be enabled. If not, nothing will happen.*/
+                    If it is the name of a valid route, the "Reroute" button
+                    will be enabled. If not, nothing will happen.*/
                   }
                   public void removeUpdate(DocumentEvent documentEvent) {
                     /*The value in the "NewRoute" textfield will be tested.
-                               If it is the name of a valid route, the "Reroute" button
-                               will be enabled. If not, nothing will happen.*/
+                    If it is the name of a valid route, the "Reroute" button
+                    will be enabled. If not, nothing will happen.*/
                   }
 
                 });

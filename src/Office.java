@@ -90,6 +90,8 @@ public class Office extends javax.swing.JPanel {
         clockLayeredPane = new javax.swing.JLayeredPane();
         clockFrontPanel = new javax.swing.JPanel();
         textClock = new javax.swing.JTextField();
+        buttonDecreaseClockSpeed = new javax.swing.JButton();
+        buttonIncreaseClockSpeed = new javax.swing.JButton();
         clockBackPanel = new javax.swing.JPanel();
         clockBackground = new javax.swing.JLabel();
         workersLayeredPane = new javax.swing.JLayeredPane();
@@ -140,13 +142,22 @@ public class Office extends javax.swing.JPanel {
         textClock.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textClock.setText("0:00");
 
+        buttonDecreaseClockSpeed.setText("<<");
+
+        buttonIncreaseClockSpeed.setText(">>");
+
         javax.swing.GroupLayout clockFrontPanelLayout = new javax.swing.GroupLayout(clockFrontPanel);
         clockFrontPanel.setLayout(clockFrontPanelLayout);
         clockFrontPanelLayout.setHorizontalGroup(
             clockFrontPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(clockFrontPanelLayout.createSequentialGroup()
                 .addGap(43, 43, 43)
-                .addComponent(textClock, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(clockFrontPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textClock, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(clockFrontPanelLayout.createSequentialGroup()
+                        .addComponent(buttonDecreaseClockSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonIncreaseClockSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
         clockFrontPanelLayout.setVerticalGroup(
@@ -154,7 +165,11 @@ public class Office extends javax.swing.JPanel {
             .addGroup(clockFrontPanelLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(textClock, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(clockFrontPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonDecreaseClockSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonIncreaseClockSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         clockBackPanel.setOpaque(false);
@@ -276,7 +291,7 @@ public class Office extends javax.swing.JPanel {
         screenLayeredPane.setLayout(screenLayeredPaneLayout);
         screenLayeredPaneLayout.setHorizontalGroup(
             screenLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(screenFrontPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(screenFrontPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         screenLayeredPaneLayout.setVerticalGroup(
             screenLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -556,6 +571,8 @@ public class Office extends javax.swing.JPanel {
     protected javax.swing.JScrollPane TrainsScrollPane;
     protected javax.swing.JPanel backPanel;
     protected javax.swing.JLabel background;
+    protected javax.swing.JButton buttonDecreaseClockSpeed;
+    protected javax.swing.JButton buttonIncreaseClockSpeed;
     protected javax.swing.ButtonGroup buttongroupMovingFixed;
     protected javax.swing.JPanel clockBackPanel;
     protected javax.swing.JLabel clockBackground;
