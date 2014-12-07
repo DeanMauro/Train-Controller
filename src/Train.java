@@ -10,13 +10,14 @@ public class Train extends javax.swing.JPanel {
     //protected static TrainModel observer;
     //train model
 
-    public Train(int numTrains) {
+    public Train(int numTrain) {
         initComponents();
-        labelTrainNum.setText("Train "+numTrains);
+        labelTrainNum.setText("Train "+numTrain);
         addListeners(this);
     }
 
     private void addListeners(Train t){
+    // <editor-fold defaultstate="collapsed" desc="Add Listeners">
         
     //Enable the Reroute Button
         t.textRoute.getDocument().addDocumentListener(new DocumentListener() {
@@ -88,7 +89,7 @@ public class Train extends javax.swing.JPanel {
             }
 
           });
-    }
+    }// </editor-fold>
     
     
     public static void setSpeed(Train t, String str){

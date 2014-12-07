@@ -11,7 +11,7 @@ class Wrapper {
 	protected static Office office;
 	protected static TrackModel trackModel;
         protected static TrackModelInterface trackModelInterface;
-	protected static TrainModel trainModel;
+	protected static Vector<TrainModel> trainModel;
 	protected static TrainController trainController;
 	protected static MovingBlockOverlayUI mbo;
         
@@ -22,6 +22,8 @@ class Wrapper {
         protected static int minutes = 0;
         protected static int totalSeconds = 0;
         protected static Timer timer;
+        
+        protected static int numberOfTrains = 1;
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * *
  * MAIN 
@@ -79,9 +81,9 @@ class Wrapper {
             office 		= new Office();
             trackModel          = new TrackModel();
             trackModelInterface = new TrackModelInterface();
-            trainModel          = new TrainModel();
-            trainController     = new TrainController(1, trainModel);
-            office.addTrain();
+            trainModel          = new Vector();
+            trainController     = new TrainController(1, trainModel.get(0));
+            office.addTrain(numberOfTrains);
             mbo 		= new MovingBlockOverlayUI();
 
             /*Office Listeners*/
@@ -105,38 +107,49 @@ class Wrapper {
 
            ClockListener = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
+            
+            /*Advance clock by 1 tick*/
               minutes = minutes + (seconds / 60);
               seconds = seconds % 60;
-              
-                
               Office.textClock.setText(String.format("%d:%02d", minutes, seconds));
-              
               seconds++;
               totalSeconds++;
-              trainModel.calculateDeltaT(totalSeconds);
               
-              trainModel.calculateForce();
-              trainModel.calculateAcceleration();
-              trainModel.calculateSpeed();
-              trainModel.calculatePosition();
-              trainModel.calculateDeltaT(totalSeconds); 
+            /*Calculate new train metrics*/
+              TrainModel holder;
               
-              mbo.updateSpeed(trainModel.getSpeed());
-              office.trainsOnTracks.get(0).textSpeed.setText(String.valueOf(trainModel.getSpeed()));
-              
-              mbo.updatePosition(trainModel.getPosition());
-              trackModel.updatePosition(trainModel.getPosition());
-              office.trainsOnTracks.get(0).textPosition.setText(String.valueOf(trainModel.getPosition()));
-              
-              mbo.updateBlockAuthority(mbo.getbauth());
-              trainController.setMboAuthority(mbo.getbauth());
-              trainController.setMboSpeed(mbo.getbspeed());
-              
-              trackModelInterface.queryButton();
+              for(int i=0; i<numberOfTrains; i++){
+                  holder = trainModel.get(i);
+                  
+                  holder.calculateDeltaT(totalSeconds);
+                  holder.calculateForce();
+                  holder.calculateAcceleration();
+                  holder.calculateSpeed();
+                  holder.calculatePosition();
+                  holder.calculateDeltaT(totalSeconds);
+
+                  /*Update MBO and Office with new Train speeds*/
+                  mbo.updateSpeed(holder.getCurrentSpeed());
+                  office.trainsOnTracks.get(0).textSpeed.setText(String.valueOf(holder.getCurrentSpeed()));
+
+                  /*Update MBO, Office, and Track Model with new Train positions*/
+                  mbo.updatePosition(holder.getCurrentPosition());
+                  trackModel.updatePosition(holder.getCurrentPosition());
+                  office.trainsOnTracks.get(0).textPosition.setText(String.valueOf(holder.getCurrentPosition()));
+
+                  /*Update Train Controllers with new MBO Authorities*/
+                  mbo.updateBlockAuthority(mbo.getbauth());
+                  trainController.setMboAuthority(mbo.getbauth());
+                  trainController.setMboSpeed(mbo.getbspeed());
+
+                  trackModelInterface.queryButton();
+
+              }
 
             }
             };
            
+         /*Start the Timer*/
            timer = new Timer(timerDelay, ClockListener);
            
 	}
@@ -152,7 +165,7 @@ class Wrapper {
 	//OFFICE LISTENERS
 	/////////////////////////////////
         private static void addIncreaseClockSpeedListener(JButton IncreaseSpeed){
-		
+            // <editor-fold defaultstate="collapsed" desc="Increase Clock Speed">	
             IncreaseSpeed.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e)
                 {
@@ -161,10 +174,10 @@ class Wrapper {
                 }
             });
 
-	}
+	}// </editor-fold> 
         
         private static void addDecreaseClockSpeedListener(JButton DecreaseSpeed){
-		
+            // <editor-fold defaultstate="collapsed" desc="Decrease Clock Speed">	
             DecreaseSpeed.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e)
                 {
@@ -173,12 +186,10 @@ class Wrapper {
                 }
             });
 
-	}
-        
-        
+	}// </editor-fold> 
         
 	private static void addOfficeRerouteListener(JButton Reroute){
-		
+            // <editor-fold defaultstate="collapsed" desc="Reroute Train">
             Reroute.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e)
                 {
@@ -188,10 +199,10 @@ class Wrapper {
                 }
             });
 
-	}
+	}// </editor-fold> 
         
         private static void addSpeedAndAuthorityListener(JButton Send){
-		
+            // <editor-fold defaultstate="collapsed" desc="Suggest Speed/Authority">
             Send.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e)
                 {
@@ -199,10 +210,10 @@ class Wrapper {
                 }
             });
 
-	}
+	}// </editor-fold> 
 	
 	private static void addRouteEnableListener(JTextField NewRoute){
-		
+            // <editor-fold defaultstate="collapsed" desc="Enable Reroute">
             NewRoute.getDocument().addDocumentListener(new DocumentListener() {
 
                   public void changedUpdate(DocumentEvent documentEvent) {
@@ -222,31 +233,32 @@ class Wrapper {
                   }
 
                 });
-	}
+	}// </editor-fold> 
 
 	/////////////////////////////////
 	//TRACK MODEL LISTENERS
 	/////////////////////////////////
-        
         private static void addBlockSpeedListener(JTextField bs){
-        bs.getDocument().addDocumentListener(new DocumentListener(){
-            
-            public void changedUpdate(DocumentEvent documentEvent) {
-                double speed = Double.parseDouble(bs.getText());
-                mbo.updateBlockSpeed(speed);
-            }
-            public void insertUpdate(DocumentEvent documentEvent) {
-                double speed = Double.parseDouble(bs.getText());
-                mbo.updateBlockSpeed(speed);
-            }
-            public void removeUpdate(DocumentEvent documentEvent) {
-                //double speed = Double.parseDouble(bs.getText());
-                //mbo.updateBlockSpeed(speed);
-            }
-        });        
-    }
+            // <editor-fold defaultstate="collapsed" desc="Block Speed">
+            bs.getDocument().addDocumentListener(new DocumentListener(){
+
+                public void changedUpdate(DocumentEvent documentEvent) {
+                    double speed = Double.parseDouble(bs.getText());
+                    mbo.updateBlockSpeed(speed);
+                }
+                public void insertUpdate(DocumentEvent documentEvent) {
+                    double speed = Double.parseDouble(bs.getText());
+                    mbo.updateBlockSpeed(speed);
+                }
+                public void removeUpdate(DocumentEvent documentEvent) {
+                    //double speed = Double.parseDouble(bs.getText());
+                    //mbo.updateBlockSpeed(speed);
+                }
+            });        
+    }// </editor-fold> 
     
         private static void addBlockLengthListener(JTextField trainLength){
+            // <editor-fold defaultstate="collapsed" desc="Block Length">
             trainLength.getDocument().addDocumentListener(new DocumentListener(){
         	
  		      public void changedUpdate(DocumentEvent documentEvent) {
@@ -264,9 +276,10 @@ class Wrapper {
  		      
             });        
                       
-	}
+	}// </editor-fold> 
     
         private static void addIsStationListener(JTextField trainIsStation){
+            // <editor-fold defaultstate="collapsed" desc="Is Station">
             trainIsStation.getDocument().addDocumentListener(new DocumentListener(){
         	
  		      public void changedUpdate(DocumentEvent documentEvent) {
@@ -284,14 +297,14 @@ class Wrapper {
  		      
             });        
                       
-	}
+	}// </editor-fold> 
     
 	
 	/////////////////////////////////
 	//TRAIN MODEL LISTENERS
 	/////////////////////////////////
-	
         private static void addSpeedListener(JTextField S){
+        // <editor-fold defaultstate="collapsed" desc="Train Speed">
         S.getDocument().addDocumentListener(new DocumentListener(){
             
             public void changedUpdate(DocumentEvent documentEvent) {
@@ -310,9 +323,10 @@ class Wrapper {
                 trackModel.updateSpeed(speed);
             }
         });        
-    }
+    }// </editor-fold> 
         
         private static void addPositionListener(JTextField P){
+        // <editor-fold defaultstate="collapsed" desc="Train Position">
         P.getDocument().addDocumentListener(new DocumentListener(){
             
             public void changedUpdate(DocumentEvent documentEvent) {
@@ -331,7 +345,7 @@ class Wrapper {
                 trackModel.updatePosition(position);
             }
         });        
-    }
+    }// </editor-fold> 
         
 	/////////////////////////////////
 	//TRAIN CONTROLLER LISTENERS
@@ -341,39 +355,40 @@ class Wrapper {
 	//MBO LISTENERS
 	/////////////////////////////////
         private static void addMBRBListener(JRadioButton MovingBlockRadio){
-		
-       MovingBlockRadio.addActionListener(new ActionListener() {
-           public void actionPerformed(ActionEvent e)
-           {
-               if(MovingBlockRadio.isSelected())
-                   office.setMovingBlock();
-               else
-                   office.setFixedBlock();
-           }
-       });
+            // <editor-fold defaultstate="collapsed" desc="MBRB">
+        MovingBlockRadio.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+                if(MovingBlockRadio.isSelected())
+                    office.setMovingBlock();
+                else
+                    office.setFixedBlock();
+            }
+        });
 
-	}
+	}// </editor-fold> 
     
         private static void addStartButtonListener(JButton Start){
+            // <editor-fold defaultstate="collapsed" desc="MBO Start Button">
 		
-       Start.addActionListener(new ActionListener() {
-           public void actionPerformed(ActionEvent e)
-           {
-               if(!timer.isRunning())
-                   timer.start();
-               
-               StringBuffer s = new StringBuffer();
-               schedule = mbo.getSchedule();
-               
-               for(ScheduleNode n : schedule){
-                   s.append(n.getStop());
-                   s.append(n.getTimes());
-               }
-               
-               office.textSchedule.setText(s.toString());
-           }
-       });
+            Start.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e)
+                {
+                    if(!timer.isRunning())
+                        timer.start();
 
-	}
+                    StringBuffer s = new StringBuffer();
+                    schedule = mbo.getSchedule();
+
+                    for(ScheduleNode n : schedule){
+                        s.append(n.getStop());
+                        s.append(n.getTimes());
+                    }
+
+                    office.textSchedule.setText(s.toString());
+                }
+            });
+
+	}// </editor-fold> 
         
 }
