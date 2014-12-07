@@ -833,7 +833,6 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         /* Create and display the form */
-        System.out.println();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MovingBlockOverlayUI().setVisible(true);
