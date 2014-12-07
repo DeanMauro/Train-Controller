@@ -1,6 +1,3 @@
-
-
-
 public class Block {
 	
 	private String section;
@@ -9,7 +6,7 @@ public class Block {
 	private double grade;
 	private int speedLimit;
 	private boolean station;
-	private boolean switchBoo;
+	private boolean switchInfra;
         private int switchID;
 	private boolean underground;
 	private boolean crossing;
@@ -19,15 +16,18 @@ public class Block {
 	private String infrastructure;
 	private double elevation;
 	private double cumElevation;
-	private String switchBlock;
+	private int switchBlock;
 	private String arrowDirection;
 	
         private int NextBlockId;
+        private int PrevBlockId;
 	private int SecondNextBlockId;
 	private int thirdNextBlockId;
 	private boolean isNextBlockSwitch;
 	private int nextBlockSwitchId;
 	private int currentlySwitchedTo;
+        private int blockSwitchId1;
+	private int blockSwitchId2;
 	private double startX;
 	private double startY;
 	private double endX;
@@ -38,16 +38,12 @@ public class Block {
 	private int signalState;
 	private int crossingSigState;
 	
-	private Block authorityEnterBlock;
-	private Block authorityExitBlock;
-	
 	private boolean trainDetected;
-	
+
 	//Constructor
-	public Block(String[] blockInfo)
-	{
-                line = blockInfo[0];
-                section = blockInfo[1];
+	public Block(String[] blockInfo){
+            line = blockInfo[0];
+            section = blockInfo[1];
             if(!blockInfo[2].equals(""))
                 blockId = Integer.parseInt(blockInfo[2]);
             if(!blockInfo[3].equals(""))
@@ -64,22 +60,36 @@ public class Block {
                 cumElevation = Double.parseDouble(blockInfo[9]);
             if(blockInfo.length <= 10)
             {
-                switchBlock = "";
+                switchBlock = 999;
                 arrowDirection = "";
             }
             else if(blockInfo.length <=11)
             {
-                switchBlock = blockInfo[10];
-                if(switchBlock.length() > 0)
-                    //switchBlock = switchBlock.substring(switchBlock.length() - 1); 
+                String TempSwitchBlock = blockInfo[10];
+                
+                if(TempSwitchBlock.length() > 0)
+                {
+                    switchBlock = Integer.parseInt(TempSwitchBlock.substring(TempSwitchBlock.length() - 1));
+                }  
+                else
+                {
+                    switchBlock = 999;
+                }
                 //System.out.println("switch block: "+switchBlock);
                 arrowDirection = "";
             }
             else
             {
-                switchBlock = blockInfo[10];
-                if(switchBlock.length() > 0)
-                    //switchBlock = switchBlock.substring(switchBlock.length() - 1); 
+                String TempSwitchBlock = blockInfo[10];
+                
+                if(TempSwitchBlock.length() > 0)
+                {
+                    switchBlock = Integer.parseInt(TempSwitchBlock.substring(TempSwitchBlock.length() - 1));
+                }  
+                else
+                {
+                    switchBlock = 999;
+                }
                 //System.out.println("switch block: "+switchBlock);
                 arrowDirection = (blockInfo[11]);
             }
@@ -108,7 +118,7 @@ public class Block {
             
 
             station = false;
-            switchBoo = false;
+            switchInfra = false;
             underground = false;
             crossing = false;
             switchToYard = false;
@@ -131,7 +141,11 @@ public class Block {
             //System.out.println("You got here 3");
             if(infrastructure.contains("SWITCH")){
                 //System.out.println(infrastructure);
-                    switchBoo=true;
+                    switchInfra=true;
+            }
+            else
+            {
+                switchInfra=false;
             }
             //System.out.println("You got here 4");
             if(infrastructure.contains("RAILWAY CROSSING")){
@@ -146,9 +160,14 @@ public class Block {
             if(infrastructure.contains("SWITCH FROM YARD")){
                     switchFromYard = true;
             }
+            if(infrastructure.contains("SWITCH TO/FROM YARD")){
+                    switchFromYard = true;
+            }
             if(infrastructure.contains("YARD")){
                     yard = true;
             }
+            PrevBlockId = 999;
+            NextBlockId = 999;
 		
 	}
 	
@@ -158,34 +177,12 @@ public class Block {
 		return line;
 	}
 	
-	public boolean isTrainDetected()
-	{
+	public boolean isTrainDetected(){
 		return trainDetected;
 	}
 	
-	public void setTrainDetected(boolean cond)
-	{
+	public void setTrainDetected(boolean cond){
 		trainDetected=cond;
-	}
-	
-	public void setAuthorityEnterBlock(Block b)
-	{
-		authorityEnterBlock=b;
-	}
-	
-	public void setAuthorityExitBlock(Block b)
-	{
-		authorityExitBlock=b;
-	}
-	
-	public Block getAuthorityEnterBlock()
-	{
-		return authorityEnterBlock;
-	}
-	
-	public Block getAuthorityExitBlock()
-	{
-		return authorityExitBlock;
 	}
 	
 	public String getInfrastructure() {
@@ -219,39 +216,33 @@ public class Block {
 	public void setNextBlockId(int nextBlockId) {
 		NextBlockId = nextBlockId;
 	}
-
-	public int getSecondNextBlockId() {
-		return SecondNextBlockId;
+        
+        public int getPrevBlockId() {
+		return PrevBlockId;
 	}
 
-	public void setSecondNextBlockId(int secondNextBlockId) {
-		SecondNextBlockId = secondNextBlockId;
+	public void setPrevBlockId(int nextBlockId) {
+		PrevBlockId = nextBlockId;
 	}
 
-	public int getThirdNextBlockId() {
-		return thirdNextBlockId;
+        public void setBlockSwitchId1(int nextBlockSwitchId) {
+		this.blockSwitchId1 = nextBlockSwitchId;
+	}
+        
+        public void setBlockSwitchId2(int nextBlockSwitchId) {
+		this.blockSwitchId2 = nextBlockSwitchId;
 	}
 
-	public void setThirdNextBlockId(int thirdNextBlockId) {
-		this.thirdNextBlockId = thirdNextBlockId;
-	}
-
-	public boolean isNextBlockSwitch() {
-		return isNextBlockSwitch;
-	}
-
-	public void setNextBlockSwitch(boolean isNextBlockSwitch) {
-		this.isNextBlockSwitch = isNextBlockSwitch;
-	}
-
-	public int getNextBlockSwitchId() {
-		return nextBlockSwitchId;
-	}
-
-	public void setNextBlockSwitchId(int nextBlockSwitchId) {
-		this.nextBlockSwitchId = nextBlockSwitchId;
-	}
-
+        public int getBlockSwitchID1()
+        {
+            return this.blockSwitchId1;
+        }
+        
+        public int getBlockSwitchID2()
+        {
+            return this.blockSwitchId2;
+        }
+        
 	public int getCurrentlySwitchedTo() {
 		return currentlySwitchedTo;
 	}
@@ -259,37 +250,17 @@ public class Block {
 	public void setCurrentlySwitchedTo(int currentlySwitchedTo) {
 		this.currentlySwitchedTo = currentlySwitchedTo;
 	}
-
-	public double getStartX() {
-		return startX;
+        
+        public boolean isSwitchInfra() {
+		return switchInfra;
 	}
-
-	public void setStartX(double startX) {
-		this.startX = startX;
+        
+        public void setSwitchInfra(boolean switchInfra) {
+		this.switchInfra = switchInfra;
 	}
-
-	public double getStartY() {
-		return startY;
-	}
-
-	public void setStartY(double startY) {
-		this.startY = startY;
-	}
-
-	public double getEndX() {
-		return endX;
-	}
-
-	public void setEndX(double endX) {
-		this.endX = endX;
-	}
-
-	public double getEndY() {
-		return endY;
-	}
-
-	public void setEndY(double endY) {
-		this.endY = endY;
+        
+        public int getSwitchID() {
+		return switchBlock;
 	}
 
 	public boolean isYard() {
@@ -348,18 +319,6 @@ public class Block {
 		this.station = station;
 	}
 
-	public boolean isSwitchBoo() {
-		return switchBoo;
-	}
-        
-        public String getSwitchID() {
-		return switchBlock;
-	}
-
-	public void setSwitchBoo(boolean switchBoo) {
-		this.switchBoo = switchBoo;
-	}
-
 	public boolean isUnderground() {
 		return underground;
 	}
@@ -415,16 +374,6 @@ public class Block {
 	public void setCumElevation(double cumElevation) {
 		this.cumElevation = cumElevation;
 	}
-
-	public int getBlockID(){
-		return this.blockId;
-	}
-	
-	public Double[] getCoordinates()
-	{
-		Double[] coordinates = {startX, startY, endX, endY};
-		return coordinates;
-	}
 	
 	public int[] getPossibleNextBlocks()
 	{
@@ -477,5 +426,5 @@ public class Block {
 	{
 		return crossingSigState;
 	}
-
+        
 }
