@@ -404,7 +404,7 @@ public class Block {
 	 * 2 - Green
 	 * 3 - Yellow
 	 * 4 - Red
-	 * */
+	 * *//////////
 	public void setSignalState(int state)
 	{
 		signalState = state;
