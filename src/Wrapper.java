@@ -105,29 +105,33 @@ class Wrapper {
 
            ClockListener = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
+            
+            /*Advance clock by 1 tick*/
               minutes = minutes + (seconds / 60);
               seconds = seconds % 60;
-              
-                
               Office.textClock.setText(String.format("%d:%02d", minutes, seconds));
-              
               seconds++;
               totalSeconds++;
-              trainModel.calculateDeltaT(totalSeconds);
               
+            /*Calculate new train metrics*/
+              trainModel.calculateDeltaT(totalSeconds);
               trainModel.calculateForce();
               trainModel.calculateAcceleration();
               trainModel.calculateSpeed();
               trainModel.calculatePosition();
               trainModel.calculateDeltaT(totalSeconds); 
               
-              mbo.updateSpeed(trainModel.getSpeed());
-              office.trainsOnTracks.get(0).textSpeed.setText(String.valueOf(trainModel.getSpeed()));
               
-              mbo.updatePosition(trainModel.getPosition());
-              trackModel.updatePosition(trainModel.getPosition());
-              office.trainsOnTracks.get(0).textPosition.setText(String.valueOf(trainModel.getPosition()));
-              
+            /*Update MBO and Office with new Train speeds*/
+              mbo.updateSpeed(trainModel.getCurrentSpeed());
+              office.trainsOnTracks.get(0).textSpeed.setText(String.valueOf(trainModel.getCurrentSpeed()));
+             
+            /*Update MBO, Office, and Track Model with new Train positions*/
+              mbo.updatePosition(trainModel.getCurrentPosition());
+              trackModel.updatePosition(trainModel.getCurrentPosition());
+              office.trainsOnTracks.get(0).textPosition.setText(String.valueOf(trainModel.getCurrentPosition()));
+            
+            /*Update Train Controllers with new MBO Authorities*/
               mbo.updateBlockAuthority(mbo.getbauth());
               trainController.setMboAuthority(mbo.getbauth());
               trainController.setMboSpeed(mbo.getbspeed());
@@ -137,6 +141,7 @@ class Wrapper {
             }
             };
            
+         /*Start the Timer*/
            timer = new Timer(timerDelay, ClockListener);
            
 	}
