@@ -72,9 +72,12 @@ public class TrainController {
         maxTrainPower = 120000;
     }
     //hi
+    //changing somekj
         
     public TrainControllerUI getTrainControllerUI()
     {
+        int i;
+        i=2;
         return this.tcUI;
     }
     
