@@ -12,23 +12,25 @@
 //light on/off boolean
 public class TrainController {
     
-    private int trainID;
-    private TrainModel train; 
-    private TrainControllerUI tcUI;
+    public int trainID;
+    public TrainModel train; 
+    public TrainControllerUI tcUI;
     
-    private double velocitySetpoint;
-    private double vAct;
-    private double authority;
+    public double velocitySetpoint;
+    public double vAct;
+    public double authority;
     
-    private double speedLimit;    
+    public double speedLimit;    
     
-    private boolean doorStatus;
-    private boolean lightStatus;
-    private boolean brakeStatus;
-    private int failureCode;
-    private String failureInfo;
+    public boolean doorStatus;
+    public boolean lightStatus;
+    public boolean brakeStatus;
+    public int failureCode;
+    public String failureInfo;
+    public String nextStop;
     
-    private double power;
+    
+    public double power;
     
     //variables for power calculation       
     private double maxTrainDeceleration;
@@ -50,7 +52,7 @@ public class TrainController {
     {
         trainID = ID;
                
-        tcUI = new TrainControllerUI(this);
+        //tcUI = new TrainControllerUI(this);
         train = newTrain; 
        
         velocitySetpoint = 0;     
@@ -80,10 +82,10 @@ public class TrainController {
     }
     
         
-    public TrainControllerUI getTrainControllerUI()
+   /* public TrainControllerUI getTrainControllerUI()
     {
         return this.tcUI;
-    }
+    }*/
     
     public void setControllerSpeedSetpoint(double speed)
     {
@@ -131,7 +133,7 @@ public class TrainController {
         //convert vAct to m/s
         
         
-        tcUI.currentSpeedDisplay.setText(String.format("%.2f", vAct));
+      //  tcUI.currentSpeedDisplay.setText(String.format("%.2f", vAct));
         
         //Need to calculate a velocity such that train stops moving 
         //(Vf=0) based on given authority (d) and trains max deceleration (a)
@@ -146,19 +148,22 @@ public class TrainController {
         if(authority <= 0)
         {
             authority = 0.1;            
-        }        
+        } 
+        
+        this.evaluateVelocity();
+        //double powerCheck = this.setPowerRedundant(vAct, authority, power, ek, uk);
         
         double vLimit = Math.sqrt(2*maxTrainDeceleration*authority);
        //System.out.println("vlimit="+vLimit);
         //decide what speed setpoint to use
-        this.evaluateVelocity();
+        
         //check that setpoint is not greater than track speed limit or velocity limit
         if(velocitySetpoint > Math.min(speedLimit, vLimit))
         {
             velocitySetpoint = Math.min(speedLimit, vLimit);
         }
         System.out.println("velSetpoint="+velocitySetpoint);
-        tcUI.safeSpeedSetpointDisplay.setText(String.valueOf(velocitySetpoint));
+       // tcUI.safeSpeedSetpointDisplay.setText(String.valueOf(velocitySetpoint));
         
         if(power < maxTrainPower)//if pcm < pmax
         {
@@ -171,28 +176,70 @@ public class TrainController {
         power = (KP*ek) + (KI * uk);
         
         //Add redundant power check here
+        /*if(powerCheck == power)
+        {
+           // tcUI.powerOutputDisplay.setText(String.format("%.2f", power));
         
-        
-        tcUI.powerOutputDisplay.setText(String.format("%.2f", power));
+            //set power to kW to send to TrainModel
+            //power = power/1000;
+            train.setPower(power); 
+        }
+        else
+        {
+            train.setPower(0);
+        }  */    
+       // tcUI.powerOutputDisplay.setText(String.format("%.2f", power));
         
         //set power to kW to send to TrainModel
         //power = power/1000;
+        
         train.setPower(power); 
+    }
+    
+    private double setPowerRedundant(double v, double auth, double pow, double ek1, double uk1)
+    {
+       
         
+        if(auth <= 0)
+        {
+            auth = 0.1;            
+        }        
         
+        double vLimit = Math.sqrt(2*maxTrainDeceleration*auth);
+       //System.out.println("vlimit="+vLimit);
+        //decide what speed setpoint to use
+        this.evaluateVelocity();
+        //check that setpoint is not greater than track speed limit or velocity limit
+        if(velocitySetpoint > Math.min(speedLimit, vLimit))
+        {
+            velocitySetpoint = Math.min(speedLimit, vLimit);
+        }
+        System.out.println("velSetpoint="+velocitySetpoint);
+       
+        
+        if(pow < maxTrainPower)//if pcm < pmax
+        {
+             uk1 = uk1 + (T/2)*(ek1 + (velocitySetpoint - v));
+        }
+       
+       // System.out.println("uk="+uk);
+        ek1 = velocitySetpoint - v;
+        //System.out.println("ek="+ek);
+        pow = (KP*ek1) + (KI * uk1);
+        return pow; 
     }
     
     public void setCtcAuthority(double auth)
     {
         this.ctcSuggestedAuthority = auth;
-        tcUI.ctcSuggestedAuthority.setText(String.format("%.2f", auth));
+        //tcUI.ctcSuggestedAuthority.setText(String.format("%.2f", auth));
         setPower();        
     }
     
      public void setCtcSpeed(double speed)
     {
         this.ctcSuggestedSpeed = speed;
-        tcUI.ctcSuggestedAuthority.setText(String.format("%.2f", speed));
+        //tcUI.ctcSuggestedAuthority.setText(String.format("%.2f", speed));
         setPower();        
     }
      
@@ -200,7 +247,7 @@ public class TrainController {
     {
         this.mboCommandedAuthority = auth;
         
-        tcUI.mboAuthorityDisplay.setText(String.format("%.2f", auth));
+       // tcUI.mboAuthorityDisplay.setText(String.format("%.2f", auth));
         setPower();        
     }
     
@@ -208,14 +255,14 @@ public class TrainController {
     {
         this.mboCommandedSpeed = speed;
        
-        tcUI.mboSpeedSetpoint.setText(String.format("%.2f", speed));
+       // tcUI.mboSpeedSetpoint.setText(String.format("%.2f", speed));
         setPower();        
     }
     
      public void setSpeedLimit(double sLimit)
      {         
          this.speedLimit = sLimit;
-         tcUI.speedLimitDisplay.setText(String.format("%.2f", sLimit));
+       //  tcUI.speedLimitDisplay.setText(String.format("%.2f", sLimit));
          setPower();
      }
     
@@ -225,7 +272,7 @@ public class TrainController {
      {
          velocitySetpoint = Math.max(mboCommandedSpeed,controllerSpeedSetpoint);
          
-         tcUI.safeSpeedSetpointDisplay.setText(String.format("%.2f", velocitySetpoint));
+        // tcUI.safeSpeedSetpointDisplay.setText(String.format("%.2f", velocitySetpoint));
      }
              
          
@@ -269,5 +316,11 @@ public class TrainController {
         */
         this.transmitBrake(brakeIn);
     }  
+    
+    public int getID()
+    {
+        return trainID;        
+    }
+    
     
 }
