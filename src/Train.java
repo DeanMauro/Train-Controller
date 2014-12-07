@@ -8,6 +8,7 @@ import javax.swing.event.DocumentListener;
 
 public class Train extends javax.swing.JPanel {
     //protected static TrainModel observer;
+    //train model
 
     public Train(int numTrains) {
         initComponents();
