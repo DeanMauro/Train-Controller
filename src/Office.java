@@ -397,32 +397,32 @@ public class Office extends javax.swing.JPanel {
         schedulerFrontPanel.setLayout(schedulerFrontPanelLayout);
         schedulerFrontPanelLayout.setHorizontalGroup(
             schedulerFrontPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 222, Short.MAX_VALUE)
+            .addGap(0, 148, Short.MAX_VALUE)
         );
         schedulerFrontPanelLayout.setVerticalGroup(
             schedulerFrontPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 182, Short.MAX_VALUE)
+            .addGap(0, 134, Short.MAX_VALUE)
         );
 
         schedulerBackPanel.setOpaque(false);
 
         clockBackground4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        clockBackground4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ScheduleInput.png"))); // NOI18N
+        clockBackground4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/NewTrain.png"))); // NOI18N
         clockBackground4.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         javax.swing.GroupLayout schedulerBackPanelLayout = new javax.swing.GroupLayout(schedulerBackPanel);
         schedulerBackPanel.setLayout(schedulerBackPanelLayout);
         schedulerBackPanelLayout.setHorizontalGroup(
             schedulerBackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 222, Short.MAX_VALUE)
+            .addGap(0, 180, Short.MAX_VALUE)
             .addGroup(schedulerBackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(clockBackground4, javax.swing.GroupLayout.PREFERRED_SIZE, 123, Short.MAX_VALUE))
+                .addComponent(clockBackground4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         schedulerBackPanelLayout.setVerticalGroup(
             schedulerBackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 182, Short.MAX_VALUE)
+            .addGap(0, 150, Short.MAX_VALUE)
             .addGroup(schedulerBackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(clockBackground4, javax.swing.GroupLayout.PREFERRED_SIZE, 114, Short.MAX_VALUE))
+                .addComponent(clockBackground4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout schedulerLayeredPaneLayout = new javax.swing.GroupLayout(schedulerLayeredPane);
@@ -430,17 +430,22 @@ public class Office extends javax.swing.JPanel {
         schedulerLayeredPaneLayout.setHorizontalGroup(
             schedulerLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(schedulerLayeredPaneLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(schedulerBackPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addGap(30, 30, 30)
+                .addComponent(schedulerBackPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(schedulerLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(schedulerFrontPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, schedulerLayeredPaneLayout.createSequentialGroup()
+                    .addContainerGap(33, Short.MAX_VALUE)
+                    .addComponent(schedulerFrontPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(35, 35, 35)))
         );
         schedulerLayeredPaneLayout.setVerticalGroup(
             schedulerLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(schedulerBackPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(schedulerBackPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(schedulerLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(schedulerFrontPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(schedulerLayeredPaneLayout.createSequentialGroup()
+                    .addComponent(schedulerFrontPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 16, Short.MAX_VALUE)))
         );
         schedulerLayeredPane.setLayer(schedulerFrontPanel, javax.swing.JLayeredPane.PALETTE_LAYER);
         schedulerLayeredPane.setLayer(schedulerBackPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -472,9 +477,9 @@ public class Office extends javax.swing.JPanel {
                     .addContainerGap(26, Short.MAX_VALUE)))
             .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, topPanelLayout.createSequentialGroup()
-                    .addContainerGap(924, Short.MAX_VALUE)
+                    .addContainerGap(918, Short.MAX_VALUE)
                     .addComponent(schedulerLayeredPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(29, 29, 29)))
+                    .addGap(41, 41, 41)))
         );
         topPanelLayout.setVerticalGroup(
             topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -503,7 +508,7 @@ public class Office extends javax.swing.JPanel {
                 .addGroup(topPanelLayout.createSequentialGroup()
                     .addGap(173, 173, 173)
                     .addComponent(schedulerLayeredPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(345, Short.MAX_VALUE)))
+                    .addContainerGap(377, Short.MAX_VALUE)))
         );
 
         backPanel.setBackground(new java.awt.Color(239, 241, 245));
