@@ -126,7 +126,7 @@ class Wrapper {
                   holder.calculateAcceleration();
                   holder.calculateSpeed();
                   holder.calculatePosition();
-                  holder.calculateDeltaT(totalSeconds); 
+                  holder.calculateDeltaT(totalSeconds);
 
                   /*Update MBO and Office with new Train speeds*/
                   mbo.updateSpeed(holder.getCurrentSpeed());
@@ -165,7 +165,7 @@ class Wrapper {
 	//OFFICE LISTENERS
 	/////////////////////////////////
         private static void addIncreaseClockSpeedListener(JButton IncreaseSpeed){
-		
+            // <editor-fold defaultstate="collapsed" desc="Increase Clock Speed">	
             IncreaseSpeed.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e)
                 {
@@ -174,10 +174,10 @@ class Wrapper {
                 }
             });
 
-	}
+	}// </editor-fold> 
         
         private static void addDecreaseClockSpeedListener(JButton DecreaseSpeed){
-		
+            // <editor-fold defaultstate="collapsed" desc="Decrease Clock Speed">	
             DecreaseSpeed.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e)
                 {
@@ -186,12 +186,10 @@ class Wrapper {
                 }
             });
 
-	}
-        
-        
+	}// </editor-fold> 
         
 	private static void addOfficeRerouteListener(JButton Reroute){
-		
+            // <editor-fold defaultstate="collapsed" desc="Reroute Train">
             Reroute.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e)
                 {
@@ -201,10 +199,10 @@ class Wrapper {
                 }
             });
 
-	}
+	}// </editor-fold> 
         
         private static void addSpeedAndAuthorityListener(JButton Send){
-		
+            // <editor-fold defaultstate="collapsed" desc="Suggest Speed/Authority">
             Send.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e)
                 {
@@ -212,10 +210,10 @@ class Wrapper {
                 }
             });
 
-	}
+	}// </editor-fold> 
 	
 	private static void addRouteEnableListener(JTextField NewRoute){
-		
+            // <editor-fold defaultstate="collapsed" desc="Enable Reroute">
             NewRoute.getDocument().addDocumentListener(new DocumentListener() {
 
                   public void changedUpdate(DocumentEvent documentEvent) {
@@ -235,31 +233,32 @@ class Wrapper {
                   }
 
                 });
-	}
+	}// </editor-fold> 
 
 	/////////////////////////////////
 	//TRACK MODEL LISTENERS
 	/////////////////////////////////
-        
         private static void addBlockSpeedListener(JTextField bs){
-        bs.getDocument().addDocumentListener(new DocumentListener(){
-            
-            public void changedUpdate(DocumentEvent documentEvent) {
-                double speed = Double.parseDouble(bs.getText());
-                mbo.updateBlockSpeed(speed);
-            }
-            public void insertUpdate(DocumentEvent documentEvent) {
-                double speed = Double.parseDouble(bs.getText());
-                mbo.updateBlockSpeed(speed);
-            }
-            public void removeUpdate(DocumentEvent documentEvent) {
-                //double speed = Double.parseDouble(bs.getText());
-                //mbo.updateBlockSpeed(speed);
-            }
-        });        
-    }
+            // <editor-fold defaultstate="collapsed" desc="Block Speed">
+            bs.getDocument().addDocumentListener(new DocumentListener(){
+
+                public void changedUpdate(DocumentEvent documentEvent) {
+                    double speed = Double.parseDouble(bs.getText());
+                    mbo.updateBlockSpeed(speed);
+                }
+                public void insertUpdate(DocumentEvent documentEvent) {
+                    double speed = Double.parseDouble(bs.getText());
+                    mbo.updateBlockSpeed(speed);
+                }
+                public void removeUpdate(DocumentEvent documentEvent) {
+                    //double speed = Double.parseDouble(bs.getText());
+                    //mbo.updateBlockSpeed(speed);
+                }
+            });        
+    }// </editor-fold> 
     
         private static void addBlockLengthListener(JTextField trainLength){
+            // <editor-fold defaultstate="collapsed" desc="Block Length">
             trainLength.getDocument().addDocumentListener(new DocumentListener(){
         	
  		      public void changedUpdate(DocumentEvent documentEvent) {
@@ -277,9 +276,10 @@ class Wrapper {
  		      
             });        
                       
-	}
+	}// </editor-fold> 
     
         private static void addIsStationListener(JTextField trainIsStation){
+            // <editor-fold defaultstate="collapsed" desc="Is Station">
             trainIsStation.getDocument().addDocumentListener(new DocumentListener(){
         	
  		      public void changedUpdate(DocumentEvent documentEvent) {
@@ -297,14 +297,14 @@ class Wrapper {
  		      
             });        
                       
-	}
+	}// </editor-fold> 
     
 	
 	/////////////////////////////////
 	//TRAIN MODEL LISTENERS
 	/////////////////////////////////
-	
         private static void addSpeedListener(JTextField S){
+        // <editor-fold defaultstate="collapsed" desc="Train Speed">
         S.getDocument().addDocumentListener(new DocumentListener(){
             
             public void changedUpdate(DocumentEvent documentEvent) {
@@ -323,9 +323,10 @@ class Wrapper {
                 trackModel.updateSpeed(speed);
             }
         });        
-    }
+    }// </editor-fold> 
         
         private static void addPositionListener(JTextField P){
+        // <editor-fold defaultstate="collapsed" desc="Train Position">
         P.getDocument().addDocumentListener(new DocumentListener(){
             
             public void changedUpdate(DocumentEvent documentEvent) {
@@ -344,7 +345,7 @@ class Wrapper {
                 trackModel.updatePosition(position);
             }
         });        
-    }
+    }// </editor-fold> 
         
 	/////////////////////////////////
 	//TRAIN CONTROLLER LISTENERS
@@ -354,39 +355,40 @@ class Wrapper {
 	//MBO LISTENERS
 	/////////////////////////////////
         private static void addMBRBListener(JRadioButton MovingBlockRadio){
-		
-       MovingBlockRadio.addActionListener(new ActionListener() {
-           public void actionPerformed(ActionEvent e)
-           {
-               if(MovingBlockRadio.isSelected())
-                   office.setMovingBlock();
-               else
-                   office.setFixedBlock();
-           }
-       });
+            // <editor-fold defaultstate="collapsed" desc="MBRB">
+        MovingBlockRadio.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+                if(MovingBlockRadio.isSelected())
+                    office.setMovingBlock();
+                else
+                    office.setFixedBlock();
+            }
+        });
 
-	}
+	}// </editor-fold> 
     
         private static void addStartButtonListener(JButton Start){
+            // <editor-fold defaultstate="collapsed" desc="MBO Start Button">
 		
-       Start.addActionListener(new ActionListener() {
-           public void actionPerformed(ActionEvent e)
-           {
-               if(!timer.isRunning())
-                   timer.start();
-               
-               StringBuffer s = new StringBuffer();
-               schedule = mbo.getSchedule();
-               
-               for(ScheduleNode n : schedule){
-                   s.append(n.getStop());
-                   s.append(n.getTimes());
-               }
-               
-               office.textSchedule.setText(s.toString());
-           }
-       });
+            Start.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e)
+                {
+                    if(!timer.isRunning())
+                        timer.start();
 
-	}
+                    StringBuffer s = new StringBuffer();
+                    schedule = mbo.getSchedule();
+
+                    for(ScheduleNode n : schedule){
+                        s.append(n.getStop());
+                        s.append(n.getTimes());
+                    }
+
+                    office.textSchedule.setText(s.toString());
+                }
+            });
+
+	}// </editor-fold> 
         
 }

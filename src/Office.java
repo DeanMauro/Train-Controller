@@ -5,7 +5,6 @@ import javax.swing.JFrame;
 /**@author Dean Mauro*/
 
 public class Office extends javax.swing.JPanel {
-    private static int numTrains = 0;
     private static boolean MovingOrFixed = false;
     protected LinkedList<Train> trainsOnTracks = new LinkedList<>();
 
@@ -27,7 +26,6 @@ public class Office extends javax.swing.JPanel {
     public void addTrain(int trainID){
     // <editor-fold defaultstate="collapsed" desc="Add Train">
         
-        numTrains++;
         trainsOnTracks.add(new Train(trainID));
         innerPanel.add(trainsOnTracks.getLast());
         innerPanel.revalidate();
