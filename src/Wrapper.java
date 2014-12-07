@@ -9,7 +9,6 @@ import javax.swing.Timer;
 class Wrapper {
 	
 	protected static Office office;
-	protected static TrackModel trackModel;
         protected static TrackModelInterface trackModelInterface;
 	protected static Vector<TrainModel> trainModel;
 	protected static TrainController trainController;
@@ -79,7 +78,6 @@ class Wrapper {
             
 		
             office 		= new Office();
-            trackModel          = new TrackModel();
             trackModelInterface = new TrackModelInterface();
             trainModel          = new Vector();
             trainController     = new TrainController(1, trainModel.get(0));
@@ -134,7 +132,7 @@ class Wrapper {
 
                   /*Update MBO, Office, and Track Model with new Train positions*/
                   mbo.updatePosition(holder.getCurrentPosition());
-                  trackModel.updatePosition(holder.getCurrentPosition());
+                  trackModelInterface.getTrackModel().updatePosition(holder.getCurrentPosition());
                   office.trainsOnTracks.get(0).textPosition.setText(String.valueOf(holder.getCurrentPosition()));
 
                   /*Update Train Controllers with new MBO Authorities*/
@@ -310,17 +308,17 @@ class Wrapper {
             public void changedUpdate(DocumentEvent documentEvent) {
                 double speed = Double.parseDouble(S.getText());
                 mbo.updateSpeed(speed);
-                trackModel.updateSpeed(speed);
+                trackModelInterface.getTrackModel().updateSpeed(speed);
             }
             public void insertUpdate(DocumentEvent documentEvent) {
                 double speed = Double.parseDouble(S.getText());
                 mbo.updateSpeed(speed);
-                trackModel.updateSpeed(speed);
+                trackModelInterface.getTrackModel().updateSpeed(speed);
             }
             public void removeUpdate(DocumentEvent documentEvent) {
                 double speed = Double.parseDouble(S.getText());
                 mbo.updateSpeed(speed);
-                trackModel.updateSpeed(speed);
+                trackModelInterface.getTrackModel().updateSpeed(speed);
             }
         });        
     }// </editor-fold> 
@@ -332,17 +330,17 @@ class Wrapper {
             public void changedUpdate(DocumentEvent documentEvent) {
                 double position = Double.parseDouble(P.getText());
                 mbo.updatePosition(position);
-                trackModel.updatePosition(position);
+                trackModelInterface.getTrackModel().updatePosition(position);
             }
             public void insertUpdate(DocumentEvent documentEvent) {
                 double position = Double.parseDouble(P.getText());
                 mbo.updatePosition(position);
-                trackModel.updatePosition(position);
+                trackModelInterface.getTrackModel().updatePosition(position);
             }
             public void removeUpdate(DocumentEvent documentEvent) {
                 double position = Double.parseDouble(P.getText());
                 mbo.updatePosition(position);
-                trackModel.updatePosition(position);
+                trackModelInterface.getTrackModel().updatePosition(position);
             }
         });        
     }// </editor-fold> 
