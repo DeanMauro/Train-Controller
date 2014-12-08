@@ -1545,12 +1545,11 @@ public class TrackModel {
     double trainDistance;
     int nodePostion;
     int nodeNum;
-    public TrackModel()
-    {
+    public TrackModel(){
         trckOb = new TrackObject();
         //blockLinkList = new blockList();
         trainSpeed = 0;
-        trainDistance = 1000;
+        trainDistance = 10000;
         nodePostion = 0;
         nodeNum = 77;
     }
@@ -1587,8 +1586,7 @@ public class TrackModel {
             else
             {
                 trainDistance -= blockLength;
-                nodeNum = trckOb.getBlock(nodeNum).getNextBlockId();
-                nodePostion += 1;
+                nodeNum = trckOb.getBlock(nodeNum).getPrevBlockId();
             }
                         
         }
@@ -1610,7 +1608,7 @@ public class TrackModel {
                 while (fileScan.hasNextLine()) 
                 {
                     String line = fileScan.nextLine();
-                    //System.out.println(line);
+                    System.out.println(line);
                     blockInfo = line.split(",");
                     //System.out.println("number of items:"+blockInfo.length);
 
@@ -1668,7 +1666,7 @@ public class TrackModel {
                 //}
 
                 trckOb.refactor();
-                for(int x = 1;x<trckOb.getNumBlocks()+1;x++)
+                for(int x = 1;x<trckOb.getNumBlocks();x++)
                 {
                     Block temp = trckOb.getBlock(x);
                     
