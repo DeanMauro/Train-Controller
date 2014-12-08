@@ -1,4 +1,8 @@
 
+import java.util.ArrayList;
+import java.util.Vector;
+
+
 /**
  *
  * @author Brian
@@ -6,21 +10,75 @@
 public class TrainControllerUI extends javax.swing.JPanel {
 
     
+    
     private double inputSpeed;
     private double lastSafeSpeedInput;
     private boolean inputDoors;
     private boolean inputLights;
     private boolean inputBrake;
-    private TrainController TC;
+    private int currentID;
+    
+     public Vector<TrainController> trainList;
+    //change to trainList.get(trainID);
+     private TrainController TC;
     
     /**
      * Creates new form TrainControllerUI2
      */
-    public TrainControllerUI(TrainController tc) {
-        this.TC = tc;
+    public TrainControllerUI() {
+        //this.TC = tc;
+        
+        TC = trainList.get(0);
+        
         initComponents();
+        updateTrainList();
     }
 
+    public void updateTrainList()
+    {
+        ArrayList<String> trainIDlist = new ArrayList<String>();        
+        
+        /*for(int i = 0; i < trainList.size(); i++)
+        {
+                trainIDlist.add(String.valueOf(trainList.elementAt(i).getID()));               
+        }*/
+        
+        for(int i = 0; i < trainList.size(); i++)
+        {
+            
+            trainIDlist.add(String.valueOf(i));
+        }
+        trainSelect.setModel(new javax.swing.DefaultComboBoxModel(trainIDlist.toArray()));  
+        updateUI();
+    }
+    
+    public void updateUI()
+    {
+        safeSpeedSetpointDisplay.setText(String.format("%.2f", TC.velocitySetpoint));
+        
+
+        ctcSuggestedAuthority.setText(String.format("%.2f", TC.ctcSuggestedAuthority));
+        ctcSuggestedSpeed.setText(String.format("%.2f", TC.ctcSuggestedSpeed));
+        currentSpeedDisplay.setText(String.format("%.2f", TC.vAct));
+        
+        doorStatusDisplay.setText(String.format("%.2f", TC.doorStatus));  
+        lightStatusDisplay.setText(String.format("%.2f", TC.lightStatus));
+        
+        mboAuthorityDisplay.setText(String.format("%.2f", TC.mboCommandedAuthority));
+        mboSpeedSetpoint.setText(String.format("%.2f", TC.mboCommandedSpeed));
+        nextStopDisplay.setText(TC.nextStop);
+        powerOutputDisplay.setText(String.format("%.2f", TC.power));
+           
+        speedLimitDisplay.setText(String.format("%.2f", TC.speedLimit));
+
+        
+    }
+    
+    void setTrainList(Vector<TrainController> l)
+    {
+        this.trainList = l;      
+        updateTrainList();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,7 +107,7 @@ public class TrainControllerUI extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        trainListBox = new javax.swing.JComboBox();
+        trainSelect = new javax.swing.JComboBox();
         jLabel15 = new javax.swing.JLabel();
         ctcSuggestedSpeed = new javax.swing.JTextField();
         ctcSuggestedAuthority = new javax.swing.JTextField();
@@ -124,10 +182,10 @@ public class TrainControllerUI extends javax.swing.JPanel {
 
         jLabel14.setText("Failure Message:");
 
-        trainListBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Train 1" }));
-        trainListBox.addActionListener(new java.awt.event.ActionListener() {
+        trainSelect.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Train 1" }));
+        trainSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                trainListBoxActionPerformed(evt);
+                trainSelectActionPerformed(evt);
             }
         });
 
@@ -187,8 +245,13 @@ public class TrainControllerUI extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel19))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel6)
                                         .addComponent(jLabel9)
@@ -200,20 +263,24 @@ public class TrainControllerUI extends javax.swing.JPanel {
                                         .addComponent(doorStatusDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(nextStopDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(ctcSuggestedSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel17)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel17)
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel14)
+                                        .addComponent(jLabel11))
                                     .addGap(18, 18, 18)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(ctcSuggestedAuthority)
                                         .addComponent(safeSpeedSetpointDisplay, javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(mboSpeedSetpoint))))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel14)
-                                    .addComponent(jLabel11))
-                                .addGap(18, 18, 18)
-                                .addComponent(ctcSuggestedAuthority, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(speedLimitDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                                    .addComponent(mboAuthorityDisplay))))
+                        .addGap(89, 89, 89)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel13)
@@ -240,23 +307,14 @@ public class TrainControllerUI extends javax.swing.JPanel {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(inputBrakeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel12)
-                        .addComponent(jLabel19)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(speedLimitDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(mboAuthorityDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(inputBrakeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jLabel15)
                     .addGap(18, 18, 18)
-                    .addComponent(trainListBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(trainSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
@@ -346,7 +404,7 @@ public class TrainControllerUI extends javax.swing.JPanel {
                 .addGroup(layout.createSequentialGroup()
                     .addGap(14, 14, 14)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(trainListBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(trainSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel15))
                     .addContainerGap(366, Short.MAX_VALUE)))
         );
@@ -409,9 +467,11 @@ public class TrainControllerUI extends javax.swing.JPanel {
 //        }
     }//GEN-LAST:event_inputBrakeButtonActionPerformed
 
-    private void trainListBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trainListBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_trainListBoxActionPerformed
+    private void trainSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trainSelectActionPerformed
+           int id = Integer.parseInt((String)trainSelect.getSelectedItem());
+           
+           TC = trainList.get(id);
+    }//GEN-LAST:event_trainSelectActionPerformed
 
     private void currentSpeedDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_currentSpeedDisplayActionPerformed
         // TODO add your handling code here:
@@ -462,6 +522,6 @@ public class TrainControllerUI extends javax.swing.JPanel {
     public javax.swing.JTextField safeSpeedSetpointDisplay;
     private javax.swing.JTextField speedLimit4;
     public javax.swing.JTextField speedLimitDisplay;
-    public javax.swing.JComboBox trainListBox;
+    public javax.swing.JComboBox trainSelect;
     // End of variables declaration//GEN-END:variables
 }
