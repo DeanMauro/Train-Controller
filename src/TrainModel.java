@@ -6,14 +6,25 @@ public class TrainModel extends javax.swing.JFrame {
     String currentStation;
     String nextStation;
     String failure;
-    boolean lightStatus = false;    //true means on and false mean close
-    boolean doorStatus = false;     //true means open and false mean close
-    boolean conductorBrake = false; //true means engaged and false means disengaged
-    boolean eBrake = false;         //true means engaged and false means disengaged
-    double passengerMass;
-    int passengerNumber;
+    
+    boolean atStation = false;              //true means at Station and false means not
+    boolean underground = false;            //true means underground and false means not
+    boolean lightStatus = false;            //true means on and false mean close
+    boolean doorStatus = false;             //true means open and false mean close
+    boolean conductorBrake = false;         //true means engaged and false means disengaged
+    boolean eBrake = false;                 //true means engaged and false means disengaged
+    boolean engineFailure = false;          //true means failed engine and false means okay
+    boolean brakeFailure = false;           //true means failed brakes and false means okay
+    boolean signalPickupFailure = false;    //true means failed antenna and false means okay
+    
+    double passengerMass = 80.7;//Kilograms
+    int passengerCount;
+    int crewCount = 10;         //Randomly chosen
     double temperature;
     double trainLength = 32.2;  //meters
+    double trainHeight = 3.42;  //meters
+    double trainWidth  = 2.65;  //meters
+    
     double currentPower = 0.0;  //Watts
     double mass = 40900;        //kilograms
     double time = 200;          //seconds
@@ -25,8 +36,9 @@ public class TrainModel extends javax.swing.JFrame {
     double currentTime = 0;     //Seconds
     double deltaT=1;            //Seconds
     
-    
-    
+    int maxPassengers = 222;    //Train can hold no more than 222 passengers
+    double maxSpeed = 19.44;    //Train speed can't exceed 70 km/hr (19.44 m/s)
+    double maxAcceleration = 1; //Train can accelerate past 1 m/s^2
     
     public TrainModel(int trainID) {
         initComponents();
@@ -34,21 +46,59 @@ public class TrainModel extends javax.swing.JFrame {
         this.ID = trainID;
     }
     
-
+    
+    public void setAtStation(boolean s){
+        this.atStation = s;
+        //currentStation =
+        //nextStation =
+    }
+    
+    public void setUnderground(boolean u){
+        this.underground = u;
+    }
+    
+    public void setLights(boolean l){
+        this.lightStatus = l;
+    }
+    
+    public void setDoors(boolean d){
+        this.doorStatus = d;
+    }
+    
+    public void setConductorBrake(boolean b){
+        this.conductorBrake = b;
+    }
+    
+    public void setEBrake(boolean e){
+        this.eBrake = e;
+    }
+    
+    public void setPassengerCount(int p){
+        this.passengerCount = p;
+        this.passengerMass = (p+crewCount) * 80.7;  //80.7kg is the average american weight
+    }
+    
+    public void setCrewCount(int c){
+        this.crewCount = c;
+    }
+    
+    public void setEngineFailure(boolean e){
+        this.engineFailure = e;
+        failure = "Engine Failure";
+    }
+    
+    public void setSignalPickupFailure(boolean s){
+        this.signalPickupFailure = s;
+        failure = "Signal Pickup Failure";
+    }
+    
+    public void setBrakeFailure(boolean b){
+        this.brakeFailure = b;
+        failure = "Brake Failure";
+    }
+    
     public void setPower(double pow){
         this.currentPower = pow;
-    }
-    
-    public void setLights(boolean lights){
-        this.lightStatus = lights;
-    }
-    
-    public void setDoors(boolean doors){
-        this.doorStatus = doors;
-    }
-    
-    public void setBrake(boolean Brake){
-        conductorBrake = Brake;
     }
     
     public void calculateForce(){
@@ -59,7 +109,12 @@ public class TrainModel extends javax.swing.JFrame {
     }
 
     public void calculateAcceleration(){
-        currentAcceleration = currentForce / mass;
+        if(conductorBrake)
+            currentAcceleration = -1.2;     // m/sec^2
+        else if(eBrake)
+            currentAcceleration = -2.73;    // m/sec^2
+        else
+            currentAcceleration = currentForce / mass;
     }
 
     public void calculateSpeed(){
