@@ -117,27 +117,23 @@ class Wrapper {
               totalSeconds++;
               
             /*Calculate new train metrics*/
-              TrainModel holder;
+              TrainModel currentTrain;
               
               for(int i=0; i<numberOfTrains; i++){
-                  holder = trainModel.get(i);
+                  currentTrain = trainModel.get(i);
                   
-                  holder.calculateDeltaT(totalSeconds);
-                  holder.calculateForce();
-                  holder.calculateAcceleration();
-                  holder.calculateSpeed();
-                  holder.calculatePosition();
-                  holder.calculateDeltaT(totalSeconds);
+                  /*Calculate Trains' new Speed, Acceleration, Positions*/
+                  currentTrain.update(totalSeconds);
 
                   /*Update MBO, Office, and Track Model with new Train speeds*/
-                  mbo.updateSpeed(holder.getCurrentSpeed());
-                  trackModelInterface.getTrackModel().updateSpeed(holder.getCurrentSpeed());
-                  office.trainsOnTracks.get(0).textSpeed.setText(String.valueOf(holder.getCurrentSpeed()));
+                  mbo.updateSpeed(currentTrain.getCurrentSpeed());
+                  trackModelInterface.getTrackModel().updateSpeed(currentTrain.getCurrentSpeed());
+                  office.trainsOnTracks.get(0).textSpeed.setText(String.valueOf(currentTrain.getCurrentSpeed()));
 
                   /*Update MBO, Office, and Track Model with new Train positions*/
-                  mbo.updatePosition(holder.getCurrentPosition());
-                  trackModelInterface.getTrackModel().updatePosition(holder.getCurrentPosition());
-                  office.trainsOnTracks.get(0).textPosition.setText(String.valueOf(holder.getCurrentPosition()));
+                  mbo.updatePosition(currentTrain.getCurrentPosition());
+                  trackModelInterface.getTrackModel().updatePosition(currentTrain.getCurrentPosition());
+                  office.trainsOnTracks.get(0).textPosition.setText(String.valueOf(currentTrain.getCurrentPosition()));
 
                   /*Update Train Controllers with new MBO Authorities*/
                   mbo.updateBlockAuthority(mbo.getbauth());

@@ -33,12 +33,16 @@ public class TrainModel extends javax.swing.JFrame {
     double currentSpeed;        //Meters/sec.
     double currentPosition;	//Meters
     double initSpeed = .001;    //Meters/sec.
-    double currentTime = 0;     //Seconds
+    int currentTime = 0;        //Seconds
     double deltaT=1;            //Seconds
     
     int maxPassengers = 222;    //Train can hold no more than 222 passengers
     double maxSpeed = 19.44;    //Train speed can't exceed 70 km/hr (19.44 m/s)
     double maxAcceleration = 1; //Train can accelerate past 1 m/s^2
+    
+    /////////////////////////////////////////
+    //Constructor
+    /////////////////////////////////////////
     
     public TrainModel(int trainID) {
         initComponents();
@@ -46,6 +50,23 @@ public class TrainModel extends javax.swing.JFrame {
         this.ID = trainID;
     }
     
+    /////////////////////////////////////////
+    //Updates Train Movement
+    /////////////////////////////////////////
+    
+    public void update(int time){
+        calculateDeltaT(time);
+        calculateForce();
+        calculateAcceleration();
+        calculateSpeed();
+        calculatePosition();
+        calculateDeltaT(time);
+    }
+   
+    
+    /////////////////////////////////////////
+    //Getter, Setter, & Calculation Functions
+    /////////////////////////////////////////
     
     public void setAtStation(boolean s){
         this.atStation = s;
@@ -115,15 +136,21 @@ public class TrainModel extends javax.swing.JFrame {
             currentAcceleration = -2.73;    // m/sec^2
         else
             currentAcceleration = currentForce / mass;
+        
+        if(currentAcceleration > 1)         //Max acceleration can't
+            currentAcceleration = 1;        //exceed 1 m/sec^2
     }
 
     public void calculateSpeed(){
         currentSpeed = currentSpeed + (currentAcceleration * deltaT);
+        
+        if(currentSpeed > 19.44)            //Max speed can't
+            currentSpeed = 19.44;           //exceed 19.44 m/s
     }
 
     public void calculatePosition(){
-        currentPosition = currentPosition + deltaT*currentSpeed + 0.5*currentAcceleration*deltaT*deltaT;
-        // currentPosition = Math.abs(currentPosition);
+        if(currentSpeed != 0)
+            currentPosition = currentPosition + deltaT*currentSpeed + 0.5*currentAcceleration*deltaT*deltaT;
     }
 
     public void calculateDeltaT(int newTime){
