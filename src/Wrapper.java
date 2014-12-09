@@ -127,19 +127,20 @@ class Wrapper {
                   /*Update MBO, Office, and Track Model with new Train speeds*/
                   mbo.updateSpeed(currentTrain.getCurrentSpeed());
                   trackModelInterface.getTrackModel().updateSpeed(currentTrain.getCurrentSpeed());
-                  office.trainsOnTracks.get(0).textSpeed.setText(String.valueOf(currentTrain.getCurrentSpeed()));
+                  Train.setSpeed(office.trainsOnTracks.get(i), currentTrain.getCurrentSpeed());
 
                   /*Update MBO, Office, and Track Model with new Train positions*/
                   mbo.updatePosition(currentTrain.getCurrentPosition());
                   trackModelInterface.getTrackModel().updatePosition(currentTrain.getCurrentPosition());
-                  office.trainsOnTracks.get(0).textPosition.setText(String.valueOf(currentTrain.getCurrentPosition()));
+                  Train.setPosition(office.trainsOnTracks.get(i), currentTrain.getCurrentPosition());
 
                   /*Update Train Controllers with new MBO Authorities*/
                   mbo.updateBlockAuthority(mbo.getbauth());
+                  Train.setAuthority(office.trainsOnTracks.get(i), mbo.getbauth());
                   trainController.get(i).setMboAuthority(mbo.getbauth());
                   trainController.get(i).setMboSpeed(mbo.getbspeed());
 
-                  trackModelInterface.queryButton();
+                  //trackModelInterface.queryButton();
 
               }
 
@@ -167,6 +168,9 @@ class Wrapper {
             trainControllerUI.addToTrainList(numberOfTrains, trainController.lastElement());
             //Display new train in Office
             office.addTrain(numberOfTrains);
+            
+            if(!timer.isRunning())
+                timer.start();
             
             //Train Controller: calculate power for first block
             //Train Controller: send power to train

@@ -1,5 +1,6 @@
 
 import java.awt.event.ActionEvent;
+import java.text.DecimalFormat;
 import javax.swing.AbstractAction;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -7,8 +8,8 @@ import javax.swing.event.DocumentListener;
 /**@author Dean Mauro*/
 
 public class Train extends javax.swing.JPanel {
-    //protected static TrainModel observer;
-    //train model
+    static DecimalFormat d1 = new DecimalFormat("#.#");
+    static DecimalFormat d0 = new DecimalFormat("#");
 
     public Train(int numTrain) {
         initComponents();
@@ -28,18 +29,24 @@ public class Train extends javax.swing.JPanel {
             public void insertUpdate(DocumentEvent e) {
                 if(!t.textRoute.getText().equals(""))
                     t.buttonReroute.setEnabled(true);
+                else
+                    t.buttonReroute.setEnabled(false);
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
                 if(!t.textRoute.getText().equals(""))
                     t.buttonReroute.setEnabled(true);
+                else
+                    t.buttonReroute.setEnabled(false);
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
                 if(!t.textRoute.getText().equals(""))
                     t.buttonReroute.setEnabled(true);
+                else
+                    t.buttonReroute.setEnabled(false);
             }
 
           });
@@ -52,18 +59,24 @@ public class Train extends javax.swing.JPanel {
             public void insertUpdate(DocumentEvent e) {
                 if(!t.textSetSpeed.getText().equals("") && !t.textSetAuthority.getText().equals(""))
                     t.buttonSend.setEnabled(true);
+                else
+                    t.buttonSend.setEnabled(false);
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
                 if(!t.textSetSpeed.getText().equals("") && !t.textSetAuthority.getText().equals(""))
                     t.buttonSend.setEnabled(true);
+                else
+                    t.buttonSend.setEnabled(false);
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
                 if(!t.textSetSpeed.getText().equals("") && !t.textSetAuthority.getText().equals(""))
                     t.buttonSend.setEnabled(true);
+                else
+                    t.buttonSend.setEnabled(false);
             }
 
           });
@@ -76,37 +89,43 @@ public class Train extends javax.swing.JPanel {
             public void insertUpdate(DocumentEvent e) {
                 if(!t.textSetSpeed.getText().equals("") && !t.textSetAuthority.getText().equals(""))
                     t.buttonSend.setEnabled(true);
+                else
+                    t.buttonSend.setEnabled(false);
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
                 if(!t.textSetSpeed.getText().equals("") && !t.textSetAuthority.getText().equals(""))
                     t.buttonSend.setEnabled(true);
+                else
+                    t.buttonSend.setEnabled(false);
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
                 if(!t.textSetSpeed.getText().equals("") && !t.textSetAuthority.getText().equals(""))
                     t.buttonSend.setEnabled(true);
+                else
+                    t.buttonSend.setEnabled(false);
             }
 
           });
     }// </editor-fold>
     
     
-    public static void setSpeed(Train t, String str){
+    public static void setSpeed(Train t, double speed){
     // <editor-fold defaultstate="collapsed" desc="Set Speed">
-        t.textSpeed.setText(str + " mph");
+        t.textSpeed.setText(d1.format(speed * 2.23694) + " mph");
     }// </editor-fold> 
     
-    public static void setAuthority(Train t, String str){
+    public static void setAuthority(Train t, double auth){
     // <editor-fold defaultstate="collapsed" desc="Set Authority">
-        t.textAuthority.setText(str + " ft.");
+        t.textAuthority.setText(d0.format(auth * 3.28084) + " ft.");
     }// </editor-fold> 
     
-    public static void setPosition(Train t, String str){
+    public static void setPosition(Train t, double pos){
     // <editor-fold defaultstate="collapsed" desc="Set Position">
-        t.textPosition.setText(str);
+        t.textPosition.setText(d1.format(pos * 3.28084) + " ft.");
     }// </editor-fold> 
     
     public static double getSpeed(Train t){
@@ -187,7 +206,9 @@ public class Train extends javax.swing.JPanel {
         backPanel.setLayout(backPanelLayout);
         backPanelLayout.setHorizontalGroup(
             backPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Background)
+            .addGroup(backPanelLayout.createSequentialGroup()
+                .addComponent(Background, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         backPanelLayout.setVerticalGroup(
             backPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,19 +264,14 @@ public class Train extends javax.swing.JPanel {
                 .addGroup(frontPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(frontPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(frontPanelLayout.createSequentialGroup()
-                            .addGap(45, 45, 45)
-                            .addComponent(labelTrainNum))
-                        .addGroup(frontPanelLayout.createSequentialGroup()
                             .addComponent(labelRoute, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(0, 0, 0)
                             .addComponent(textRoute))
                         .addGroup(frontPanelLayout.createSequentialGroup()
                             .addGroup(frontPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(labelAuthority)
-                                .addComponent(labelPosition)
-                                .addComponent(labelSpeed))
+                                .addComponent(labelPosition))
                             .addGroup(frontPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(textSpeed)
                                 .addComponent(textPosition)
                                 .addComponent(textAuthority)))
                         .addGroup(frontPanelLayout.createSequentialGroup()
@@ -264,7 +280,15 @@ public class Train extends javax.swing.JPanel {
                                 .addComponent(labelSetAuthority))
                             .addGroup(frontPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(textSetAuthority, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
-                                .addComponent(textSetSpeed))))
+                                .addComponent(textSetSpeed)))
+                        .addGroup(frontPanelLayout.createSequentialGroup()
+                            .addComponent(labelSpeed)
+                            .addGap(4, 4, 4)
+                            .addGroup(frontPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(frontPanelLayout.createSequentialGroup()
+                                    .addGap(6, 6, 6)
+                                    .addComponent(textSpeed, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE))
+                                .addComponent(labelTrainNum))))
                     .addGroup(frontPanelLayout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addComponent(buttonReroute, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
