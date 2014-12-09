@@ -1,5 +1,4 @@
 
-import java.util.ArrayList;
 import java.util.Vector;
 
 
@@ -461,9 +460,14 @@ public class TrainControllerUI extends javax.swing.JPanel {
     }//GEN-LAST:event_inputBrakeButtonActionPerformed
 
     private void trainSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trainSelectActionPerformed
-           int id = Integer.parseInt((String)trainSelect.getSelectedItem());
-           
-           TC = trainList.get(id);
+        //Extract train number
+        int id = trainSelect.getSelectedIndex();
+         
+        //Set TC to selected train
+        TC = trainList.get(id);
+        
+        //Update UI fields
+        updateFields();
     }//GEN-LAST:event_trainSelectActionPerformed
 
     private void currentSpeedDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_currentSpeedDisplayActionPerformed
