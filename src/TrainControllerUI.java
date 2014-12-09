@@ -58,8 +58,16 @@ public class TrainControllerUI extends javax.swing.JPanel {
         ctcSuggestedSpeed.setText(String.format("%.2f", TC.ctcSuggestedSpeed));
         currentSpeedDisplay.setText(String.format("%.2f", TC.vAct));
         
-        doorStatusDisplay.setText( (TC.doorStatus) ? ("Open") : ("Closed") );  
+        doorStatusDisplay.setText( (TC.doorStatus) ? ("Open") : ("Closed") );
+        inputDoorsButton.setText( (TC.doorStatus) ? ("CLOSE DOORS") : ("OPEN DOORS") );
+        inputDoorsButton.setSelected( TC.doorStatus );
+        
         lightStatusDisplay.setText( (TC.lightStatus) ? ("On") : ("Off") );
+        inputLightButton.setText( (TC.lightStatus) ? ("TURN LIGHTS OFF") : ("TURN LIGHTS ON") );
+        inputLightButton.setSelected( TC.lightStatus );
+        
+        inputBrakeButton.setText( (TC.brakeStatus) ? ("RELEASE BRAKE") : ("SET BRAKE") );
+        inputBrakeButton.setSelected( TC.brakeStatus );
         
         mboAuthorityDisplay.setText(String.format("%.2f", TC.mboCommandedAuthority));
         mboSpeedSetpoint.setText(String.format("%.2f", TC.mboCommandedSpeed));
@@ -80,16 +88,13 @@ public class TrainControllerUI extends javax.swing.JPanel {
         speedLimit4 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         inputSpeedSpinner = new javax.swing.JSpinner();
-        jLabel2 = new javax.swing.JLabel();
         inputDoorsButton = new javax.swing.JToggleButton();
-        jLabel3 = new javax.swing.JLabel();
         inputLightButton = new javax.swing.JToggleButton();
         jLabel4 = new javax.swing.JLabel();
         inputBrakeButton = new javax.swing.JToggleButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -124,18 +129,14 @@ public class TrainControllerUI extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setText("Open Doors:");
-
-        inputDoorsButton.setText("OPEN ");
+        inputDoorsButton.setText("OPEN DOORS");
         inputDoorsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputDoorsButtonActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("Turn On Lights:");
-
-        inputLightButton.setText("ON");
+        inputLightButton.setText("TURN LIGHTS ON");
         inputLightButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputLightButtonActionPerformed(evt);
@@ -156,8 +157,6 @@ public class TrainControllerUI extends javax.swing.JPanel {
         jLabel6.setText("CTC Speed Setpoint:");
 
         jLabel7.setText("CTC Authority:");
-
-        jLabel8.setText("Brake:");
 
         jLabel9.setText("Door Status:");
 
@@ -270,7 +269,7 @@ public class TrainControllerUI extends javax.swing.JPanel {
                                     .addComponent(speedLimitDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
                                     .addComponent(mboAuthorityDisplay))))
                         .addGap(89, 89, 89)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel13)
                                 .addGap(18, 18, 18)
@@ -281,22 +280,13 @@ public class TrainControllerUI extends javax.swing.JPanel {
                                     .addGap(18, 18, 18)
                                     .addComponent(currentSpeedDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(inputDoorsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(inputSpeedSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(inputLightButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(inputBrakeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addComponent(jLabel4))
+                            .addComponent(inputDoorsButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(inputLightButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(inputBrakeButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -349,20 +339,13 @@ public class TrainControllerUI extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(inputDoorsButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(inputLightButton)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(inputBrakeButton)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(inputDoorsButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(inputLightButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(inputBrakeButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -418,42 +401,42 @@ public class TrainControllerUI extends javax.swing.JPanel {
 
     private void inputDoorsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputDoorsButtonActionPerformed
 
-//        inputDoors = inputDoorsButton.isSelected();
-//        TC.evaluateDoors(inputDoors);
-//        if(inputDoors){
-//            jLabel2.setText("Close Doors:");
-//            inputDoorsButton.setText("CLOSE ");
-//        }
-//        else{
-//            jLabel2.setText("Open Doors:");
-//            inputDoorsButton.setText("OPEN ");
-   //     }
+        inputDoors = inputDoorsButton.isSelected();
+        TC.evaluateDoors(inputDoors);
+        if(inputDoors){
+            inputDoorsButton.setText("CLOSE DOORS");
+            doorStatusDisplay.setText("Open");
+        }
+        else{
+            inputDoorsButton.setText("OPEN DOORS");
+            doorStatusDisplay.setText("Closed");
+        }
     }//GEN-LAST:event_inputDoorsButtonActionPerformed
 
     private void inputLightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputLightButtonActionPerformed
 
-//        inputLights = inputLightButton.isSelected();
-//        TC.evaluateLights(inputLights);
-//        if(inputLights){
-//            jLabel3.setText("Turn Off Lights:");
-//            inputLightButton.setText("OFF");
-//        }
-//        else{
-//            jLabel3.setText("Turn On Lights:");
-//            inputLightButton.setText("ON");
-//        }
+        inputLights = inputLightButton.isSelected();
+        TC.evaluateLights(inputLights);
+        if(inputLights){
+            inputLightButton.setText("TURN LIGHTS OFF");
+            lightStatusDisplay.setText("On");
+        }
+        else{
+            inputLightButton.setText("TURN LIGHTS ON");
+            lightStatusDisplay.setText("Off");
+        }
     }//GEN-LAST:event_inputLightButtonActionPerformed
 
     private void inputBrakeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputBrakeButtonActionPerformed
 
-//        inputBrake = inputBrakeButton.isSelected();
-//        TC.evaluateBrake(inputBrake);
-//        if(inputBrake){
-//            inputBrakeButton.setText("RELEASE BRAKE");
-//        }
-//        else{
-//            inputBrakeButton.setText("SET BRAKE");
-//        }
+        inputBrake = inputBrakeButton.isSelected();
+        TC.evaluateBrake(inputBrake);
+        if(inputBrake){
+            inputBrakeButton.setText("RELEASE BRAKE");
+        }
+        else{
+            inputBrakeButton.setText("SET BRAKE");
+        }
     }//GEN-LAST:event_inputBrakeButtonActionPerformed
 
     private void trainSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trainSelectActionPerformed
@@ -500,13 +483,10 @@ public class TrainControllerUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField lightStatusDisplay;
     public javax.swing.JTextField mboAuthorityDisplay;
