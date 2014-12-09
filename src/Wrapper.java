@@ -23,7 +23,7 @@ class Wrapper {
         protected static int totalSeconds = 0;
         protected static Timer timer;
         
-        protected static int numberOfTrains = 1;
+        protected static int numberOfTrains = 0;
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * *
  * MAIN 
@@ -67,7 +67,7 @@ class Wrapper {
 /* * * * * * * * * * * * * * * * * * * * * * * * * *
  * INITIALIZATION 
  *
- * I initialized the variables in a separate method in case anything 
+ * We initialize the variables in a separate method in case anything 
  * special needs to be done first that could not have simply been done
  * up top where the variables are declared (e.g. if a constructor 
  * takes parameters or requires another component to be initialized
@@ -83,13 +83,12 @@ class Wrapper {
             trainModel          = new Vector();
             trainController     = new Vector();
             trainControllerUI   = new TrainControllerUI();
-            /*vvv Remove once addTrain method is written vvv*/
-            office.addTrain(numberOfTrains);
             mbo 		= new MovingBlockOverlayUI();
 
             /*Office Listeners*/
             addIncreaseClockSpeedListener(office.buttonIncreaseClockSpeed);
             addDecreaseClockSpeedListener(office.buttonDecreaseClockSpeed);
+            addSpawnNewTrainListener(office.buttonGo);
             
             /*MBO Listeners*/
             addStartButtonListener(mbo.StartButton);
@@ -151,8 +150,26 @@ class Wrapper {
            timer = new Timer(timerDelay, ClockListener);
            
 	}
+        
+        
+/* * * * * * * * * * * * * * * * * * * * * * * * * *
+ * SPAWN NEW TRAIN 
+ * * * * * * * * * * * * * * * * * * * * * * * * * */
 	
-	
+        public static void spawnTrain(){
+            //Increment number of trains
+            numberOfTrains++;
+            //Create Train
+            trainModel.add(new TrainModel(numberOfTrains)); 
+            //Create Train Controller for new Train
+            trainController.add(new TrainController(numberOfTrains, trainModel.lastElement()));
+            //Add Train Controller to Train Controller UI's list
+            trainControllerUI.addToTrainList(numberOfTrains, trainController.lastElement());
+            //Display new train in Office
+            office.addTrain(numberOfTrains);
+            
+            
+        }
 	
 /* * * * * * * * * * * * * * * * * * * * * * * * * *
  * TRACK CIRCUIT 
@@ -181,6 +198,17 @@ class Wrapper {
                 {
                     timerDelay = 1000;
                     timer.setDelay(timerDelay);
+                }
+            });
+
+	}// </editor-fold> 
+        
+        private static void addSpawnNewTrainListener(JButton Go){
+            // <editor-fold defaultstate="collapsed" desc="Spawn New Train">	
+            Go.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e)
+                {
+                    spawnTrain();
                 }
             });
 

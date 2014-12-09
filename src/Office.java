@@ -121,6 +121,8 @@ public class Office extends javax.swing.JPanel {
         MBOBackground = new javax.swing.JLabel();
         schedulerLayeredPane = new javax.swing.JLayeredPane();
         schedulerFrontPanel = new javax.swing.JPanel();
+        textSchedulerBlock = new javax.swing.JTextField();
+        buttonGo = new javax.swing.JButton();
         schedulerBackPanel = new javax.swing.JPanel();
         clockBackground4 = new javax.swing.JLabel();
         backPanel = new javax.swing.JPanel();
@@ -401,15 +403,30 @@ public class Office extends javax.swing.JPanel {
 
         schedulerFrontPanel.setOpaque(false);
 
+        buttonGo.setText("Go!");
+
         javax.swing.GroupLayout schedulerFrontPanelLayout = new javax.swing.GroupLayout(schedulerFrontPanel);
         schedulerFrontPanel.setLayout(schedulerFrontPanelLayout);
         schedulerFrontPanelLayout.setHorizontalGroup(
             schedulerFrontPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 148, Short.MAX_VALUE)
+            .addGroup(schedulerFrontPanelLayout.createSequentialGroup()
+                .addContainerGap(36, Short.MAX_VALUE)
+                .addGroup(schedulerFrontPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, schedulerFrontPanelLayout.createSequentialGroup()
+                        .addComponent(textSchedulerBlock, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, schedulerFrontPanelLayout.createSequentialGroup()
+                        .addComponent(buttonGo)
+                        .addGap(35, 35, 35))))
         );
         schedulerFrontPanelLayout.setVerticalGroup(
             schedulerFrontPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 134, Short.MAX_VALUE)
+            .addGroup(schedulerFrontPanelLayout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(textSchedulerBlock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(buttonGo)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         schedulerBackPanel.setOpaque(false);
@@ -443,9 +460,9 @@ public class Office extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(schedulerLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, schedulerLayeredPaneLayout.createSequentialGroup()
-                    .addContainerGap(33, Short.MAX_VALUE)
+                    .addContainerGap(35, Short.MAX_VALUE)
                     .addComponent(schedulerFrontPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(35, 35, 35)))
+                    .addGap(24, 24, 24)))
         );
         schedulerLayeredPaneLayout.setVerticalGroup(
             schedulerLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -585,6 +602,7 @@ public class Office extends javax.swing.JPanel {
     protected javax.swing.JPanel backPanel;
     protected javax.swing.JLabel background;
     protected javax.swing.JButton buttonDecreaseClockSpeed;
+    protected javax.swing.JButton buttonGo;
     protected javax.swing.JButton buttonIncreaseClockSpeed;
     protected javax.swing.ButtonGroup buttongroupMovingFixed;
     protected javax.swing.JPanel clockBackPanel;
@@ -606,6 +624,7 @@ public class Office extends javax.swing.JPanel {
     protected javax.swing.JLayeredPane screenLayeredPane;
     protected static javax.swing.JTextField textClock;
     protected javax.swing.JTextArea textSchedule;
+    protected javax.swing.JTextField textSchedulerBlock;
     protected javax.swing.JPanel topPanel;
     protected TrackModelInterface trackModelInterface1;
     protected javax.swing.JPanel workersBackPanel;

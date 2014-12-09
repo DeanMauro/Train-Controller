@@ -18,7 +18,8 @@ public class TrainControllerUI extends javax.swing.JPanel {
     private boolean inputBrake;
     private int currentID;
     
-     public Vector<TrainController> trainList;
+     public Vector<TrainController> trainList = new Vector();
+     public Vector<String> trainIDList = new Vector();
     //change to trainList.get(trainID);
      private TrainController TC;
     
@@ -28,31 +29,23 @@ public class TrainControllerUI extends javax.swing.JPanel {
     public TrainControllerUI() {
         //this.TC = tc;
         
-        TC = trainList.get(0);
+        //TC = trainList.get(0);
         
         initComponents();
-        updateTrainList();
+        //updateTrainList();
     }
 
-    public void updateTrainList()
-    {
-        ArrayList<String> trainIDlist = new ArrayList<String>();        
+    public void updateTrainList(int ID)
+    {   
+        trainIDList.add("Train " + String.valueOf(ID));
         
-        /*for(int i = 0; i < trainList.size(); i++)
-        {
-                trainIDlist.add(String.valueOf(trainList.elementAt(i).getID()));               
-        }*/
-        
-        for(int i = 0; i < trainList.size(); i++)
-        {
-            
-            trainIDlist.add(String.valueOf(i));
-        }
-        trainSelect.setModel(new javax.swing.DefaultComboBoxModel(trainIDlist.toArray()));  
-        updateUI();
+        trainSelect.setModel(new javax.swing.DefaultComboBoxModel(trainIDList.toArray()));  
+        TC = trainList.get(0);
+        updateFields();
     }
     
-    public void updateUI()
+    
+    public void updateFields()
     {
         safeSpeedSetpointDisplay.setText(String.format("%.2f", TC.velocitySetpoint));
         
@@ -61,8 +54,8 @@ public class TrainControllerUI extends javax.swing.JPanel {
         ctcSuggestedSpeed.setText(String.format("%.2f", TC.ctcSuggestedSpeed));
         currentSpeedDisplay.setText(String.format("%.2f", TC.vAct));
         
-        doorStatusDisplay.setText(String.format("%.2f", TC.doorStatus));  
-        lightStatusDisplay.setText(String.format("%.2f", TC.lightStatus));
+        doorStatusDisplay.setText( (TC.doorStatus) ? ("Open") : ("Closed") );  
+        lightStatusDisplay.setText( (TC.lightStatus) ? ("On") : ("Off") );
         
         mboAuthorityDisplay.setText(String.format("%.2f", TC.mboCommandedAuthority));
         mboSpeedSetpoint.setText(String.format("%.2f", TC.mboCommandedSpeed));
@@ -74,11 +67,11 @@ public class TrainControllerUI extends javax.swing.JPanel {
         
     }
     
-    void setTrainList(Vector<TrainController> l)
-    {
-        this.trainList = l;      
-        updateTrainList();
+    void addToTrainList(int ID, TrainController t){
+        this.trainList.add(t);
+        updateTrainList(ID);
     }
+ 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -182,7 +175,7 @@ public class TrainControllerUI extends javax.swing.JPanel {
 
         jLabel14.setText("Failure Message:");
 
-        trainSelect.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Train 1" }));
+        trainSelect.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Train #" }));
         trainSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 trainSelectActionPerformed(evt);
