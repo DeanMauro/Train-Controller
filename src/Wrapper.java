@@ -168,7 +168,10 @@ class Wrapper {
             //Display new train in Office
             office.addTrain(numberOfTrains);
             
-            
+            //Train Controller: calculate power for first block
+            //Train Controller: send power to train
+            //Train Model: receive power
+            //Train Model: update fields (current block, target block, lights, etc)
         }
 	
 /* * * * * * * * * * * * * * * * * * * * * * * * * *
