@@ -1556,6 +1556,10 @@ public class TrackModel {
         trainDistance = 10000;
         nodePostion = 0;
         nodeNum = 77;
+        
+        for(int i=0; i<100; i++){
+            trainDist[i][2] = 77;
+        }
     }
     
     
@@ -1581,6 +1585,7 @@ public class TrackModel {
         while(true)
         {
             //System.out.println("1");
+
             b = trckOb.getBlock((int)trainDist[trainId-1][2]);
             //System.out.println("on block: "+b.getBlockId());
             //System.out.println("2");

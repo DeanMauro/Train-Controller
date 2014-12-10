@@ -136,7 +136,7 @@ class Wrapper {
 
                   /*Update Track Model with block for each Train ID*/
                   trackModelInterface.getTrackModel().updateTrainId(currentTrain.getID());
-                  trackModelInterface.getTrackModel().findBlockId();
+                  trackModelInterface.getTrackModel().findBlockID();
                   
                   
                   /*Update Train Controllers with new MBO Authorities*/
