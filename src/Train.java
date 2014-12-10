@@ -234,10 +234,13 @@ public class Train extends javax.swing.JPanel {
         labelRoute.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelRoute.setText("Route:");
 
+        textSpeed.setEditable(false);
         textSpeed.setBackground(new java.awt.Color(204, 255, 204));
 
+        textAuthority.setEditable(false);
         textAuthority.setBackground(new java.awt.Color(204, 255, 204));
 
+        textPosition.setEditable(false);
         textPosition.setBackground(new java.awt.Color(204, 255, 204));
 
         textSetSpeed.setBackground(new java.awt.Color(204, 255, 204));
