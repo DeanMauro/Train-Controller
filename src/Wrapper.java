@@ -248,7 +248,7 @@ class Wrapper {
                 {
                     int ID = Integer.parseInt(((JButton)e.getSource()).getActionCommand());
                     trainController.get(ID).setCtcAuthority(office.getSuggestedAuthority(ID));
-                    trainController.get(ID).setCtcSpeed(office.getSuggestedAuthority(ID));
+                    trainController.get(ID).setCtcSpeed(office.getSuggestedSpeed(ID));
                 }
             });
 
