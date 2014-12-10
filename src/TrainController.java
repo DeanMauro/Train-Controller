@@ -35,8 +35,8 @@ public class TrainController {
     //variables for power calculation       
     private double maxTrainDeceleration;
     private double maxTrainPower;
-    private final double KP = 10;//proportional gain
-    private final double KI = 3;//integral gain
+    private final double KP = 1000;//proportional gain
+    private final double KI = 300;//integral gain
     private double uk = 0; //integral error
     private double ek = 0;//proportional error
     private double T = 0.1;

@@ -332,7 +332,7 @@ class Wrapper {
         MovingBlockRadio.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
-                if(MovingBlockRadio.isSelected())
+                if(((JRadioButton)e.getSource()).isSelected())
                     office.setMovingBlock();
                 else
                     office.setFixedBlock();

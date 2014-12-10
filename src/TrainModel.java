@@ -147,6 +147,8 @@ public class TrainModel extends javax.swing.JFrame {
         else
             currentAcceleration = currentForce / mass;
         
+        System.out.println(mass);
+        
         if(currentAcceleration > 1)         //Max acceleration can't
             currentAcceleration = 1;        //exceed 1 m/sec^2
     }

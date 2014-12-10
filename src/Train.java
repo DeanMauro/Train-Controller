@@ -57,7 +57,7 @@ public class Train extends javax.swing.JPanel {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if(!tr.textSetSpeed.getText().equals("") && !t.textSetAuthority.getText().equals(""))
+                if(!tr.textSetSpeed.getText().equals("") && !tr.textSetAuthority.getText().equals(""))
                     tr.buttonSend.setEnabled(true);
                 else
                     tr.buttonSend.setEnabled(false);
@@ -65,7 +65,7 @@ public class Train extends javax.swing.JPanel {
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                if(!tr.textSetSpeed.getText().equals("") && !t.textSetAuthority.getText().equals(""))
+                if(!tr.textSetSpeed.getText().equals("") && !tr.textSetAuthority.getText().equals(""))
                     tr.buttonSend.setEnabled(true);
                 else
                     tr.buttonSend.setEnabled(false);
@@ -73,7 +73,7 @@ public class Train extends javax.swing.JPanel {
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                if(!tr.textSetSpeed.getText().equals("") && !t.textSetAuthority.getText().equals(""))
+                if(!tr.textSetSpeed.getText().equals("") && !tr.textSetAuthority.getText().equals(""))
                     tr.buttonSend.setEnabled(true);
                 else
                     tr.buttonSend.setEnabled(false);
@@ -87,7 +87,7 @@ public class Train extends javax.swing.JPanel {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if(!tr.textSetSpeed.getText().equals("") && !t.textSetAuthority.getText().equals(""))
+                if(!tr.textSetSpeed.getText().equals("") && !tr.textSetAuthority.getText().equals(""))
                     tr.buttonSend.setEnabled(true);
                 else
                     tr.buttonSend.setEnabled(false);
@@ -95,7 +95,7 @@ public class Train extends javax.swing.JPanel {
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                if(!tr.textSetSpeed.getText().equals("") && !t.textSetAuthority.getText().equals(""))
+                if(!tr.textSetSpeed.getText().equals("") && !tr.textSetAuthority.getText().equals(""))
                     tr.buttonSend.setEnabled(true);
                 else
                     tr.buttonSend.setEnabled(false);
@@ -103,7 +103,7 @@ public class Train extends javax.swing.JPanel {
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                if(!tr.textSetSpeed.getText().equals("") && !t.textSetAuthority.getText().equals(""))
+                if(!tr.textSetSpeed.getText().equals("") && !tr.textSetAuthority.getText().equals(""))
                     tr.buttonSend.setEnabled(true);
                 else
                     tr.buttonSend.setEnabled(false);
