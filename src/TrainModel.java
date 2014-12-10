@@ -20,6 +20,7 @@ public class TrainModel extends javax.swing.JFrame {
     boolean inputBrakeFailure = false;
     boolean inputEngineFailure = false;
     boolean inputSignalFailure = false;
+    boolean inputEmergencyBrake = false;
     
     double passengerMass = 80.7;//Kilograms
     int passengerCount;
@@ -102,6 +103,11 @@ public class TrainModel extends javax.swing.JFrame {
         this.eBrake = e;
     }
     
+    public void resetEBrake(){
+        this.eBrake = false;
+        emergencyBrakeButton.setText("Emergency Brake");
+    }
+    
     public void setPassengerCount(int p){
         this.passengerCount = p;
         this.passengerMass = (p+crewCount) * 80.7;  //80.7kg is the average american weight
@@ -177,7 +183,7 @@ public class TrainModel extends javax.swing.JFrame {
     }
     
     
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -196,6 +202,8 @@ public class TrainModel extends javax.swing.JFrame {
         engineFailureDisplay = new javax.swing.JTextField();
         brakeFailureDisplay = new javax.swing.JTextField();
         signalFailureDisplay = new javax.swing.JTextField();
+        emergencyBrakeButton = new javax.swing.JToggleButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -248,6 +256,20 @@ public class TrainModel extends javax.swing.JFrame {
             }
         });
 
+        emergencyBrakeButton.setText("Emergency Brake");
+        emergencyBrakeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emergencyBrakeButtonActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -270,12 +292,17 @@ public class TrainModel extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(signalFailureButton)
                     .addComponent(engineFailureButton)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(setPowerTF)
-                        .addComponent(currentPositionTF)
-                        .addComponent(currentSpeedTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(setPowerTF)
+                            .addComponent(currentPositionTF)
+                            .addComponent(currentSpeedTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(emergencyBrakeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1)))
                     .addComponent(brakeFailureButton))
-                .addContainerGap(232, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,17 +310,23 @@ public class TrainModel extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(currentSpeedLB)
-                    .addComponent(currentSpeedTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(currentPosisiontLB)
-                    .addComponent(currentPositionTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(currentSpeedLB)
+                            .addComponent(currentSpeedTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(currentPosisiontLB)
+                            .addComponent(currentPositionTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(emergencyBrakeButton, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)))
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(setSpeedLB)
-                    .addComponent(setPowerTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(setPowerTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addGap(6, 6, 6)
@@ -308,7 +341,7 @@ public class TrainModel extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(signalFailureButton)
                     .addComponent(signalFailureDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
 
         pack();
@@ -318,12 +351,12 @@ public class TrainModel extends javax.swing.JFrame {
         // TODO add your handling code here:
         inputBrakeFailure = brakeFailureButton.isSelected();
         if(inputBrakeFailure){
-            brakeFailureButton.setText("Engine Failure");
-            brakeFailureDisplay.setText("Open");
+            brakeFailureButton.setText("Fix Failure");
+            brakeFailureDisplay.setText("Applied");
         }
         else{
-            brakeFailureButton.setText("Fix Failure");
-            brakeFailureDisplay.setText("Closed");
+            brakeFailureButton.setText("Break Failure");
+            brakeFailureDisplay.setText("Fiexed");
         }
     }//GEN-LAST:event_brakeFailureButtonActionPerformed
 
@@ -340,12 +373,12 @@ public class TrainModel extends javax.swing.JFrame {
         // TODO add your handling code here:
         inputEngineFailure = engineFailureButton.isSelected();
         if(inputEngineFailure){
-            engineFailureButton.setText("Engine Failure");
-            engineFailureDisplay.setText("Open");
+            engineFailureButton.setText("Fix Failure");
+            engineFailureDisplay.setText("Applied");
         }
         else{
-            engineFailureButton.setText("Fix Failure");
-            engineFailureDisplay.setText("Closed");
+            engineFailureButton.setText("Engine Failure");
+            engineFailureDisplay.setText("Fixed");
         }
     }//GEN-LAST:event_engineFailureButtonActionPerformed
 
@@ -354,15 +387,30 @@ public class TrainModel extends javax.swing.JFrame {
         inputSignalFailure = signalFailureButton.isSelected();
         if(inputSignalFailure){
             signalFailureButton.setText("Engine Failure");
-            signalFailureDisplay.setText("Open");
+            signalFailureDisplay.setText("Applied");
         }
         else{
             signalFailureButton.setText("Fix Failure");
-            signalFailureDisplay.setText("Closed");
+            signalFailureDisplay.setText("Fixed");
         }
     }//GEN-LAST:event_signalFailureButtonActionPerformed
 
-    
+    private void emergencyBrakeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emergencyBrakeButtonActionPerformed
+        // TODO add your handling code here:
+        inputEmergencyBrake = signalFailureButton.isSelected();
+        if(inputEmergencyBrake){
+            
+        }
+        else{
+            emergencyBrakeButton.setText("E-Brake Applied");
+            setEBrake(true);
+        }
+    }//GEN-LAST:event_emergencyBrakeButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        resetEBrake();
+    }//GEN-LAST:event_jButton1ActionPerformed
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -403,8 +451,10 @@ public class TrainModel extends javax.swing.JFrame {
     private javax.swing.JTextField currentPositionTF;
     private javax.swing.JLabel currentSpeedLB;
     private javax.swing.JTextField currentSpeedTF;
+    private javax.swing.JToggleButton emergencyBrakeButton;
     private javax.swing.JToggleButton engineFailureButton;
     private javax.swing.JTextField engineFailureDisplay;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField setPowerTF;
