@@ -1582,7 +1582,7 @@ public class TrackModel {
         {
             //System.out.println("1");
             b = trckOb.getBlock((int)trainDist[trainId-1][2]);
-            System.out.println("on block: "+b.getBlockId());
+            //System.out.println("on block: "+b.getBlockId());
             //System.out.println("2");
             blockLength = b.getLength();
             //System.out.println("block length: "+ blockLength);
@@ -1591,6 +1591,7 @@ public class TrackModel {
             if(blockLength > newDist)
             {
                 trainDist[trainId-1][2] = b.getBlockId();
+                System.out.println("on block: "+b.getBlockId());
                 break;
             }
             else
