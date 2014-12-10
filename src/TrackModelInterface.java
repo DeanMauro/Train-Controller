@@ -19,7 +19,7 @@ import javax.swing.JFrame;
 public class TrackModelInterface extends javax.swing.JPanel {
     TrackModel trackModel = new TrackModel();
     int numberTrains = 0;
-        public static void main(String args[]){
+    public static void main(String args[]){
     // <editor-fold defaultstate="collapsed" desc="Main"> 
         
     JFrame frame1 = new JFrame("Track Model");
@@ -49,8 +49,8 @@ public class TrackModelInterface extends javax.swing.JPanel {
             //trackModel.updatePosition(x);
             //x += .01;
         System.out.println("Query");
-        Block ID = trackModel.findBlockID();
-        System.out.println("On block: " + ID.getBlockId());
+        //Block ID = trackModel.findBlockID();
+        //System.out.println("On block: " + ID.getBlockId());
         //trainSpeed.setText(String.valueOf(ID.getSpeedLimit()));
         //trainLength.setText(String.valueOf(ID.getLength()));
         //trainBlockID.setText(String.valueOf(ID.getBlockId()));
