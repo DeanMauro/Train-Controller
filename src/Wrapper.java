@@ -151,6 +151,7 @@ class Wrapper {
               
               //trackModelInterface.getTrackModel().redraw();
               trainControllerUI.updateFields();
+              mbo.updateTrainList(trainModel);
 
             }
             };
