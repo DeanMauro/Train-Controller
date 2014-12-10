@@ -17,7 +17,8 @@ import javax.swing.JFrame;
  * @author Q
  */
 public class TrackModelInterface extends javax.swing.JPanel {
-    
+    TrackModel trackModel = new TrackModel();
+    int numberTrains = 0;
         public static void main(String args[]){
     // <editor-fold defaultstate="collapsed" desc="Main"> 
         
@@ -35,7 +36,7 @@ public class TrackModelInterface extends javax.swing.JPanel {
      * Creates new form TrackModel
      */
     
-    TrackModel trackModel = new TrackModel();
+    
     public TrackModelInterface() {
         initComponents();
     }
@@ -1540,11 +1541,14 @@ public class TrackModel {
 //        // TODO code application logic here
 //    }
     TrackObject trckOb; 
+    
     //blockList blockLinkList;
     double trainSpeed;
     double trainDistance;
     int nodePostion;
     int nodeNum;
+    int trainId = 0;
+    double[][] trainDist = new double[100][3];
     public TrackModel(){
         trckOb = new TrackObject();
         //blockLinkList = new blockList();
@@ -1555,42 +1559,52 @@ public class TrackModel {
     }
     
     
-    public void updateSpeed(double speed)
-    {
+    public void updateSpeed(double speed){
         trainSpeed = speed;
     }
     
-    public void updatePosition(double position)
-    {
+    public void updatePosition(double position){
         trainDistance = position;
     }
     
-    public Block findBlockID(){
+    public void updateTrainId(int ID){
+        trainId = ID;
+    }
+    
+    //update block object to train true or false
+    public void findBlockID(){
+        double newDist = trainDistance - trainDist[trainId-1][1];
+        trainDist[trainId-1][1] = trainDistance;
         double blockLength = 0;
         int blockSpeed = 0;
-        double postion = trainDistance;
-        Block x;
+        Block b;
         while(true)
         {
-            postion = trainDistance;
             //System.out.println("1");
-            x = trckOb.getBlock(nodeNum);
-            System.out.println("on block: "+x.getBlockId());
+            b = trckOb.getBlock((int)trainDist[trainId-1][2]);
+            System.out.println("on block: "+b.getBlockId());
             //System.out.println("2");
-            blockLength = x.getLength();
+            blockLength = b.getLength();
             //System.out.println("block length: "+ blockLength);
             //System.out.println("postion: "+ postion);
-            blockSpeed = x.getSpeedLimit();
-            if(blockLength > postion)
+            blockSpeed = b.getSpeedLimit();
+            if(blockLength > newDist)
+            {
+                trainDist[trainId-1][2] = b.getBlockId();
                 break;
+            }
             else
             {
-                trainDistance -= blockLength;
-                nodeNum = trckOb.getBlock(nodeNum).getPrevBlockId();
+                newDist -= blockLength;
+                trainDist[trainId-1][2] = trckOb.getBlock((int)trainDist[trainId-1][2]).getPrevBlockId();
             }
                         
         }
-        return x;
+    }
+    
+    //redraw with new color 
+   public void redraw(){
+        
     }
     //import csv track file
     public int InternalImport(String text){
@@ -1688,6 +1702,11 @@ public class TrackModel {
         {
                 return 0;
         }	
+    }
+    
+    public void setNumTrains(int n)
+    {
+        numberTrains = n;
     }
     
 }
