@@ -143,6 +143,8 @@ class Wrapper {
                   //trackModelInterface.queryButton();
 
               }
+              
+              trainControllerUI.updateFields();
 
             }
             };
@@ -251,15 +253,16 @@ class Wrapper {
 	//TRACK MODEL LISTENERS
 	/////////////////////////////////
         private static void addBlockSpeedListener(JTextField bs){
+            final JTextField blocky = bs;
             // <editor-fold defaultstate="collapsed" desc="Block Speed">
             bs.getDocument().addDocumentListener(new DocumentListener(){
 
                 public void changedUpdate(DocumentEvent documentEvent) {
-                    double speed = Double.parseDouble(bs.getText());
+                    double speed = Double.parseDouble(blocky.getText());
                     mbo.updateBlockSpeed(speed);
                 }
                 public void insertUpdate(DocumentEvent documentEvent) {
-                    double speed = Double.parseDouble(bs.getText());
+                    double speed = Double.parseDouble(blocky.getText());
                     mbo.updateBlockSpeed(speed);
                 }
                 public void removeUpdate(DocumentEvent documentEvent) {
@@ -291,11 +294,12 @@ class Wrapper {
 	}// </editor-fold> 
     
         private static void addIsStationListener(JTextField trainIsStation){
+            final JTextField s = trainIsStation;
             // <editor-fold defaultstate="collapsed" desc="Is Station">
             trainIsStation.getDocument().addDocumentListener(new DocumentListener(){
         	
  		      public void changedUpdate(DocumentEvent documentEvent) {
- 		        boolean position = Boolean.parseBoolean(trainIsStation.getText());
+ 		        boolean position = Boolean.parseBoolean(s.getText());
                         //trackModel.updatePosition(position);
  		      }
  		      public void insertUpdate(DocumentEvent documentEvent) {

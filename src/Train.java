@@ -21,32 +21,32 @@ public class Train extends javax.swing.JPanel {
 
     private void addListeners(Train t){
     // <editor-fold defaultstate="collapsed" desc="Add Listeners">
-        
+        final Train tr = t;
     //Enable the Reroute Button
         t.textRoute.getDocument().addDocumentListener(new DocumentListener() {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if(!t.textRoute.getText().equals(""))
-                    t.buttonReroute.setEnabled(true);
+                if(!tr.textRoute.getText().equals(""))
+                    tr.buttonReroute.setEnabled(true);
                 else
-                    t.buttonReroute.setEnabled(false);
+                    tr.buttonReroute.setEnabled(false);
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                if(!t.textRoute.getText().equals(""))
-                    t.buttonReroute.setEnabled(true);
+                if(!tr.textRoute.getText().equals(""))
+                    tr.buttonReroute.setEnabled(true);
                 else
-                    t.buttonReroute.setEnabled(false);
+                    tr.buttonReroute.setEnabled(false);
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                if(!t.textRoute.getText().equals(""))
-                    t.buttonReroute.setEnabled(true);
+                if(!tr.textRoute.getText().equals(""))
+                    tr.buttonReroute.setEnabled(true);
                 else
-                    t.buttonReroute.setEnabled(false);
+                    tr.buttonReroute.setEnabled(false);
             }
 
           });
@@ -57,26 +57,26 @@ public class Train extends javax.swing.JPanel {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if(!t.textSetSpeed.getText().equals("") && !t.textSetAuthority.getText().equals(""))
-                    t.buttonSend.setEnabled(true);
+                if(!tr.textSetSpeed.getText().equals("") && !t.textSetAuthority.getText().equals(""))
+                    tr.buttonSend.setEnabled(true);
                 else
-                    t.buttonSend.setEnabled(false);
+                    tr.buttonSend.setEnabled(false);
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                if(!t.textSetSpeed.getText().equals("") && !t.textSetAuthority.getText().equals(""))
-                    t.buttonSend.setEnabled(true);
+                if(!tr.textSetSpeed.getText().equals("") && !t.textSetAuthority.getText().equals(""))
+                    tr.buttonSend.setEnabled(true);
                 else
-                    t.buttonSend.setEnabled(false);
+                    tr.buttonSend.setEnabled(false);
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                if(!t.textSetSpeed.getText().equals("") && !t.textSetAuthority.getText().equals(""))
-                    t.buttonSend.setEnabled(true);
+                if(!tr.textSetSpeed.getText().equals("") && !t.textSetAuthority.getText().equals(""))
+                    tr.buttonSend.setEnabled(true);
                 else
-                    t.buttonSend.setEnabled(false);
+                    tr.buttonSend.setEnabled(false);
             }
 
           });
@@ -87,26 +87,26 @@ public class Train extends javax.swing.JPanel {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if(!t.textSetSpeed.getText().equals("") && !t.textSetAuthority.getText().equals(""))
-                    t.buttonSend.setEnabled(true);
+                if(!tr.textSetSpeed.getText().equals("") && !t.textSetAuthority.getText().equals(""))
+                    tr.buttonSend.setEnabled(true);
                 else
-                    t.buttonSend.setEnabled(false);
+                    tr.buttonSend.setEnabled(false);
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                if(!t.textSetSpeed.getText().equals("") && !t.textSetAuthority.getText().equals(""))
-                    t.buttonSend.setEnabled(true);
+                if(!tr.textSetSpeed.getText().equals("") && !t.textSetAuthority.getText().equals(""))
+                    tr.buttonSend.setEnabled(true);
                 else
-                    t.buttonSend.setEnabled(false);
+                    tr.buttonSend.setEnabled(false);
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                if(!t.textSetSpeed.getText().equals("") && !t.textSetAuthority.getText().equals(""))
-                    t.buttonSend.setEnabled(true);
+                if(!tr.textSetSpeed.getText().equals("") && !t.textSetAuthority.getText().equals(""))
+                    tr.buttonSend.setEnabled(true);
                 else
-                    t.buttonSend.setEnabled(false);
+                    tr.buttonSend.setEnabled(false);
             }
 
           });
