@@ -23,25 +23,34 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="currentPosisiontLB" max="32767" attributes="0"/>
-                  <Component id="currentSpeedLB" max="32767" attributes="0"/>
-                  <Component id="setSpeedLB" max="32767" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="setPowerTF" max="32767" attributes="0"/>
-                  <Component id="currentPositionTF" alignment="0" max="32767" attributes="0"/>
-                  <Component id="currentSpeedTF" alignment="0" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="155" max="32767" attributes="0"/>
-          </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="currentPosisiontLB" max="32767" attributes="0"/>
+                  <Component id="currentSpeedLB" max="32767" attributes="0"/>
+                  <Component id="setSpeedLB" max="32767" attributes="0"/>
+                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                  <Component id="engineFailureDisplay" alignment="0" max="32767" attributes="0"/>
+                  <Component id="brakeFailureDisplay" max="32767" attributes="0"/>
+                  <Component id="signalFailureDisplay" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="signalFailureButton" min="-2" max="-2" attributes="0"/>
+                  <Component id="engineFailureButton" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="setPowerTF" max="32767" attributes="0"/>
+                      <Component id="currentPositionTF" alignment="0" max="32767" attributes="0"/>
+                      <Component id="currentSpeedTF" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="brakeFailureButton" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="232" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -65,7 +74,24 @@
                   <Component id="setSpeedLB" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="setPowerTF" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="307" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="engineFailureButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="engineFailureDisplay" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="brakeFailureButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="brakeFailureDisplay" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="signalFailureButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="signalFailureDisplay" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="147" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -88,7 +114,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="setSpeedLB">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Set Power"/>
+        <Property name="text" type="java.lang.String" value="Set Power:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="setPowerTF">
@@ -105,6 +131,47 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Current Speed"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JToggleButton" name="engineFailureButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Engine Failure"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="engineFailureButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JToggleButton" name="brakeFailureButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Brake Failure"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="brakeFailureButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JToggleButton" name="signalFailureButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Signal Failure"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="signalFailureButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Current Failure: "/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="engineFailureDisplay">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="engineFailureDisplayActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="brakeFailureDisplay">
+    </Component>
+    <Component class="javax.swing.JTextField" name="signalFailureDisplay">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="signalFailureDisplayActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
