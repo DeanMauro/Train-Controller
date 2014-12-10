@@ -130,8 +130,7 @@ public class TrainController {
         //actual train velcity
         vAct = train.getCurrentSpeed();
        
-        //convert vAct to m/s
-        
+        //convert vAct to m/s        
         
       //  tcUI.currentSpeedDisplay.setText(String.format("%.2f", vAct));
         
@@ -197,9 +196,7 @@ public class TrainController {
     }
     
     private double setPowerRedundant(double v, double auth, double pow, double ek1, double uk1)
-    {
-       
-        
+    {       
         if(auth <= 0)
         {
             auth = 0.1;            
@@ -277,35 +274,51 @@ public class TrainController {
              
          
      
-    public void evaluateDoors(boolean doorIn)
+    public void evaluateDoors(boolean fromConductor)
     {
         /*
         Evaluate whether doors should be 
         allowed to be opened/closed       
         */
-        /*
-        if(train.isAtStation())
-        {
-            this.TransmitDoors(true);
-        }
         
-        */
-        this.transmitDoors(doorIn);
+        if(train.atStation && vAct == 0 && !train.doorStatus && !fromConductor)
+        {
+            train.doorStatus = true;
+        }
+        else if(vAct != 0 && train.doorStatus && !fromConductor)
+        {
+            train.doorStatus = false;
+        }
+        else if(vAct == 0 && train.doorStatus && fromConductor)
+        {
+            train.doorStatus = true;
+        }
+        else if(train.doorStatus && fromConductor)
+        {
+            train.doorStatus = false;
+        }        
+        
     }
 
-    public void evaluateLights(boolean lightIn)
+    public void evaluateLights(boolean fromConductor)
     {
         /*
         Evaluate whether lights should be 
         allowed to be turned on or off       
         */
-        /*
-        if(train.isUnderground())
+        if(train.underground && !train.lightStatus && !fromConductor)
         {
-            this.transmitLights(true);
+            train.lightStatus = true;
         }
-        */
-        this.transmitLights(lightIn);
+        else if(!train.underground && train.lightStatus && !fromConductor)
+        {
+            train.lightStatus = false;
+        }
+        else if(fromConductor && !train.lightStatus)
+        {
+           train.lightStatus = true;
+        }      
+       
     }
 
     public void evaluateBrake(boolean brakeIn)
@@ -314,7 +327,16 @@ public class TrainController {
         Evaluate whether brake should be 
         allowed to be turned on or off       
         */
-        this.transmitBrake(brakeIn);
+        if(brakeIn)
+        {
+            this.brakeStatus = true;
+            //setPower(0) ????
+        }
+        else
+        {
+            this.brakeStatus = false;
+        }
+       // this.transmitBrake(brakeIn);
     }  
     
     public int getID()
