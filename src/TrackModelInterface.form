@@ -267,6 +267,9 @@
     <Component class="javax.swing.JTextField" name="trainIsStation">
     </Component>
     <Container class="javax.swing.JPanel" name="trackDisplay">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JPanel()&#xd;&#xa;{&#xd;&#xa;    public void paint(Graphics g)&#xd;&#xa;    {&#xd;&#xa;        super.paint(g);&#xd;&#xa;        ourCustomPaintingMethod(g);&#xd;&#xa;    }&#xd;&#xa;};&#xd;&#xa;"/>
+      </AuxValues>
 
       <Layout>
         <DimensionLayout dim="0">

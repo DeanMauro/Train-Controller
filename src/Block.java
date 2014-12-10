@@ -28,10 +28,10 @@ public class Block {
 	private int currentlySwitchedTo;
         private int blockSwitchId1;
 	private int blockSwitchId2;
-	private double startX;
-	private double startY;
-	private double endX;
-	private double endY;
+	private int startX;
+	private int startY;
+	private int endX;
+	private int endY;
 	private boolean yard;
 	private String line;
 	private boolean closed;
@@ -62,6 +62,10 @@ public class Block {
             {
                 switchBlock = 999;
                 arrowDirection = "";
+                startX = 0;
+                startY = 0;
+                endX = 0;
+                endY = 0;
             }
             else if(blockInfo.length <=11)
             {
@@ -77,6 +81,10 @@ public class Block {
                 }
                 //System.out.println("switch block: "+switchBlock);
                 arrowDirection = "";
+                startX = 0;
+                startY = 0;
+                endX = 0;
+                endY = 0;
             }
             else
             {
@@ -92,30 +100,11 @@ public class Block {
                 }
                 //System.out.println("switch block: "+switchBlock);
                 arrowDirection = (blockInfo[11]);
+                startX = Integer.parseInt(blockInfo[12]);
+                startY = Integer.parseInt(blockInfo[13]);
+                endX = Integer.parseInt(blockInfo[14]);
+                endY = Integer.parseInt(blockInfo[15]);
             }
-            //System.out.println(switchBlock);
-//            if(!blockInfo[12].equals(""))
-//                NextBlockId = Integer.parseInt(blockInfo[12]);
-//            if(!blockInfo[13].equals(""))
-//                SecondNextBlockId = Integer.parseInt(blockInfo[13]);
-//            if(!blockInfo[14].equals(""))
-//                thirdNextBlockId = Integer.parseInt(blockInfo[14]);
-//            if(!blockInfo[15].equals(""))
-//                isNextBlockSwitch = Boolean.parseBoolean(blockInfo[15]);
-//            if(!blockInfo[16].equals(""))
-//                nextBlockSwitchId = Integer.parseInt(blockInfo[16]);
-//            System.out.println(blockInfo[17]);
-//            if(!blockInfo[17].equals(""))
-//                currentlySwitchedTo = Integer.parseInt(blockInfo[17]);
-//            if(!blockInfo[18].equals(""))
-//                startX = Double.parseDouble(blockInfo[18]);
-//            if(!blockInfo[19].equals(""))
-//                startY = Double.parseDouble(blockInfo[19]);
-//            if(!blockInfo[20].equals(""))
-//                endX = Double.parseDouble(blockInfo[20]);
-//            if(!blockInfo[21].equals(""))
-//                endY = Double.parseDouble(blockInfo[21]);
-            
 
             station = false;
             switchInfra = false;
@@ -427,5 +416,22 @@ public class Block {
 	{
 		return crossingSigState;
 	}
+        
+        public int getStartX()
+        {
+            return startX;
+        }
+        public int getStartY()
+        {
+            return startY;
+        }
+        public int getEndX()
+        {
+            return endX;
+        }
+        public int getEndY()
+        {
+            return endY;
+        }
         
 }

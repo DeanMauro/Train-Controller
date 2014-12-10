@@ -5,6 +5,10 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.border.*;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -131,7 +135,15 @@ public class TrackModelInterface extends javax.swing.JPanel {
         trainSpeed = new javax.swing.JTextField();
         trainLength = new javax.swing.JTextField();
         trainIsStation = new javax.swing.JTextField();
-        trackDisplay = new javax.swing.JPanel();
+        trackDisplay = new javax.swing.JPanel()
+        {
+            public void paint(Graphics g)
+            {
+                super.paint(g);
+                ourCustomPaintingMethod(g);
+            }
+        };
+        ;
 
         ImportTrack.setText("Import Track");
         ImportTrack.addActionListener(new java.awt.event.ActionListener() {
@@ -362,7 +374,7 @@ public class TrackModelInterface extends javax.swing.JPanel {
    /**class track Model
     * track class that contains methods for finding blocks, trains, and information
     */ 
-public class TrackModel {
+    public class TrackModel {
 
 //    /**
 //     * @param args the command line arguments
@@ -540,18 +552,24 @@ public class TrackModel {
         }	
     }
     
-    public void setNumTrains(int n)
-    {
+    public void setNumTrains(int n){
         numberTrains = n;
     }
     
+    
 }
     
-    
-    
-    public TrackModel getTrackModel()
-    {
+    //getter for the track model so the wrapper has access
+    public TrackModel getTrackModel(){
         return this.trackModel;
+    }
+    
+    
+    public void ourCustomPaintingMethod(Graphics g){
+        super.paintComponent(g);
+
+            g.drawString("BLAH", 20, 20);
+            g.drawRect(200, 200, 200, 200);
     }
     
     
