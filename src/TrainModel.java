@@ -178,6 +178,10 @@ public class TrainModel extends javax.swing.JFrame {
         return currentPosition;
     }
     
+    public int getID(){
+        return ID;
+    }
+    
     
 
     @SuppressWarnings("unchecked")
