@@ -18,7 +18,7 @@ public class Office extends javax.swing.JPanel {
         TrainsScrollPane.getViewport().setOpaque(false);
         TrainsScrollPane.setBorder(null);
         
-        screenFrontPanel.add(new TrackModelInterface2());
+        //screenFrontPanel.add(new TrackModelInterface2());
         screenFrontPanel.revalidate();
         screenFrontPanel.repaint();
         
