@@ -25,7 +25,7 @@ public class TrainController {
     public boolean lightStatus;
     public boolean brakeStatus;  
     public boolean conductorLight;
-    boolean eBrake;                 //true means engaged and false means disengaged
+    boolean eBrakeStatus;                 //true means engaged and false means disengaged
     boolean engineFailure;          //true means failed engine and false means okay
     boolean brakeFailure;           //true means failed brakes and false means okay
     boolean signalPickupFailure;    //true means failed antenna and false means okay
@@ -64,12 +64,8 @@ public class TrainController {
         lightStatus = false;
         brakeStatus = false; 
         conductorLight = false;
-        eBrake = false;                 //true means engaged and false means disengaged
-        engineFailure = false;          //true means failed engine and false means okay
-        brakeFailure = false;           //true means failed brakes and false means okay
-        signalPickupFailure = false;    //true means failed antenna and false means okay
-    
-        eBrake = false;                 //true means engaged and false means disengaged
+        eBrakeStatus = false;                 //true means engaged and false means disengaged
+             
         engineFailure = false;          //true means failed engine and false means okay
         brakeFailure = false;           //true means failed brakes and false means okay
         signalPickupFailure = false;    //true means failed antenna and false means okay
@@ -341,8 +337,8 @@ public class TrainController {
     }
     
     public void evaluateEbrake()
-    {
-        eBrake = train.eBrake;        
+    {      
+        eBrakeStatus = train.eBrake;        
     }
     
     public double getMboAuthority()

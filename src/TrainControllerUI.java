@@ -54,6 +54,9 @@ public class TrainControllerUI extends javax.swing.JPanel {
         powerOutputDisplay.setText(String.format("%.2f", TC.power/1000)  +" kW");
         speedLimitDisplay.setText(String.format("%.2f", convertToMPH(TC.speedLimit))  +" MPH");        
         inputSpeedSpinner.setValue(TC.controllerSpeedSetpoint);
+        
+        eBrakeDisplay.setText( (TC.brakeStatus) ? ("On") : ("Off") );
+        resetEbrakeButton.setVisible(TC.brakeStatus);
     }
     
     public double convertToMPH(double mps)
@@ -102,6 +105,8 @@ public class TrainControllerUI extends javax.swing.JPanel {
         jLabel19 = new javax.swing.JLabel();
         safeSpeedSetpointDisplay = new javax.swing.JTextField();
         failureMessageDisplay = new javax.swing.JTextField();
+        eBrakeDisplay = new javax.swing.JTextField();
+        resetEbrakeButton = new javax.swing.JButton();
 
         speedLimit4.setEditable(false);
 
@@ -213,6 +218,20 @@ public class TrainControllerUI extends javax.swing.JPanel {
 
         failureMessageDisplay.setEditable(false);
 
+        eBrakeDisplay.setEditable(false);
+        eBrakeDisplay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eBrakeDisplayActionPerformed(evt);
+            }
+        });
+
+        resetEbrakeButton.setText("RESET EBRAKE");
+        resetEbrakeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetEbrakeButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -272,10 +291,14 @@ public class TrainControllerUI extends javax.swing.JPanel {
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(inputSpeedSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jLabel4))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(eBrakeDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(inputDoorsButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(inputLightButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(inputBrakeButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(inputBrakeButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(resetEbrakeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel19)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -337,7 +360,11 @@ public class TrainControllerUI extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(inputBrakeButton)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(eBrakeDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(resetEbrakeButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -363,7 +390,7 @@ public class TrainControllerUI extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
                             .addComponent(failureMessageDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(14, 14, 14)
@@ -444,12 +471,25 @@ public class TrainControllerUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_nextStopDisplayActionPerformed
 
+    private void eBrakeDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eBrakeDisplayActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eBrakeDisplayActionPerformed
+
+    private void resetEbrakeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetEbrakeButtonActionPerformed
+        // TODO add your handling code here:
+        TC.eBrakeStatus = false;
+        TC.train.eBrake = false;
+        resetEbrakeButton.setVisible(false);
+       // TC.resetEbrake();
+    }//GEN-LAST:event_resetEbrakeButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTextField ctcSuggestedAuthority;
     public javax.swing.JTextField ctcSuggestedSpeed;
     public javax.swing.JTextField currentSpeedDisplay;
     private javax.swing.JTextField doorStatusDisplay;
+    private javax.swing.JTextField eBrakeDisplay;
     private javax.swing.JTextField failureMessageDisplay;
     private javax.swing.JToggleButton inputBrakeButton;
     private javax.swing.JToggleButton inputDoorsButton;
@@ -475,6 +515,7 @@ public class TrainControllerUI extends javax.swing.JPanel {
     public javax.swing.JTextField mboSpeedSetpoint;
     private javax.swing.JTextField nextStopDisplay;
     public javax.swing.JTextField powerOutputDisplay;
+    private javax.swing.JButton resetEbrakeButton;
     public javax.swing.JTextField safeSpeedSetpointDisplay;
     private javax.swing.JTextField speedLimit4;
     public javax.swing.JTextField speedLimitDisplay;

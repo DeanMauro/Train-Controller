@@ -166,8 +166,9 @@ class Wrapper {
                   trainController.get(i).setSpeedLimit(currentTrain.getSpeedLimit());
                   trainController.get(i).setMboAuthority(mbo.getbauth(i));
                   trainController.get(i).setMboSpeed(mbo.getbspeed(i));
-                  //trainController.get(i).evaluateLights(false);
-                  trainController.get(i).evaluateDoors(false);                
+                  trainController.get(i).evaluateLights(false);
+                  trainController.get(i).evaluateDoors(false);
+                  trainController.get(i).evaluateEbrake();
                   trainController.get(i).setNextStop( trackModelInterface.getTrackModel().getNextStationName(currentTrain.getID()));
                   if(trackModelInterface.getTrackModel().getBlockTrainIsOn(currentTrain.getID()).isStation())
                   {
