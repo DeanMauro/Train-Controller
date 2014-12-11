@@ -84,6 +84,7 @@ public class TrackModelInterface2 extends JFrame
 		// create buttons panel and set layout
                 JPanel buttons = new JPanel();
 		buttons.setLayout(new FlowLayout(FlowLayout.LEFT));
+                //buttons.setLayout(new GridLayout(0, 3));
 		
 		// fill buttons panel with components
 		JButton importTrack = new JButton("Import Track");
@@ -212,6 +213,44 @@ public class TrackModelInterface2 extends JFrame
   
 		});
                 buttons.add(deleteTrack);
+                final JTextField field = new JTextField(10);
+                buttons.add(field);
+                JButton failure1 = new JButton(" Broken Rail");
+                failure1.addActionListener(new ActionListener(){
+                        @Override
+			public void actionPerformed(ActionEvent e){
+                            int num = Integer.parseInt(field.getText());
+                            trackModel.setFailState(num);
+                            repaint();
+                        }
+  
+		});
+                buttons.add(failure1);
+                JButton failure2 = new JButton("Track Circuit Failure");
+                failure2.addActionListener(new ActionListener(){
+                        @Override
+			public void actionPerformed(ActionEvent e){
+                            int num = Integer.parseInt(field.getText());
+                            trackModel.setFailState(num);
+                            repaint();
+                            repaint();
+                        }
+  
+		});
+                buttons.add(failure2);
+                JButton failure3 = new JButton(" Power Failure");
+                failure3.addActionListener(new ActionListener(){
+                        @Override
+			public void actionPerformed(ActionEvent e){
+                            int num = Integer.parseInt(field.getText());
+                            trackModel.setFailState(num);
+                            repaint();
+                            repaint();
+                        }
+  
+		});
+                buttons.add(failure3);
+                //JButton deleteTrack = new JButton("Delete Track");
                 buttons.setPreferredSize(new Dimension(500, 100));
                 contentPane.add(buttons, BorderLayout.PAGE_END);
     
@@ -258,12 +297,26 @@ public class TrackModelInterface2 extends JFrame
 
                                // draw blocks
                                 g2d.setStroke(new BasicStroke(2f));
-                                //g2d.scale(1.75,1.75);
-                                //g2d.translate(-140, -100);
+                                if(trackModel.getNumBlocks() > 0)
+                                {
+                                    if(trackModel.getLineColor() == 0)//red
+                                    {
+                                        //g2d.scale(1.75,1.75);
+                                        //g2d.translate(-140, -100);
+                                    }
+                                    else
+                                    {
+                                        //g2d.translate(0, 10);
+                                    }
+                                }
                                 for(int i = 1; i< trackModel.getNumBlocks();i++)
                                 {
                                     Block b = trackModel.getTrackObject().getBlock(i);
-                                    if(b.isStation())
+                                    if(b.getFailState())
+                                    {
+                                        g2d.setColor(Color.YELLOW);
+                                    }
+                                    else if(b.isStation())
                                     {
                                         g2d.setColor(Color.BLUE);
                                     }
@@ -286,37 +339,28 @@ public class TrackModelInterface2 extends JFrame
                                 }
                                 
 				
-//                                int i = mTrackModel.
-//				for (TrackBlock b : mTrackModel.getTrackBlocks(TrackModel.LINE_RED))
-//				{
-//					if (b.mDrawOther)
-//						g.drawLine(b.mOtherX1, b.mOtherY1, b.mOtherX2, b.mOtherY2);
-//					else
-//						g.drawLine(b.mX1, b.mY1, b.mX2, b.mY2);
-//				}
-				
 				// if there is a selected object
 				if (mSelectedObject != null)
 				{
+                                    System.out.println("hey hey hey");
 					// cast graphics to graphics2d and set stroke
-					g2d.setStroke(new BasicStroke(3));
-					
-					// if the object is a track block
-//					if (mSelectedObject instanceof TrackBlock)
+//					g2d.setStroke(new BasicStroke(3));
+//					
+//					// if the object is a track block
+//					if (mSelectedObject instanceof Block)
 //					{
 //						// cast object to a track block
-//						TrackBlock b = (TrackBlock) mSelectedObject;
-//						
+//						Block b = (Block) mSelectedObject;
 //						// set color and draw line
-//						g2d.setColor(b.mPaintColor);
-//						g2d.drawLine(b.mX1, b.mY1, b.mX2, b.mY2);
+//						//g2d.setColor(b.mPaintColor);
+//						//g2d.drawLine(b.mX1, b.mY1, b.mX2, b.mY2);
 //						
 //						// enable failure mode buttons
 //						for (JButton button : mFailureModeButtons)
 //							button.setEnabled(true);
 //					}
-//					
-//					// else if the object is a track yard
+					
+					// else if the object is a track yard
 //					else if (mSelectedObject instanceof TrackYard)
 //					{
 //						// cast object to a track block
@@ -332,13 +376,13 @@ public class TrackModelInterface2 extends JFrame
 //					}
 				}
 //				
-//				// else there is no selected object
-//				else
-//				{
-//					// disable failure mode buttons
+				// else there is no selected object
+				else
+				{
+					// disable failure mode buttons
 //					for (JButton button : mFailureModeButtons)
 //						button.setEnabled(false);
-//				}
+				}
                         }
 		};
 		map.addMouseListener(new MouseListener(){
@@ -454,17 +498,8 @@ public class TrackModelInterface2 extends JFrame
 		setVisible(true);
 	}
         
-        /**
-     *
-     */
         public class TrackModel {
 
-        //    /**
-        //     * @param args the command line arguments
-        //     */
-        //    public static void main(String[] args) {
-        //        // TODO code application logic here
-        //    }
             TrackObject trackObject; 
             //blockList blockLinkList;
             double trainSpeed;
@@ -800,6 +835,46 @@ public class TrackModelInterface2 extends JFrame
                     }
                 }
                 return distance;
+            }
+            
+            //returns the next stations name
+            public String getNextStationName(int ID){
+                Block b;
+                if(getLineColor() == 0)
+                    b = trackObject.getBlock((int)trainDistRed[ID-1][2]);
+                else
+                    b = trackObject.getBlock((int)trainDistGreen[ID-1][2]);
+                Block s, next;
+                if(getLineColor() == 0)
+                    s =  trackObject.getBlock((int)trainDistRed[ID-1][2]);
+                else
+                    s =  trackObject.getBlock((int)trainDistGreen[ID-1][2]);
+                if(s.isStation())
+                {
+                    int a = s.getPrevBlockId();
+                    s =  trackObject.getBlock(a);
+                }
+                next = s;
+                while(true)
+                {
+                    if(next.isStation())
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        //System.out.println(next.getPrevBlockId());
+                        next = trackObject.getBlock(next.getPrevBlockId());
+                    }
+                }
+                
+                return next.getStationName();
+            }
+            
+            public void setFailState(int ID)
+            {
+                Block b = trackObject.getBlock(ID);
+                b.setFailState();
             }
         }
         

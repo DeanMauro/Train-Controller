@@ -38,6 +38,7 @@ public class Block {
 	private int signalState;
 	private int crossingSigState;
         public boolean twoFromStation;
+        public boolean failState;
 	
 	private boolean trainDetected;
 
@@ -445,4 +446,16 @@ public class Block {
             return twoFromStation;
         }
         
+        public void setFailState()
+        {
+            if(failState)
+                failState = false;
+            else
+                failState = true;
+        }
+        
+        public boolean getFailState()
+        {
+            return failState;
+        }
 }
