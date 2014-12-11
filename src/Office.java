@@ -1,4 +1,3 @@
-
 import java.util.LinkedList;
 import javax.swing.JFrame;
 
@@ -8,65 +7,98 @@ public class Office extends javax.swing.JPanel {
     private static boolean MovingOrFixed = false;
     protected LinkedList<Train> trainsOnTracks = new LinkedList<>();
 
-
+    
+    
+///////////////////////////
+    //Constructor
+///////////////////////////
     public Office() {
-    // <editor-fold defaultstate="collapsed" desc="Constructor">
         
         initComponents();
         TrainsScrollPane.getViewport().setOpaque(false);
         TrainsScrollPane.setBorder(null);
         
-        screenFrontPanel.add(new TrackModelInterface2());
+        //screenFrontPanel.add(new TrackModelInterface2());
         screenFrontPanel.revalidate();
         screenFrontPanel.repaint();
         
     }
-    // </editor-fold> 
 
+  
+    
+///////////////////////////
+    //Add Train
+///////////////////////////
     public void addTrain(int trainID){
-    // <editor-fold defaultstate="collapsed" desc="Add Train">
-        
         trainsOnTracks.add(new Train(trainID));
         innerPanel.add(trainsOnTracks.getLast());
         innerPanel.revalidate();
         innerPanel.repaint();
     }
-    // </editor-fold> 
     
+
+    
+///////////////////////////
+    //Remove Train
+///////////////////////////    
     public void removeTrain(int num){
-    // <editor-fold defaultstate="collapsed" desc="Remove Train"> 
-        
         innerPanel.remove(trainsOnTracks.removeLast());
         innerPanel.revalidate();
         innerPanel.repaint();
-    }// </editor-fold> 
+    }
+
+  
     
+///////////////////////////
+    //Suggest Authority
+///////////////////////////
     public double getSuggestedAuthority(int ID){
         return Train.getAuthority(trainsOnTracks.get(ID));
     }
+ 
     
+    
+///////////////////////////
+    //Suggest Speed
+///////////////////////////
     public double getSuggestedSpeed(int ID){
         return Train.getSpeed(trainsOnTracks.get(ID));
     }
+
     
+    
+///////////////////////////
+    //Reroute
+///////////////////////////
     public double getSuggestedPosition(int ID){
         return Train.getPosition(trainsOnTracks.get(ID));
     }
+ 
     
+    
+///////////////////////////
+    //Change to MB
+///////////////////////////
     public void setMovingBlock(){
-    // <editor-fold defaultstate="collapsed" desc="Moving Block"> 
         MovingOrFixed = true;
         radioMoving.setSelected(true);
     }
-    // </editor-fold> 
+ 
     
+    
+///////////////////////////
+    //Change to FB
+///////////////////////////
     public void setFixedBlock(){
-    // <editor-fold defaultstate="collapsed" desc="Fixed Block"> 
         MovingOrFixed = false;
         radioFixed.setSelected(true);
     }
-    // </editor-fold> 
-      
+
+    
+    
+///////////////////////////
+    //Main
+///////////////////////////
     public static void main(String args[]){
     // <editor-fold defaultstate="collapsed" desc="Main"> 
         
@@ -85,7 +117,9 @@ public class Office extends javax.swing.JPanel {
     
     
     
-    
+///////////////////////////
+    //Netbeans Code
+///////////////////////////   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
