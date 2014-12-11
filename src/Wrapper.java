@@ -16,9 +16,9 @@ class Wrapper {
         
         protected static ArrayList<ScheduleNode> schedule;
         protected static boolean fromMBO = false;
-        protected static boolean ctcAutoMode = true;
-        protected static double ctcManSpeed = 0;
-        protected static double ctcManAuth = 0;
+        protected static Vector<Boolean> manValuesSent = new Vector();
+        protected static Vector<Double> ctcManSpeed = new Vector();
+        protected static Vector<Double> ctcManAuth = new Vector();
         protected static int numStations = 0;
         protected static int timerDelay = 1000;
         protected static ActionListener ClockListener;
@@ -108,6 +108,7 @@ class Wrapper {
             
             
             
+            
 
            ClockListener = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -156,11 +157,6 @@ class Wrapper {
                   /*Update Office*/
                   Train.setSpeed(office.trainsOnTracks.get(i), currentTrain.getCurrentSpeed());
                   Train.setPosition(office.trainsOnTracks.get(i), currentTrain.getCurrentPosition());
-                  ctcAutoMode = Train.getAutoMode(office.trainsOnTracks.get(i));
-                  
-                  /*Update Train Controllers with new MBO Authorities*/
-                  //mbo.updateBlockAuthority(trackModelInterface.getTrackModel().getNextStationDistance(i));
-                  //mbo.updateBlockSpeed(trackModelInterface.getTrackModel().getCurrentBlock().getBlockSpeed);
 
                   Train.setAuthority(office.trainsOnTracks.get(i), mbo.getbauth(i));
 
@@ -171,13 +167,14 @@ class Wrapper {
                       distToStation = trackModelInterface.getTrackModel().getNextSpecificStationDistance(currentTrain.getID(), currentTrain.getNextStation());
                   }
                   
-                  if(ctcAutoMode){
+                  if(manValuesSent.get(i)){
+                    System.out.println("SPEED: " + ctcManSpeed.get(i)+"\n\n\n");
+                    trainController.get(i).setCtcAuthority(ctcManAuth.get(i));
+                    trainController.get(i).setCtcSpeed(ctcManSpeed.get(i));
+                  }else {
                     trainController.get(i).setCtcAuthority(distToStation);
                     ctcSpeed = Train.getSetRecommendedSpeed(office.trainsOnTracks.get(i), distToStation, 10);
                     trainController.get(i).setCtcSpeed(ctcSpeed);
-                  }else{
-                    trainController.get(i).setCtcAuthority(Math.min(ctcManAuth ,  distToStation));
-                    trainController.get(i).setCtcSpeed(Math.min(ctcManSpeed , Train.getSetRecommendedSpeed(office.trainsOnTracks.get(i), distToStation, 10)));
                   }
                   
                   trainController.get(i).setSpeedLimit(currentTrain.getSpeedLimit());
@@ -247,6 +244,10 @@ class Wrapper {
             trainControllerUI.addToTrainList(numberOfTrains, trainController.lastElement());
             //Display new train in Office
             office.addTrain(numberOfTrains);
+            addSpeedAndAuthorityListener(office.trainsOnTracks.getLast().buttonSend);
+            manValuesSent.add(false);
+            ctcManAuth.add(0.0);
+            ctcManSpeed.add(0.0);
             mbo.addTrain(numberOfTrains);
             
             trainModel.get(0)           .setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -269,6 +270,10 @@ class Wrapper {
             trainControllerUI.addToTrainList(numberOfTrains, trainController.lastElement());
             //Display new train in Office
             office.addTrain(numberOfTrains);
+            addSpeedAndAuthorityListener(office.trainsOnTracks.getLast().buttonSend);
+            manValuesSent.add(false);
+            ctcManAuth.add(0.0);
+            ctcManSpeed.add(0.0);
             mbo.addTrain(numberOfTrains);
             
             
@@ -344,13 +349,13 @@ class Wrapper {
                 public void actionPerformed(ActionEvent e)
                 {
                     int ID = Integer.parseInt(((JButton)e.getSource()).getActionCommand());
-                    ctcManAuth = office.getSuggestedAuthority(ID);
-                    ctcManSpeed = office.getSuggestedSpeed(ID);
+                    ctcManAuth.set(ID-1, Train.getInputAuthority(office.trainsOnTracks.get(ID-1)));
+                    ctcManSpeed.set(ID-1, Train.getInputSpeed(office.trainsOnTracks.get(ID-1)));
                     
-                    trainController.get(ID).setCtcAuthority(ctcManAuth);
-                    trainController.get(ID).setCtcSpeed(ctcManSpeed);
+                    trainController.get(ID-1).setCtcAuthority(ctcManAuth.get(ID-1));
+                    trainController.get(ID-1).setCtcSpeed(ctcManSpeed.get(ID-1));
                     
-                    ctcAutoMode = false;
+                    manValuesSent.set(ID-1, true);
                 }
             });
 

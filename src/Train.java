@@ -43,7 +43,8 @@ public class Train extends javax.swing.JPanel {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if(!tr.textRoute.getText().equals(""))
+                if(!tr.textRoute.getText().equals("")
+                   && !autoMode)
                     tr.buttonReroute.setEnabled(true);
                 else
                     tr.buttonReroute.setEnabled(false);
@@ -51,7 +52,8 @@ public class Train extends javax.swing.JPanel {
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                if(!tr.textRoute.getText().equals(""))
+                if(!tr.textRoute.getText().equals("")
+                   && !autoMode)
                     tr.buttonReroute.setEnabled(true);
                 else
                     tr.buttonReroute.setEnabled(false);
@@ -59,7 +61,8 @@ public class Train extends javax.swing.JPanel {
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                if(!tr.textRoute.getText().equals(""))
+                if(!tr.textRoute.getText().equals("")
+                   && !autoMode)
                     tr.buttonReroute.setEnabled(true);
                 else
                     tr.buttonReroute.setEnabled(false);
@@ -73,7 +76,8 @@ public class Train extends javax.swing.JPanel {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if(!tr.textSetSpeed.getText().equals("") && !tr.textSetAuthority.getText().equals(""))
+                if(!tr.textSetSpeed.getText().equals("") && !tr.textSetAuthority.getText().equals("")
+                   && !autoMode)
                     tr.buttonSend.setEnabled(true);
                 else
                     tr.buttonSend.setEnabled(false);
@@ -81,7 +85,8 @@ public class Train extends javax.swing.JPanel {
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                if(!tr.textSetSpeed.getText().equals("") && !tr.textSetAuthority.getText().equals(""))
+                if(!tr.textSetSpeed.getText().equals("") && !tr.textSetAuthority.getText().equals("")
+                   && !autoMode)
                     tr.buttonSend.setEnabled(true);
                 else
                     tr.buttonSend.setEnabled(false);
@@ -89,7 +94,8 @@ public class Train extends javax.swing.JPanel {
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                if(!tr.textSetSpeed.getText().equals("") && !tr.textSetAuthority.getText().equals(""))
+                if(!tr.textSetSpeed.getText().equals("") && !tr.textSetAuthority.getText().equals("")
+                   && !autoMode)
                     tr.buttonSend.setEnabled(true);
                 else
                     tr.buttonSend.setEnabled(false);
@@ -103,7 +109,8 @@ public class Train extends javax.swing.JPanel {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if(!tr.textSetSpeed.getText().equals("") && !tr.textSetAuthority.getText().equals(""))
+                if(!tr.textSetSpeed.getText().equals("") && !tr.textSetAuthority.getText().equals("")
+                   && !autoMode)
                     tr.buttonSend.setEnabled(true);
                 else
                     tr.buttonSend.setEnabled(false);
@@ -111,7 +118,8 @@ public class Train extends javax.swing.JPanel {
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                if(!tr.textSetSpeed.getText().equals("") && !tr.textSetAuthority.getText().equals(""))
+                if(!tr.textSetSpeed.getText().equals("") && !tr.textSetAuthority.getText().equals("")
+                   && !autoMode)
                     tr.buttonSend.setEnabled(true);
                 else
                     tr.buttonSend.setEnabled(false);
@@ -119,7 +127,8 @@ public class Train extends javax.swing.JPanel {
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                if(!tr.textSetSpeed.getText().equals("") && !tr.textSetAuthority.getText().equals(""))
+                if(!tr.textSetSpeed.getText().equals("") && !tr.textSetAuthority.getText().equals("")
+                   && !autoMode)
                     tr.buttonSend.setEnabled(true);
                 else
                     tr.buttonSend.setEnabled(false);
@@ -220,7 +229,15 @@ public class Train extends javax.swing.JPanel {
             t.textSetAuthority.setText(d0.format(3.28084 * distance) + " ft.");
         }
         
-        return t.recommendedSpeed;
+        return (t.recommendedSpeed / 2.23694);
+    }
+    
+    public static double getInputSpeed(Train t){
+        String[] speed;
+         speed = t.textSetSpeed.getText().split(" ", 2);
+        
+         t.recommendedSpeed = Double.parseDouble(speed[0]);
+        return (t.recommendedSpeed / 2.23694);
     }
 
     
@@ -228,7 +245,15 @@ public class Train extends javax.swing.JPanel {
     //Suggested Authority
 ///////////////////////////
     public static double getRecommendedAuthority(Train t){
-        return t.recommendedAuthority;
+        return t.recommendedAuthority / 3.28084;
+    }
+    
+    public static double getInputAuthority(Train t){
+        String[] auth;
+         auth = t.textSetAuthority.getText().split(" ", 2);
+        
+         t.recommendedAuthority = Double.parseDouble(auth[0]);
+        return (t.recommendedAuthority / 3.28084);
     }
 
     
