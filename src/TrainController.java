@@ -146,13 +146,11 @@ public class TrainController {
         velocitySetpoint = evaluateVelocity(vLimit);
         
         //trying this temporarily
-        velocitySetpoint = vLimit;
+        //velocitySetpoint = vLimit;
        
-        //check that setpoint is not greater than track speed limit or velocity limit
-       
+        //check that setpoint is not greater than track speed limit or velocity limit    
         
-       // tcUI.safeSpeedSetpointDisplay.setText(String.valueOf(velocitySetpoint));
-        
+      
         if(power < maxTrainPower)//if pcm < pmax
         {
              uk = uk + (T/2)*(ek + (velocitySetpoint - vAct));
@@ -175,9 +173,9 @@ public class TrainController {
         }
         else
         {
-            train.setPower(0);
-        }  */    
-       // tcUI.powerOutputDisplay.setText(String.format("%.2f", power));
+            train.setPower();
+        }  */  
+      
         
         //set power to kW to send to TrainModel
         //power = power/1000;
