@@ -53,9 +53,9 @@ class Wrapper {
 		
             //Make JFrames Visible
 	    officeFrame			.setVisible(true);
-            trackModelInterface		.setVisible(true);
             trainControllerFrame	.setVisible(true);
             mbo          		.setVisible(true);
+            trackModelInterface		.setVisible(true);
             
             
 		
@@ -75,7 +75,7 @@ class Wrapper {
 	private static void initialize(){
             
             
-		
+            /*Initialize modules*/
             office 		= new Office();
             trackModelInterface = new TrackModelInterface2();
             trainModel          = new Vector();
@@ -95,9 +95,6 @@ class Wrapper {
             addMovingListener(mbo.MovingBlockRadio);
             addFixedListener(mbo.FixedBlockRadio);
             
-            /*TrainModel Listeners*/
-            /*Train Controller Listeners*/
-        
             
             
 
@@ -118,29 +115,36 @@ class Wrapper {
               for(int i=0; i<numberOfTrains; i++){
                   currentTrain = trainModel.get(i);
                   
-                  /*Calculate Trains' new Speed, Acceleration, Positions*/
+                  /*Calculate Trains' new Speeds, Accelerations, Positions*/
                   currentTrain.update(totalSeconds);
-
-                  /*Update MBO, Office, and Track Model with new Train speeds*/
-                  mbo.updateSpeed(currentTrain.getCurrentSpeed());
+                  
+                  /*Update Track Model*/
                   trackModelInterface.getTrackModel().updateSpeed(currentTrain.getCurrentSpeed());
-                  Train.setSpeed(office.trainsOnTracks.get(i), currentTrain.getCurrentSpeed());
-
-                  /*Update MBO, Office, and Track Model with new Train positions*/
-                  mbo.updatePosition(currentTrain.getCurrentPosition());
                   trackModelInterface.getTrackModel().updatePosition(currentTrain.getCurrentPosition());
-                  Train.setPosition(office.trainsOnTracks.get(i), currentTrain.getCurrentPosition());
-
-                  /*Update Track Model with block for each Train ID*/
                   trackModelInterface.getTrackModel().updateTrainId(currentTrain.getID());
                   trackModelInterface.getTrackModel().findBlockID();
                   
-                  
-                  /*Update Train Controllers with new MBO Authorities*/
+                  /*Calculate Trains' block position*/
+                  currentTrain.updateBlockItems(trackModelInterface.getTrackModel().getBlockTrainIsOn(i+1));
+
+                  /*Update MBO*/
+                  mbo.updateSpeed(currentTrain.getCurrentSpeed());
+                  mbo.updatePosition(currentTrain.getCurrentPosition());
                   mbo.updateBlockAuthority(mbo.getbauth());
+                  
+                  /*Update Office*/
+                  Train.setSpeed(office.trainsOnTracks.get(i), currentTrain.getCurrentSpeed());
+                  Train.setPosition(office.trainsOnTracks.get(i), currentTrain.getCurrentPosition());
                   Train.setAuthority(office.trainsOnTracks.get(i), mbo.getbauth());
+
+                  /*Update Train Controllers*/
+                  trainController.get(i).setSpeedLimit(currentTrain.getSpeedLimit());
+                  trainController.get(i).setCtcAuthority(Train.getAuthority(office.trainsOnTracks.get(i)));
+                  trainController.get(i).setCtcSpeed(Train.getSpeed(office.trainsOnTracks.get(i)));
                   trainController.get(i).setMboAuthority(mbo.getbauth());
                   trainController.get(i).setMboSpeed(mbo.getbspeed());
+                  
+                  
               }
               
               //trackModelInterface.getTrackModel().redraw();
@@ -154,6 +158,8 @@ class Wrapper {
            timer = new Timer(timerDelay, ClockListener);
            
 	}
+        
+     
         
         
 /* * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -173,17 +179,21 @@ class Wrapper {
             office.addTrain(numberOfTrains);
             mbo.addTrain(numberOfTrains);
             
+            //Start the clock if it is not already running
             if(!timer.isRunning())
                 timer.start();
-            
-            //Train Controller: calculate power for first block
-            //Train Controller: send power to train
-            //Train Model: receive power
-            //Train Model: update fields (current block, target block, lights, etc)
         }
 	
+        
+        
+        
 /* * * * * * * * * * * * * * * * * * * * * * * * * *
  * TRACK CIRCUIT 
+ * These listeners are for all swing elements that
+ * the user can interact with, and which change
+ * values contained in other modules. They are down
+ * here because it is unnecessary to call their methods
+ * every clock tick and waste valuable time.
  * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 	
@@ -249,20 +259,8 @@ class Wrapper {
             });
 
 	}// </editor-fold> 
-	 
 
-	/////////////////////////////////
-	//TRACK MODEL LISTENERS
-	/////////////////////////////////
-	
-	/////////////////////////////////
-	//TRAIN MODEL LISTENERS
-	/////////////////////////////////
         
-	/////////////////////////////////
-	//TRAIN CONTROLLER LISTENERS
-	/////////////////////////////////
-	
 	/////////////////////////////////
 	//MBO LISTENERS
 	/////////////////////////////////

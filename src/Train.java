@@ -1,7 +1,10 @@
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import javax.swing.AbstractAction;
+import javax.swing.JCheckBox;
+import javax.swing.JRadioButton;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -110,6 +113,16 @@ public class Train extends javax.swing.JPanel {
             }
 
           });
+        
+        
+        t.checkAuto.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+                if(((JCheckBox)e.getSource()).isSelected()){
+                    
+                }
+            }
+        });
     }// </editor-fold>
     
     
@@ -194,6 +207,7 @@ public class Train extends javax.swing.JPanel {
             }
         });
         separator = new javax.swing.JSeparator();
+        checkAuto = new javax.swing.JCheckBox();
 
         setOpaque(false);
 
@@ -212,7 +226,7 @@ public class Train extends javax.swing.JPanel {
         );
         backPanelLayout.setVerticalGroup(
             backPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
+            .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
         );
 
         frontPanel.setOpaque(false);
@@ -255,14 +269,23 @@ public class Train extends javax.swing.JPanel {
         buttonReroute.setText("Reroute");
         buttonReroute.setEnabled(false);
 
+        checkAuto.setForeground(new java.awt.Color(204, 255, 204));
+        checkAuto.setSelected(true);
+        checkAuto.setText("Auto Mode");
+
         javax.swing.GroupLayout frontPanelLayout = new javax.swing.GroupLayout(frontPanel);
         frontPanel.setLayout(frontPanelLayout);
         frontPanelLayout.setHorizontalGroup(
             frontPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, frontPanelLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(buttonSend)
-                .addGap(34, 34, 34))
+                .addGroup(frontPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, frontPanelLayout.createSequentialGroup()
+                        .addComponent(buttonSend)
+                        .addGap(34, 34, 34))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, frontPanelLayout.createSequentialGroup()
+                        .addComponent(buttonReroute, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30))))
             .addGroup(frontPanelLayout.createSequentialGroup()
                 .addGroup(frontPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(frontPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -293,11 +316,11 @@ public class Train extends javax.swing.JPanel {
                                     .addComponent(textSpeed, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE))
                                 .addComponent(labelTrainNum))))
                     .addGroup(frontPanelLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(buttonReroute, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(frontPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(separator, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(separator, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(frontPanelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(checkAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         frontPanelLayout.setVerticalGroup(
@@ -333,7 +356,8 @@ public class Train extends javax.swing.JPanel {
                     .addComponent(textRoute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
                 .addComponent(buttonReroute)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(checkAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layeredPaneLayout = new javax.swing.GroupLayout(layeredPane);
@@ -354,7 +378,7 @@ public class Train extends javax.swing.JPanel {
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layeredPaneLayout.createSequentialGroup()
                     .addContainerGap(15, Short.MAX_VALUE)
                     .addComponent(frontPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(26, Short.MAX_VALUE)))
+                    .addContainerGap(17, Short.MAX_VALUE)))
         );
         layeredPane.setLayer(backPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
         layeredPane.setLayer(frontPanel, javax.swing.JLayeredPane.PALETTE_LAYER);
@@ -369,7 +393,7 @@ public class Train extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(layeredPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 38, Short.MAX_VALUE))
+                .addGap(0, 24, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -379,6 +403,7 @@ public class Train extends javax.swing.JPanel {
     protected javax.swing.JPanel backPanel;
     protected javax.swing.JButton buttonReroute;
     protected javax.swing.JButton buttonSend;
+    protected javax.swing.JCheckBox checkAuto;
     protected javax.swing.JPanel frontPanel;
     protected javax.swing.JLabel labelAuthority;
     protected javax.swing.JLabel labelPosition;

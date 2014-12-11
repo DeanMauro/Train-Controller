@@ -44,7 +44,7 @@ public class TrainControllerUI extends javax.swing.JPanel {
         trainIDList.add("Train " + String.valueOf(ID));
         
         trainSelect.setModel(new javax.swing.DefaultComboBoxModel(trainIDList.toArray()));  
-        TC = trainList.get(0);
+        TC = trainList.get(ID-1);
         updateFields();
     }
     
@@ -440,8 +440,10 @@ public class TrainControllerUI extends javax.swing.JPanel {
 
     private void inputBrakeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputBrakeButtonActionPerformed
 
-        inputBrake = inputBrakeButton.isSelected();
+        TC.brakeStatus = inputBrakeButton.isSelected();
         TC.evaluateBrake();
+        
+        
         /*if(inputBrake){
             inputBrakeButton.setText("RELEASE BRAKE");
         }

@@ -41,8 +41,8 @@ public class TrainController {
     //variables for power calculation       
     private double maxTrainDeceleration;
     private double maxTrainPower;
-    private final double KP = 1000;//proportional gain
-    private final double KI = 300;//integral gain
+    private final double KP = 200;//proportional gain
+    private final double KI = 50;//integral gain
     private double uk = 0; //integral error
     private double ek = 0;//proportional error
     private double T = 0.1;
@@ -175,7 +175,9 @@ public class TrainController {
         //decide what speed setpoint to use
         
         //trying this temporarily
-       velocitySetpoint = vLimit;
+       //velocitySetpoint = vLimit;
+        
+        velocitySetpoint = 10;
        
         //check that setpoint is not greater than track speed limit or velocity limit
         /*if(velocitySetpoint > Math.min(speedLimit, vLimit))

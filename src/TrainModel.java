@@ -7,6 +7,7 @@ public class TrainModel extends javax.swing.JFrame {
     String nextStation;
     String failure;
     
+    boolean blockClosed = false;
     boolean approachingStation = false;
     boolean atStation = false;              //true means at Station and false means not
     boolean underground = false;            //true means underground and false means not
@@ -42,11 +43,9 @@ public class TrainModel extends javax.swing.JFrame {
     double deltaT=1;            //Seconds
     double currentSpeedLimit;
     double blockSpeedLimit;
-    boolean isUnderGround;
-    boolean isStation;
     String stationName;
     double blockLength;
-    boolean isClosed;
+    
     
     
     int maxPassengers = 222;    //Train can hold no more than 222 passengers
@@ -76,12 +75,17 @@ public class TrainModel extends javax.swing.JFrame {
     }
     
     public void updateBlockItems(Block b){
-        blockSpeedLimit = b.getSpeedLimit();
-        isUnderGround = b.isUnderground();
-        isStation = b.isStation();
+        blockSpeedLimit = 0.277778 * b.getSpeedLimit();
+        underground = b.isUnderground();
+        atStation = b.isStation();
         stationName = b.getStationName();
         blockLength = b.getLength();
-        isClosed = b.isClosed();
+        blockClosed = b.isClosed();
+        
+        System.out.println("SPEED: "+ currentSpeed);
+        System.out.println("ACCEL: "+ currentAcceleration);
+        System.out.println("Power: "+ currentPower);
+        System.out.println("SPEED LIMIT: " + blockSpeedLimit);
     }
    
     
@@ -187,6 +191,9 @@ public class TrainModel extends javax.swing.JFrame {
         }
         if(currentSpeed > 19.44)            //Max speed can't
             currentSpeed = 19.44;           //exceed 19.44 m/s
+        else if(currentSpeed <= 0){         //Min speed can't
+            currentSpeed = 0;               //go below 0 m/s
+        }
     }
 
     public void calculatePosition(){
@@ -209,6 +216,10 @@ public class TrainModel extends javax.swing.JFrame {
     
     public int getID(){
         return ID;
+    }
+    
+    public double getSpeedLimit(){
+        return blockSpeedLimit;
     }
     
     
