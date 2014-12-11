@@ -403,20 +403,14 @@ public class TrainControllerUI extends javax.swing.JPanel {
         if(inputSpeed < 0){ //cannot set speed to be lower than 0
             inputSpeedSpinner.setValue(0);
         }
-        TC.setControllerSpeedSetpoint(inputSpeed);
-        /* if(TC.evaluateSpeed(inputSpeed)){
-            lastSafeSpeedInput = inputSpeed;
-        }
-        else{
-            inputSpeedSpinner.setValue(lastSafeSpeedInput);
-        }*/
+        TC.setControllerSpeedSetpoint(inputSpeed);        
     }//GEN-LAST:event_inputSpeedSpinnerStateChanged
 
     private void inputDoorsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputDoorsButtonActionPerformed
 
         inputDoors = inputDoorsButton.isSelected();
         TC.evaluateDoors(true);
-        if(inputDoors){
+        if(TC.doorStatus){
             inputDoorsButton.setText("CLOSE DOORS");
             doorStatusDisplay.setText("Open");
         }
@@ -430,7 +424,7 @@ public class TrainControllerUI extends javax.swing.JPanel {
 
         inputLights = inputLightButton.isSelected();
         TC.evaluateLights(true);
-        if(inputLights){
+        if(TC.lightStatus){
             inputLightButton.setText("TURN LIGHTS OFF");
             lightStatusDisplay.setText("On");
         }
@@ -444,12 +438,12 @@ public class TrainControllerUI extends javax.swing.JPanel {
 
         inputBrake = inputBrakeButton.isSelected();
         TC.evaluateBrake();
-        if(inputBrake){
+        /*if(inputBrake){
             inputBrakeButton.setText("RELEASE BRAKE");
         }
         else{
             inputBrakeButton.setText("SET BRAKE");
-        }
+        }*/
     }//GEN-LAST:event_inputBrakeButtonActionPerformed
 
     private void trainSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trainSelectActionPerformed
