@@ -137,7 +137,8 @@ class Wrapper {
                   
                   
                   /*Update Train Controllers with new MBO Authorities*/
-                  mbo.updateBlockAuthority(mbo.getbauth());
+                  mbo.updateBlockAuthority(trackModelInterface.getTrackModel().getNextStationDistance(i));
+                  mbo.updateBlockSpeed(trackModelInterface.getTrackModel().getCurrentBlock().getBlockSpeed);
                   Train.setAuthority(office.trainsOnTracks.get(i), mbo.getbauth());
                   trainController.get(i).setMboAuthority(mbo.getbauth());
                   trainController.get(i).setMboSpeed(mbo.getbspeed());
