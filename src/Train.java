@@ -17,6 +17,10 @@ public class Train extends javax.swing.JPanel {
     int stationNum = 0;
     boolean autoMode = true;
 
+    
+///////////////////////////
+    //Constructor
+///////////////////////////
     public Train(int numTrain) {
         initComponents();
         labelTrainNum.setText("Train "+numTrain);
@@ -26,6 +30,11 @@ public class Train extends javax.swing.JPanel {
         addListeners(this);
     }
 
+    
+    
+///////////////////////////
+    //Swing Listeners
+///////////////////////////
     private void addListeners(Train t){
     // <editor-fold defaultstate="collapsed" desc="Add Listeners">
         final Train tr = t;
@@ -136,49 +145,70 @@ public class Train extends javax.swing.JPanel {
             }
         });
     }// </editor-fold>
+ 
     
+    
+///////////////////////////
+    //Actual Speed
+///////////////////////////
     public static void setSpeed(Train t, double speed){
-    // <editor-fold defaultstate="collapsed" desc="Set Speed">
         t.textSpeed.setText(d1.format(speed * 2.23694) + " mph");
-    }// </editor-fold> 
+    }
+
     
+///////////////////////////
+    //Actual Authority
+///////////////////////////
     public static void setAuthority(Train t, double auth){
-    // <editor-fold defaultstate="collapsed" desc="Set Authority">
         t.textAuthority.setText(d0.format(auth * 3.28084) + " ft.");
-    }// </editor-fold> 
-    
+    }
+ 
+     
+///////////////////////////
+    //Actual Position
+///////////////////////////
     public static void setPosition(Train t, double pos){
-    // <editor-fold defaultstate="collapsed" desc="Set Position">
         t.textPosition.setText(d1.format(pos * 3.28084) + " ft.");
-    }// </editor-fold> 
+    }
+
     
+///////////////////////////
+    //Return Actual Speed
+///////////////////////////
     public static double getSpeed(Train t){
-    // <editor-fold defaultstate="collapsed" desc="Get Speed">
         String[] speed;
         speed = t.textSpeed.getText().split(" ", 2);
         
         return 0.44704 * Double.parseDouble(speed[0]);  //Send m/s
     }
-    // </editor-fold> 
+
     
+///////////////////////////
+    //Return Actual Auth
+///////////////////////////
     public static double getAuthority(Train t){
-    // <editor-fold defaultstate="collapsed" desc="Get Authority">
         String[] authority;
         authority = t.textAuthority.getText().split(" ", 2);
         
         return 0.3048 * Double.parseDouble(authority[0]);  //Send meters
-    }// </editor-fold> 
+    }
+
     
+///////////////////////////
+    //Return Actual Position
+///////////////////////////
     public static double getPosition(Train t){
-    // <editor-fold defaultstate="collapsed" desc="Get Position">
         String[] position;
         position = t.textPosition.getText().split(" ", 2);
         
         return Double.parseDouble(position[0]);
-    }// </editor-fold> 
+    }
+ 
     
+///////////////////////////
+    //Suggested Speed
+///////////////////////////
     public static double getSetRecommendedSpeed(Train t, double distance, double time){
-    // <editor-fold defaultstate="collapsed" desc="Recommend Speed">
         t.recommendedSpeed = (distance / time);
         t.recommendedAuthority = distance;
         
@@ -188,12 +218,21 @@ public class Train extends javax.swing.JPanel {
         }
         
         return t.recommendedSpeed;
-    }// </editor-fold>
+    }
+
     
+///////////////////////////
+    //Suggested Authority
+///////////////////////////
     public static double getRecommendedAuthority(Train t){
         return t.recommendedAuthority;
     }
+
     
+    
+///////////////////////////
+    //Current Station
+///////////////////////////
     public int getStationNum(){
         return stationNum;
     }
@@ -203,7 +242,9 @@ public class Train extends javax.swing.JPanel {
     
     
 
-
+///////////////////////////
+    //Netbeans Code
+///////////////////////////
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
