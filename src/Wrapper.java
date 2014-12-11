@@ -128,8 +128,8 @@ class Wrapper {
                   /*Update MBO*/
                   mbo.updateSpeed(currentTrain.getCurrentSpeed());
                   mbo.updatePosition(currentTrain.getCurrentPosition());
-                  mbo.updateBlockAuthority(mbo.getbauth());
-                  
+                  mbo.updateBlockAuthority(trackModelInterface.getTrackModel().getNextStationDistance(currentTrain.getID()), i);
+                  mbo.updateBlockSpeed(trackModelInterface.getTrackModel().getBlockTrainIsOn(currentTrain.getID()).getSpeedLimit(),i);
                   /*Update Office*/
                   Train.setSpeed(office.trainsOnTracks.get(i), currentTrain.getCurrentSpeed());
                   Train.setPosition(office.trainsOnTracks.get(i), currentTrain.getCurrentPosition());
@@ -138,14 +138,14 @@ class Wrapper {
                   //mbo.updateBlockAuthority(trackModelInterface.getTrackModel().getNextStationDistance(i));
                   //mbo.updateBlockSpeed(trackModelInterface.getTrackModel().getCurrentBlock().getBlockSpeed);
 
-                  Train.setAuthority(office.trainsOnTracks.get(i), mbo.getbauth());
+                  Train.setAuthority(office.trainsOnTracks.get(i), mbo.getbauth(i));
 
                   /*Update Train Controllers*/
                   trainController.get(i).setSpeedLimit(currentTrain.getSpeedLimit());
                   trainController.get(i).setCtcAuthority(Train.getAuthority(office.trainsOnTracks.get(i)));
                   trainController.get(i).setCtcSpeed(Train.getSpeed(office.trainsOnTracks.get(i)));
-                  trainController.get(i).setMboAuthority(mbo.getbauth());
-                  trainController.get(i).setMboSpeed(mbo.getbspeed());
+                  trainController.get(i).setMboAuthority(mbo.getbauth(i));
+                  trainController.get(i).setMboSpeed(mbo.getbspeed(i));
                   
                   
               }
