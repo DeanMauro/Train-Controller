@@ -12,6 +12,7 @@ class Wrapper {
 	protected static Vector<TrainController> trainController;
         protected static TrainControllerUI trainControllerUI;
 	protected static MovingBlockOverlayUI mbo;
+        protected static McDsAd ad;
         
         protected static ArrayList<ScheduleNode> schedule;
         protected static boolean fromMBO = false;
@@ -24,6 +25,8 @@ class Wrapper {
         protected static Timer timer;
         
         protected static int numberOfTrains = 0;
+        
+        protected static Random randomGen = new Random();
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * *
  * MAIN 
@@ -82,6 +85,7 @@ class Wrapper {
             trainController     = new Vector();
             trainControllerUI   = new TrainControllerUI();
             mbo 		= new MovingBlockOverlayUI();
+            ad                  = new McDsAd();
 
             /*Office Listeners*/
             addIncreaseClockSpeedListener(office.buttonIncreaseClockSpeed);
@@ -166,8 +170,21 @@ class Wrapper {
                   trainController.get(i).evaluateDoors(false);                
                   trainController.get(i).setNextStop( trackModelInterface.getTrackModel().getNextStationName(currentTrain.getID()));
                   if(trackModelInterface.getTrackModel().getBlockTrainIsOn(currentTrain.getID()).isStation())
-                      System.out.println("advertisement");
-                  
+                  {
+                      int rand = randomGen.nextInt(3);
+                      if(rand == 0){
+                          ad.setAdToMcDs();
+                          ad.setVisible(true);
+                      }
+                      if(rand == 1){
+                          ad.setAdToPitt();
+                          ad.setVisible(true);
+                      }
+                      if(rand == 2){
+                          ad.setAdToTaco();
+                          ad.setVisible(true);
+                      }
+                  }
                   
               }
               
