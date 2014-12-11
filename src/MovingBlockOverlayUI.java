@@ -6,14 +6,14 @@ import java.util.*;
  * @author jom84
  */
 public class MovingBlockOverlayUI extends javax.swing.JFrame {
-    ArrayList<TrainModel> trains = new ArrayList();
-    //ArrayList<Operator> operators = new ArrayList();
+    TrainModel curr_train;
+    Vector<TrainModel> trains = new Vector();
     ArrayList<Double> safe_speeds;
     ArrayList<Double> safe_auths;
     double speed = 0;
     double location = 0;
     double bspeed = 0;
-    double bauth = 5000;
+    double bauth = 0;
     double deceleration = -25;
     int mode = 1;
     ArrayList<ScheduleNode> schedule = new ArrayList();
@@ -22,6 +22,34 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
      */
     public MovingBlockOverlayUI() {
         initComponents();
+    }
+    
+    public double getbauth(){
+        return bauth;
+    }
+    
+    public double getbspeed(){
+        return bspeed;
+    }
+    
+    public void updateSpeed(double s){
+        speed = s;
+        updateDisplay();
+    }
+    
+    public void updatePosition(double p){
+        location = p;
+        updateDisplay();
+    }
+    
+    public void updateBlockSpeed(double s){
+        bspeed = s;
+        updateDisplay();
+    }
+    
+    public void updateBlockAuthority(double a){
+        bauth = a;
+        updateDisplay();
     }
 
     /**
@@ -37,23 +65,7 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         ControlMode = new javax.swing.ButtonGroup();
         buttonGroup1 = new javax.swing.ButtonGroup();
         PassengerPanel = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        ShadyText = new javax.swing.JTextField();
-        HerronText = new javax.swing.JTextField();
-        SwissText = new javax.swing.JTextField();
-        PennText = new javax.swing.JTextField();
-        SteelText = new javax.swing.JTextField();
-        FirstText = new javax.swing.JTextField();
-        StationText = new javax.swing.JTextField();
-        SouthText = new javax.swing.JTextField();
         TotalText = new javax.swing.JTextField();
         TrainList = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
@@ -74,28 +86,50 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         MovingBlockDisplay = new javax.swing.JTextField();
         FixedBlockDisplay = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
-        jLabel37 = new javax.swing.JLabel();
-        jLabel38 = new javax.swing.JLabel();
-        ShadyScheduleBox = new javax.swing.JTextField();
-        HerronScheduleBox = new javax.swing.JTextField();
-        SwissScheduleBox = new javax.swing.JTextField();
-        PennScheduleBox = new javax.swing.JTextField();
-        SteelScheduleBox = new javax.swing.JTextField();
-        FirstScheduleBox = new javax.swing.JTextField();
-        StationScheduleBox = new javax.swing.JTextField();
-        SouthScheduleBox = new javax.swing.JTextField();
-        jLabel39 = new javax.swing.JLabel();
-        StartScheduleBox = new javax.swing.JTextField();
+        sLabel9 = new javax.swing.JLabel();
+        sLabel10 = new javax.swing.JLabel();
+        sLabel11 = new javax.swing.JLabel();
+        sLabel12 = new javax.swing.JLabel();
+        sLabel13 = new javax.swing.JLabel();
+        sLabel14 = new javax.swing.JLabel();
+        sLabel15 = new javax.swing.JLabel();
+        sLabel16 = new javax.swing.JLabel();
+        sBox1 = new javax.swing.JTextField();
+        sBox2 = new javax.swing.JTextField();
+        sBox3 = new javax.swing.JTextField();
+        sBox4 = new javax.swing.JTextField();
+        sBox5 = new javax.swing.JTextField();
+        sBox6 = new javax.swing.JTextField();
+        sBox7 = new javax.swing.JTextField();
+        sBox8 = new javax.swing.JTextField();
+        sLabel17 = new javax.swing.JLabel();
         NewScheduleButton = new javax.swing.JButton();
         ViewScheduleButton = new javax.swing.JButton();
         AddScheduleButton = new javax.swing.JButton();
         StartButton = new javax.swing.JButton();
+        LineSelectBox = new javax.swing.JComboBox();
+        jLabel16 = new javax.swing.JLabel();
+        sLabel8 = new javax.swing.JLabel();
+        sLabel7 = new javax.swing.JLabel();
+        sLabel6 = new javax.swing.JLabel();
+        sLabel5 = new javax.swing.JLabel();
+        sLabel4 = new javax.swing.JLabel();
+        sLabel3 = new javax.swing.JLabel();
+        sLabel2 = new javax.swing.JLabel();
+        sLabel1 = new javax.swing.JLabel();
+        sLabel18 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        StartTimeBox = new javax.swing.JTextField();
+        sBox9 = new javax.swing.JTextField();
+        sBox10 = new javax.swing.JTextField();
+        sBox11 = new javax.swing.JTextField();
+        sBox12 = new javax.swing.JTextField();
+        sBox13 = new javax.swing.JTextField();
+        sBox14 = new javax.swing.JTextField();
+        sBox15 = new javax.swing.JTextField();
+        sBox16 = new javax.swing.JTextField();
+        sBox17 = new javax.swing.JTextField();
+        sBox18 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         MovingBlockRadio = new javax.swing.JRadioButton();
         FixedBlockRadio = new javax.swing.JRadioButton();
@@ -112,98 +146,11 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         PassengerPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Passenger Movement", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 102, 255))); // NOI18N
 
-        jLabel2.setText("Shadyside");
-
-        jLabel3.setText("Herron Ave");
-
-        jLabel4.setText("Swissville");
-
-        jLabel5.setText("Penn Station");
-
-        jLabel6.setText("Steel Plaza");
-
-        jLabel7.setText("First Avenue");
-
-        jLabel8.setText("Station Square");
-
-        jLabel9.setText("South Hills Junction");
-
         jLabel10.setText("Passengers Currently Onboard:");
-
-        ShadyText.setEditable(false);
-        ShadyText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        ShadyText.setText("On: 0\tOff: 0");
-        ShadyText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ShadyTextActionPerformed(evt);
-            }
-        });
-
-        HerronText.setEditable(false);
-        HerronText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        HerronText.setText("On: 0\tOff: 0");
-        HerronText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HerronTextActionPerformed(evt);
-            }
-        });
-
-        SwissText.setEditable(false);
-        SwissText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        SwissText.setText("On: 0\tOff: 0");
-        SwissText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SwissTextActionPerformed(evt);
-            }
-        });
-
-        PennText.setEditable(false);
-        PennText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        PennText.setText("On: 0\tOff: 0");
-        PennText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PennTextActionPerformed(evt);
-            }
-        });
-
-        SteelText.setEditable(false);
-        SteelText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        SteelText.setText("On: 0\tOff: 0");
-        SteelText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SteelTextActionPerformed(evt);
-            }
-        });
-
-        FirstText.setEditable(false);
-        FirstText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        FirstText.setText("On: 0\tOff: 0");
-        FirstText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FirstTextActionPerformed(evt);
-            }
-        });
-
-        StationText.setEditable(false);
-        StationText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        StationText.setText("On: 0\tOff: 0");
-        StationText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                StationTextActionPerformed(evt);
-            }
-        });
-
-        SouthText.setEditable(false);
-        SouthText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        SouthText.setText("On: 0\tOff: 0");
-        SouthText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SouthTextActionPerformed(evt);
-            }
-        });
 
         TotalText.setEditable(false);
         TotalText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -219,95 +166,30 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         PassengerPanelLayout.setHorizontalGroup(
             PassengerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PassengerPanelLayout.createSequentialGroup()
-                .addGroup(PassengerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PassengerPanelLayout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(jLabel7))
-                    .addGroup(PassengerPanelLayout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addComponent(jLabel8))
-                    .addGroup(PassengerPanelLayout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(jLabel9))
-                    .addGroup(PassengerPanelLayout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(jLabel4))
-                    .addGroup(PassengerPanelLayout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(jLabel2))
-                    .addGroup(PassengerPanelLayout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addComponent(jLabel3))
-                    .addGroup(PassengerPanelLayout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(jLabel5))
-                    .addGroup(PassengerPanelLayout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(jLabel6))
-                    .addGroup(PassengerPanelLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(PassengerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel10)
-                            .addGroup(PassengerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(HerronText, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(ShadyText, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(SwissText, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(PennText, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(SteelText, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(FirstText, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(StationText, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(SouthText, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(PassengerPanelLayout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(TotalText, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(PassengerPanelLayout.createSequentialGroup()
+                .addGap(68, 68, 68)
+                .addComponent(TotalText, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PassengerPanelLayout.setVerticalGroup(
             PassengerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PassengerPanelLayout.createSequentialGroup()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ShadyText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(HerronText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SwissText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PennText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SteelText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FirstText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(StationText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SouthText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap()
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TotalText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(TotalText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         TrainList.setMaximumRowCount(32);
- /*       TrainList.addActionListener(new java.awt.event.ActionListener() {
+        TrainList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TrainListActionPerformed(evt);
             }
-        }); */
+        });
 
         jLabel1.setText("Select Train:");
 
@@ -439,35 +321,44 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Train Scheduler", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 102, 255))); // NOI18N
 
-        jLabel19.setText("Shady:");
+        sLabel9.setForeground(new java.awt.Color(240, 240, 240));
+        sLabel9.setText("Glenbury:");
 
-        jLabel20.setText("Herron:");
+        sLabel10.setForeground(new java.awt.Color(240, 240, 240));
+        sLabel10.setText("Dormont:");
 
-        jLabel33.setText("Swiss:");
+        sLabel11.setForeground(new java.awt.Color(240, 240, 240));
+        sLabel11.setText("Lebanon:");
 
-        jLabel34.setText("Penn:");
+        sLabel12.setForeground(new java.awt.Color(240, 240, 240));
+        sLabel12.setText("Poplar:");
 
-        jLabel35.setText("Steel:");
+        sLabel13.setForeground(new java.awt.Color(240, 240, 240));
+        sLabel13.setText("Shannon:");
 
-        jLabel36.setText("First:");
+        sLabel14.setForeground(new java.awt.Color(240, 240, 240));
+        sLabel14.setText("Dormont:");
 
-        jLabel37.setText("Station:");
+        sLabel15.setForeground(new java.awt.Color(240, 240, 240));
+        sLabel15.setText("Glenbury:");
 
-        jLabel38.setText("South:");
+        sLabel16.setForeground(new java.awt.Color(240, 240, 240));
+        sLabel16.setText("Overbrook:");
 
-        HerronScheduleBox.addActionListener(new java.awt.event.ActionListener() {
+        sBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HerronScheduleBoxActionPerformed(evt);
+                sBox2ActionPerformed(evt);
             }
         });
 
-        FirstScheduleBox.addActionListener(new java.awt.event.ActionListener() {
+        sBox6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FirstScheduleBoxActionPerformed(evt);
+                sBox6ActionPerformed(evt);
             }
         });
 
-        jLabel39.setText("Start Time:");
+        sLabel17.setForeground(new java.awt.Color(240, 240, 240));
+        sLabel17.setText("Inglewood:");
 
         NewScheduleButton.setText("Make New Schedule");
         NewScheduleButton.addActionListener(new java.awt.event.ActionListener() {
@@ -492,98 +383,264 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
 
         StartButton.setText("Start");
 
+        LineSelectBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Red", "Green" }));
+        LineSelectBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LineSelectBoxActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setText("Line:");
+
+        sLabel8.setText("South:");
+
+        sLabel7.setText("Station:");
+
+        sLabel6.setText("First:");
+
+        sLabel5.setText("Steel:");
+
+        sLabel4.setText("Penn:");
+
+        sLabel3.setText("Swiss:");
+
+        sLabel2.setText("Herron:");
+
+        sLabel1.setText("Shady:");
+
+        sLabel18.setForeground(new java.awt.Color(240, 240, 240));
+        sLabel18.setText("Central:");
+
+        jLabel18.setText("Start Time:");
+
+        StartTimeBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StartTimeBoxActionPerformed(evt);
+            }
+        });
+
+        sBox9.setEditable(false);
+
+        sBox10.setEditable(false);
+
+        sBox11.setEditable(false);
+        sBox11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sBox11ActionPerformed(evt);
+            }
+        });
+
+        sBox12.setEditable(false);
+
+        sBox13.setEditable(false);
+
+        sBox14.setEditable(false);
+
+        sBox15.setEditable(false);
+        sBox15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sBox15ActionPerformed(evt);
+            }
+        });
+
+        sBox16.setEditable(false);
+
+        sBox17.setEditable(false);
+
+        sBox18.setEditable(false);
+        sBox18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sBox18ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ViewScheduleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(AddScheduleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(StartButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel35)
-                                .addComponent(jLabel34)
-                                .addComponent(jLabel33)
-                                .addComponent(jLabel20)
-                                .addComponent(jLabel19)
-                                .addComponent(jLabel36)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel38, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(sLabel2)
+                            .addComponent(sLabel3)
+                            .addComponent(sLabel4)
+                            .addComponent(sLabel5)
+                            .addComponent(sLabel6)
+                            .addComponent(sLabel7)
+                            .addComponent(sLabel8)
+                            .addComponent(sLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel18))
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addComponent(jLabel37)
-                                        .addGap(24, 24, 24))))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(StationScheduleBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
-                                .addComponent(FirstScheduleBox, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(SouthScheduleBox)
-                                .addComponent(SteelScheduleBox)
-                                .addComponent(PennScheduleBox)
-                                .addComponent(SwissScheduleBox)
-                                .addComponent(HerronScheduleBox)
-                                .addComponent(ShadyScheduleBox)))
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                            .addComponent(jLabel39)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(StartScheduleBox, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)))
-                    .addComponent(NewScheduleButton))
-                .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(sBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(sLabel11))
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(sBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(sLabel10))
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(sBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(sLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(sBox7, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(sLabel15))
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(sBox6, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(sLabel14))
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(sBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(sLabel13))
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(sBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(sLabel9))
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(sBox8, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(sLabel17)
+                                            .addComponent(sLabel16)
+                                            .addComponent(sLabel18))))
+                                .addGap(0, 32, Short.MAX_VALUE)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(sBox9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(sBox10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(sBox11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(sBox12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(sBox13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(sBox14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(sBox15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(sBox16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(sBox17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(StartTimeBox, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(LineSelectBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(sBox18, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(AddScheduleButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(NewScheduleButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ViewScheduleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(StartButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel19)
-                    .addComponent(ShadyScheduleBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(LineSelectBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sLabel1)
+                            .addComponent(sLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sLabel2)
+                            .addComponent(sLabel10))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sLabel4))
+                        .addGap(9, 9, 9)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sLabel8)))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(sBox9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sBox10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sBox11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sLabel11))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sBox12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sBox13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sLabel13))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sBox14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sLabel14))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sBox15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sLabel15))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sBox16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sLabel16))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sBox17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sLabel17))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel20)
-                    .addComponent(HerronScheduleBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel33)
-                    .addComponent(SwissScheduleBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel34)
-                    .addComponent(PennScheduleBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel35)
-                    .addComponent(SteelScheduleBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel36)
-                    .addComponent(FirstScheduleBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel37)
-                    .addComponent(StationScheduleBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel38)
-                    .addComponent(SouthScheduleBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel39)
-                    .addComponent(StartScheduleBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sBox18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sLabel18))
                 .addGap(18, 18, 18)
-                .addComponent(NewScheduleButton)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(StartTimeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(NewScheduleButton)
+                    .addComponent(ViewScheduleButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ViewScheduleButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(AddScheduleButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(StartButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(AddScheduleButton)
+                    .addComponent(StartButton)))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Block Control Mode", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 102, 255))); // NOI18N
 
         ControlMode.add(MovingBlockRadio);
+        MovingBlockRadio.setSelected(true);
         MovingBlockRadio.setText("Moving Block");
         MovingBlockRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -592,7 +649,6 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         });
 
         ControlMode.add(FixedBlockRadio);
-        FixedBlockRadio.setSelected(true);
         FixedBlockRadio.setText("Fixed Block");
         FixedBlockRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -629,82 +685,44 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(PassengerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(InfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ControlPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(13, 13, 13)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(TrainList, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(TrainList, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(71, 71, 71))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(PassengerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ControlPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(InfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TrainList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(PassengerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TrainList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(PassengerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(InfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ControlPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(89, 89, 89))))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 11, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void ShadyTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShadyTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ShadyTextActionPerformed
-
-    private void HerronTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HerronTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_HerronTextActionPerformed
-
-    private void SwissTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SwissTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SwissTextActionPerformed
-
-    private void PennTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PennTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PennTextActionPerformed
-
-    private void SteelTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SteelTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SteelTextActionPerformed
-
-    private void FirstTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FirstTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FirstTextActionPerformed
-
-    private void StationTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StationTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_StationTextActionPerformed
-
-    private void SouthTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SouthTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SouthTextActionPerformed
-
-    private void TotalTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TotalTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TotalTextActionPerformed
 
     private void TrainSpeedFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrainSpeedFieldActionPerformed
         // TODO add your handling code here:
@@ -714,16 +732,16 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_SpeedVarianceFieldActionPerformed
 
-   /* private void TrainListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrainListActionPerformed
-        String new_label = (String)TrainList.getSelectedItem();
+    private void TrainListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrainListActionPerformed
+        /*String new_label = (String)TrainList.getSelectedItem();
         TrainList.setSelectedItem(new_label);
         
         int index = Integer.parseInt(new_label)-1;
         MBOTrain train_to_show = trains.get(index);
         //curr_train = train_to_show;
         
-        updateDisplay();
-    }//GEN-LAST:event_TrainListActionPerformed*/
+        updateDisplay();*/
+    }//GEN-LAST:event_TrainListActionPerformed
 
     private void MovingBlockRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MovingBlockRadioActionPerformed
         MovingBlockDisplay.setBackground(Color.GREEN);
@@ -739,94 +757,348 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         updateDisplay();
     }//GEN-LAST:event_FixedBlockRadioActionPerformed
 
-    private void HerronScheduleBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HerronScheduleBoxActionPerformed
+    private void BlockSpeedFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlockSpeedFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_HerronScheduleBoxActionPerformed
+    }//GEN-LAST:event_BlockSpeedFieldActionPerformed
 
-    private void NewScheduleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewScheduleButtonActionPerformed
-        schedule = new ArrayList();
-        double start_time = Double.parseDouble(StartScheduleBox.getText());
-        double time_Shady = Double.parseDouble(ShadyScheduleBox.getText());
-        double time_to_add = start_time + time_Shady;
-        ScheduleNode node_to_add = new ScheduleNode("Shady",time_to_add);
-        schedule.add(node_to_add);
-        double time_Herron = Double.parseDouble(HerronScheduleBox.getText());
-        time_to_add += time_Herron;
-        node_to_add = new ScheduleNode("Herron",time_to_add);
-        schedule.add(node_to_add);
-        double time_Swiss = Double.parseDouble(SwissScheduleBox.getText());
-        time_to_add += time_Swiss;
-        node_to_add = new ScheduleNode("Swiss",time_to_add);
-        schedule.add(node_to_add);
-        double time_Penn = Double.parseDouble(PennScheduleBox.getText());
-        time_to_add += time_Penn;
-        node_to_add = new ScheduleNode("Penn",time_to_add);
-        schedule.add(node_to_add);
-        double time_Steel = Double.parseDouble(SteelScheduleBox.getText());
-        time_to_add += time_Steel;
-        node_to_add = new ScheduleNode("Steel",time_to_add);
-        schedule.add(node_to_add);
-        double time_First = Double.parseDouble(FirstScheduleBox.getText());
-        time_to_add += time_First;
-        node_to_add = new ScheduleNode("First",time_to_add);
-        schedule.add(node_to_add);
-        double time_Station = Double.parseDouble(StationScheduleBox.getText());
-        time_to_add += time_Station;
-        node_to_add = new ScheduleNode("Station",time_to_add);
-        schedule.add(node_to_add);
-        double time_South = Double.parseDouble(SouthScheduleBox.getText());
-        time_to_add += time_South;
-        node_to_add = new ScheduleNode("South",time_to_add);
-        schedule.add(node_to_add);
-    }//GEN-LAST:event_NewScheduleButtonActionPerformed
+    private void AddScheduleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddScheduleButtonActionPerformed
+        String line = (String)LineSelectBox.getSelectedItem();
+        if(line.equals("Red")){
+            double start_time = Double.parseDouble(StartTimeBox.getText());
+            double d_time = Double.parseDouble(sBox1.getText());
+            double time_to_add = start_time + d_time;
+            ScheduleNode node_to_add = schedule.get(0);
+            node_to_add.addTime(time_to_add);
+            d_time = Double.parseDouble(sBox2.getText());
+            time_to_add += d_time;
+            node_to_add = schedule.get(1);
+            node_to_add.addTime(time_to_add);
+            d_time = Double.parseDouble(sBox3.getText());
+            time_to_add += d_time;
+            node_to_add = schedule.get(2);
+            node_to_add.addTime(time_to_add);
+            d_time = Double.parseDouble(sBox4.getText());
+            time_to_add += d_time;
+            node_to_add = schedule.get(3);
+            node_to_add.addTime(time_to_add);
+            d_time = Double.parseDouble(sBox5.getText());
+            time_to_add += d_time;
+            node_to_add = schedule.get(4);
+            node_to_add.addTime(time_to_add);
+            d_time = Double.parseDouble(sBox6.getText());
+            time_to_add += d_time;
+            node_to_add = schedule.get(5);
+            node_to_add.addTime(time_to_add);
+            d_time = Double.parseDouble(sBox7.getText());
+            time_to_add += d_time;
+            node_to_add = schedule.get(6);
+            node_to_add.addTime(time_to_add);
+            d_time = Double.parseDouble(sBox8.getText());
+            time_to_add += d_time;
+            node_to_add = schedule.get(7);
+            node_to_add.addTime(time_to_add);
+        }
+        else{
+            double start_time = Double.parseDouble(StartTimeBox.getText());
+            double d_time = Double.parseDouble(sBox1.getText());
+            double time_to_add = start_time + d_time;
+            ScheduleNode node_to_add = schedule.get(0);
+            node_to_add.addTime(time_to_add);
+            d_time = Double.parseDouble(sBox2.getText());
+            time_to_add += d_time;
+            node_to_add = schedule.get(1);
+            node_to_add.addTime(time_to_add);
+            d_time = Double.parseDouble(sBox3.getText());
+            time_to_add += d_time;
+            node_to_add = schedule.get(2);
+            node_to_add.addTime(time_to_add);
+            d_time = Double.parseDouble(sBox4.getText());
+            time_to_add += d_time;
+            node_to_add = schedule.get(3);
+            node_to_add.addTime(time_to_add);
+            d_time = Double.parseDouble(sBox5.getText());
+            time_to_add += d_time;
+            node_to_add = schedule.get(4);
+            node_to_add.addTime(time_to_add);
+            d_time = Double.parseDouble(sBox6.getText());
+            time_to_add += d_time;
+            node_to_add = schedule.get(5);
+            node_to_add.addTime(time_to_add);
+            d_time = Double.parseDouble(sBox7.getText());
+            time_to_add += d_time;
+            node_to_add = schedule.get(6);
+            node_to_add.addTime(time_to_add);
+            d_time = Double.parseDouble(sBox8.getText());
+            time_to_add += d_time;
+            node_to_add = schedule.get(7);
+            node_to_add.addTime(time_to_add);
+            d_time = Double.parseDouble(sBox9.getText());
+            time_to_add += + d_time;
+            node_to_add = schedule.get(8);
+            node_to_add.addTime(time_to_add);
+            d_time = Double.parseDouble(sBox10.getText());
+            time_to_add += d_time;
+            node_to_add = schedule.get(9);
+            node_to_add.addTime(time_to_add);
+            d_time = Double.parseDouble(sBox11.getText());
+            time_to_add += d_time;
+            node_to_add = schedule.get(10);
+            node_to_add.addTime(time_to_add);
+            d_time = Double.parseDouble(sBox12.getText());
+            time_to_add += d_time;
+            node_to_add = schedule.get(11);
+            node_to_add.addTime(time_to_add);
+            d_time = Double.parseDouble(sBox13.getText());
+            time_to_add += d_time;
+            node_to_add = schedule.get(12);
+            node_to_add.addTime(time_to_add);
+            d_time = Double.parseDouble(sBox14.getText());
+            time_to_add += d_time;
+            node_to_add = schedule.get(13);
+            node_to_add.addTime(time_to_add);
+            d_time = Double.parseDouble(sBox15.getText());
+            time_to_add += d_time;
+            node_to_add = schedule.get(14);
+            node_to_add.addTime(time_to_add);
+            d_time = Double.parseDouble(sBox16.getText());
+            time_to_add += d_time;
+            node_to_add = schedule.get(15);
+            node_to_add.addTime(time_to_add);
+            d_time = Double.parseDouble(sBox17.getText());
+            time_to_add += d_time;
+            node_to_add = schedule.get(16);
+            node_to_add.addTime(time_to_add);
+            d_time = Double.parseDouble(sBox18.getText());
+            time_to_add += d_time;
+            node_to_add = schedule.get(17);
+            node_to_add.addTime(time_to_add);
+        }
+    }//GEN-LAST:event_AddScheduleButtonActionPerformed
 
     private void ViewScheduleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewScheduleButtonActionPerformed
         System.out.println(schedule);
     }//GEN-LAST:event_ViewScheduleButtonActionPerformed
 
-    private void AddScheduleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddScheduleButtonActionPerformed
-        double start_time = Double.parseDouble(StartScheduleBox.getText());
-        double time_Shady = Double.parseDouble(ShadyScheduleBox.getText());
-        double time_to_add = start_time + time_Shady;
-        ScheduleNode node_to_change = schedule.get(0);
-        node_to_change.addTime(time_to_add);
-        double time_Herron = Double.parseDouble(HerronScheduleBox.getText());
-        time_to_add += time_Herron;
-        node_to_change = schedule.get(1);
-        node_to_change.addTime(time_to_add);
-        double time_Swiss = Double.parseDouble(SwissScheduleBox.getText());
-        time_to_add += time_Swiss;
-        node_to_change = schedule.get(2);
-        node_to_change.addTime(time_to_add);
-        double time_Penn = Double.parseDouble(PennScheduleBox.getText());
-        time_to_add += time_Penn;
-        node_to_change = schedule.get(3);
-        node_to_change.addTime(time_to_add);
-        double time_Steel = Double.parseDouble(SteelScheduleBox.getText());
-        time_to_add += time_Steel;
-        node_to_change = schedule.get(4);
-        node_to_change.addTime(time_to_add);
-        double time_First = Double.parseDouble(FirstScheduleBox.getText());
-        time_to_add += time_First;
-        node_to_change = schedule.get(5);
-        node_to_change.addTime(time_to_add);
-        double time_Station = Double.parseDouble(StationScheduleBox.getText());
-        time_to_add += time_Station;
-        node_to_change = schedule.get(6);
-        node_to_change.addTime(time_to_add);
-        double time_South = Double.parseDouble(SouthScheduleBox.getText());
-        time_to_add += time_South;
-        node_to_change = schedule.get(7);
-        node_to_change.addTime(time_to_add);
-    }
+    private void NewScheduleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewScheduleButtonActionPerformed
+        String line = (String)LineSelectBox.getSelectedItem();
+        if(line.equals("Red")){
+            schedule = new ArrayList();
+            double start_time = Double.parseDouble(StartTimeBox.getText());
+            double d_time = Double.parseDouble(sBox1.getText());
+            double time_to_add = start_time + d_time;
+            ScheduleNode node_to_add = new ScheduleNode(sLabel1.getText(),time_to_add);
+            schedule.add(node_to_add);
+            d_time = Double.parseDouble(sBox2.getText());
+            time_to_add += d_time;
+            node_to_add = new ScheduleNode(sLabel2.getText(),time_to_add);
+            schedule.add(node_to_add);
+            d_time = Double.parseDouble(sBox3.getText());
+            time_to_add += d_time;
+            node_to_add = new ScheduleNode(sLabel3.getText(),time_to_add);
+            schedule.add(node_to_add);
+            d_time = Double.parseDouble(sBox4.getText());
+            time_to_add += d_time;
+            node_to_add = new ScheduleNode(sLabel4.getText(),time_to_add);
+            schedule.add(node_to_add);
+            d_time = Double.parseDouble(sBox5.getText());
+            time_to_add += d_time;
+            node_to_add = new ScheduleNode(sLabel5.getText(),time_to_add);
+            schedule.add(node_to_add);
+            d_time = Double.parseDouble(sBox6.getText());
+            time_to_add += d_time;
+            node_to_add = new ScheduleNode(sLabel6.getText(),time_to_add);
+            schedule.add(node_to_add);
+            d_time = Double.parseDouble(sBox7.getText());
+            time_to_add += d_time;
+            node_to_add = new ScheduleNode(sLabel7.getText(),time_to_add);
+            schedule.add(node_to_add);
+            d_time = Double.parseDouble(sBox8.getText());
+            time_to_add += d_time;
+            node_to_add = new ScheduleNode(sLabel8.getText(),time_to_add);
+            schedule.add(node_to_add);
+        }
+        else{
+            schedule = new ArrayList();
+            double start_time = Double.parseDouble(StartTimeBox.getText());
+            double d_time = Double.parseDouble(sBox1.getText());
+            double time_to_add = start_time + d_time;
+            ScheduleNode node_to_add = new ScheduleNode(sLabel1.getText(),time_to_add);
+            schedule.add(node_to_add);
+            d_time = Double.parseDouble(sBox2.getText());
+            time_to_add += d_time;
+            node_to_add = new ScheduleNode(sLabel2.getText(),time_to_add);
+            schedule.add(node_to_add);
+            d_time = Double.parseDouble(sBox3.getText());
+            time_to_add += d_time;
+            node_to_add = new ScheduleNode(sLabel3.getText(),time_to_add);
+            schedule.add(node_to_add);
+            d_time = Double.parseDouble(sBox4.getText());
+            time_to_add += d_time;
+            node_to_add = new ScheduleNode(sLabel4.getText(),time_to_add);
+            schedule.add(node_to_add);
+            d_time = Double.parseDouble(sBox5.getText());
+            time_to_add += d_time;
+            node_to_add = new ScheduleNode(sLabel5.getText(),time_to_add);
+            schedule.add(node_to_add);
+            d_time = Double.parseDouble(sBox6.getText());
+            time_to_add += d_time;
+            node_to_add = new ScheduleNode(sLabel6.getText(),time_to_add);
+            schedule.add(node_to_add);
+            d_time = Double.parseDouble(sBox7.getText());
+            time_to_add += d_time;
+            node_to_add = new ScheduleNode(sLabel7.getText(),time_to_add);
+            schedule.add(node_to_add);
+            d_time = Double.parseDouble(sBox8.getText());
+            time_to_add += d_time;
+            node_to_add = new ScheduleNode(sLabel8.getText(),time_to_add);
+            schedule.add(node_to_add);
+            d_time = Double.parseDouble(sBox9.getText());
+            time_to_add += d_time;
+            node_to_add = new ScheduleNode(sLabel9.getText(),time_to_add);
+            schedule.add(node_to_add);
+            d_time = Double.parseDouble(sBox10.getText());
+            time_to_add += d_time;
+            node_to_add = new ScheduleNode(sLabel10.getText(),time_to_add);
+            schedule.add(node_to_add);
+            d_time = Double.parseDouble(sBox11.getText());
+            time_to_add += d_time;
+            node_to_add = new ScheduleNode(sLabel11.getText(),time_to_add);
+            schedule.add(node_to_add);
+            d_time = Double.parseDouble(sBox12.getText());
+            time_to_add += d_time;
+            node_to_add = new ScheduleNode(sLabel12.getText(),time_to_add);
+            schedule.add(node_to_add);
+            d_time = Double.parseDouble(sBox13.getText());
+            time_to_add += d_time;
+            node_to_add = new ScheduleNode(sLabel13.getText(),time_to_add);
+            schedule.add(node_to_add);
+            d_time = Double.parseDouble(sBox14.getText());
+            time_to_add += d_time;
+            node_to_add = new ScheduleNode(sLabel14.getText(),time_to_add);
+            schedule.add(node_to_add);
+            d_time = Double.parseDouble(sBox15.getText());
+            time_to_add += d_time;
+            node_to_add = new ScheduleNode(sLabel15.getText(),time_to_add);
+            schedule.add(node_to_add);
+            d_time = Double.parseDouble(sBox16.getText());
+            time_to_add += d_time;
+            node_to_add = new ScheduleNode(sLabel16.getText(),time_to_add);
+            schedule.add(node_to_add);
+            d_time = Double.parseDouble(sBox17.getText());
+            time_to_add += d_time;
+            node_to_add = new ScheduleNode(sLabel17.getText(),time_to_add);
+            schedule.add(node_to_add);
+            d_time = Double.parseDouble(sBox18.getText());
+            time_to_add += d_time;
+            node_to_add = new ScheduleNode(sLabel18.getText(),time_to_add);
+            schedule.add(node_to_add);
+        }
+        LineSelectBox.setEnabled(false);
+    }//GEN-LAST:event_NewScheduleButtonActionPerformed
 
-    private void FirstScheduleBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FirstScheduleBoxActionPerformed
+    private void sBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sBox6ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_FirstScheduleBoxActionPerformed
+    }//GEN-LAST:event_sBox6ActionPerformed
 
-    private void BlockSpeedFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlockSpeedFieldActionPerformed
+    private void sBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sBox2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_BlockSpeedFieldActionPerformed
+    }//GEN-LAST:event_sBox2ActionPerformed
+
+    private void StartTimeBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartTimeBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_StartTimeBoxActionPerformed
+
+    private void sBox11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sBox11ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sBox11ActionPerformed
+
+    private void sBox15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sBox15ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sBox15ActionPerformed
+
+    private void sBox18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sBox18ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sBox18ActionPerformed
+
+    private void LineSelectBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LineSelectBoxActionPerformed
+        String new_label = (String)LineSelectBox.getSelectedItem();
+        TrainList.setSelectedItem(new_label);
+        
+        if(new_label.equals("Red")){
+           sLabel1.setText("Shady");
+           sLabel2.setText("Herron");
+           sLabel3.setText("Swiss");
+           sLabel4.setText("Penn");
+           sLabel5.setText("Steel");
+           sLabel6.setText("First");
+           sLabel7.setText("Station");
+           sLabel8.setText("South");
+           sLabel9.setForeground(new Color(240,240,240));
+           sLabel10.setForeground(new Color(240,240,240));
+           sLabel11.setForeground(new Color(240,240,240));
+           sLabel12.setForeground(new Color(240,240,240));
+           sLabel13.setForeground(new Color(240,240,240));
+           sLabel14.setForeground(new Color(240,240,240));
+           sLabel15.setForeground(new Color(240,240,240));
+           sLabel16.setForeground(new Color(240,240,240));
+           sLabel17.setForeground(new Color(240,240,240));
+           sLabel18.setForeground(new Color(240,240,240));
+           sBox9.setText(null);
+           sBox10.setText(null);
+           sBox11.setText(null);
+           sBox12.setText(null);
+           sBox13.setText(null);
+           sBox14.setText(null);
+           sBox15.setText(null);
+           sBox16.setText(null);
+           sBox17.setText(null);
+           sBox18.setText(null);
+           sBox9.setEditable(false);
+           sBox10.setEditable(false);
+           sBox11.setEditable(false);
+           sBox12.setEditable(false);
+           sBox13.setEditable(false);
+           sBox14.setEditable(false);
+           sBox15.setEditable(false);
+           sBox16.setEditable(false);
+           sBox17.setEditable(false);
+           sBox18.setEditable(false);
+        }
+        else{
+           sLabel1.setText("Pioneer");
+           sLabel2.setText("Edgebrook");
+           sLabel3.setText("Station");
+           sLabel4.setText("Whited");
+           sLabel5.setText("Southbank");
+           sLabel6.setText("Central");
+           sLabel7.setText("Inglewood");
+           sLabel8.setText("Overbrook");
+           sLabel9.setForeground(new Color(0,0,0));
+           sLabel10.setForeground(new Color(0,0,0));
+           sLabel11.setForeground(new Color(0,0,0));
+           sLabel12.setForeground(new Color(0,0,0));
+           sLabel13.setForeground(new Color(0,0,0));
+           sLabel14.setForeground(new Color(0,0,0));
+           sLabel15.setForeground(new Color(0,0,0));
+           sLabel16.setForeground(new Color(0,0,0));
+           sLabel17.setForeground(new Color(0,0,0));
+           sLabel18.setForeground(new Color(0,0,0));
+           sBox9.setEditable(true);
+           sBox10.setEditable(true);
+           sBox11.setEditable(true);
+           sBox12.setEditable(true);
+           sBox13.setEditable(true);
+           sBox14.setEditable(true);
+           sBox15.setEditable(true);
+           sBox16.setEditable(true);
+           sBox17.setEditable(true);
+           sBox18.setEditable(true);
+        }
+    }//GEN-LAST:event_LineSelectBoxActionPerformed
+
+    private void TotalTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TotalTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TotalTextActionPerformed
 
     /**
      * @param args the command line arguments
@@ -841,117 +1113,63 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
     }
     
     public void updateDisplay(){
-                
-        /*Hashtable stops = curr_train.getStops();
-        int[] vals = new int[2];
-        vals = (int[])stops.get("Shady");
-        ShadyText.setText("On: " + vals[0] + "\tOff: " + vals[1]);
-        vals = (int[])stops.get("Herron");
-        HerronText.setText("On: " + vals[0] + "\tOff: " + vals[1]);
-        vals = (int[])stops.get("Swiss");
-        SwissText.setText("On: " + vals[0] + "\tOff: " + vals[1]);
-        vals = (int[])stops.get("Penn");
-        PennText.setText("On: " + vals[0] + "\tOff: " + vals[1]);
-        vals = (int[])stops.get("Steel");
-        SteelText.setText("On: " + vals[0] + "\tOff: " + vals[1]);
-        vals = (int[])stops.get("First");
-        FirstText.setText("On: " + vals[0] + "\tOff: " + vals[1]);
-        vals = (int[])stops.get("Station");
-        StationText.setText("On: " + vals[0] + "\tOff: " + vals[1]);
-        vals = (int[])stops.get("South");
-        SouthText.setText("On: " + vals[0] + "\tOff: " + vals[1]);
-        TotalText.setText(curr_train.getTotal());
-        
-        TrainSpeedField.setText(curr_train.getSpeed());
-        TrainLocationField.setText(curr_train.getLoc());
-        
-        if(mode == 0){
-            BlockSpeedField.setText(String.valueOf(safe_speed));
-            BlockAuthorityField.setText(String.valueOf(safe_authority));
-            double speed_variance = Double.parseDouble(curr_train.getSpeed()) - safe_speed;
-            SpeedVarianceField.setText(String.valueOf(speed_variance));
-            double auth_variance = Double.parseDouble(curr_train.getLoc()) - safe_authority;
-            AuthVarianceField.setText(String.valueOf(auth_variance));
-        }
-        if(mode == 1){
-            safe_speed = calculateSafeSpeed(curr_train);
-            safe_authority = calculateSafeAuthority(curr_train);
-            BlockSpeedField.setText(String.valueOf(safe_speed));
-            BlockAuthorityField.setText(String.valueOf(safe_authority));
-            double speed_variance = Double.parseDouble(curr_train.getSpeed()) - safe_speed;
-            SpeedVarianceField.setText(String.valueOf(speed_variance));
-            double auth_variance = Double.parseDouble(curr_train.getLoc()) - safe_authority;
-            AuthVarianceField.setText(String.valueOf(auth_variance));
-        }
-        
-        curr_train.setSafes(safe_speed,safe_authority);*/
+        //Get current train info
+        int curr_train_num = Integer.parseInt((String)TrainList.getSelectedItem());
+        curr_train = trains.get(curr_train_num);
+        speed = curr_train.getCurrentSpeed();
+        location = curr_train.getCurrentPosition();
+        //Set Train info panel
         TrainSpeedField.setText(String.valueOf(speed));
         TrainLocationField.setText(String.valueOf(location));
         BlockSpeedField.setText(String.valueOf(bspeed));
         BlockAuthorityField.setText(String.valueOf(bauth));
+        //Calculate and display block info
         double speed_var = bspeed - speed;
         SpeedVarianceField.setText(String.valueOf(speed_var));
         double auth_var = bauth - location;
         AuthVarianceField.setText(String.valueOf(auth_var));
+        
+       
     }
     
-    public void updateSpeed(double s){
-        speed = s;
-        updateDisplay();
+    public void updateTrainList(Vector<TrainModel> TL){
+        int old_l = trains.size();
+        trains = TL;
+        if(trains.size() != old_l);
+        TrainList.addItem(String.valueOf(old_l + 1));
     }
+
     
-    public void updatePosition(double p){
-        location = Math.abs(p);
-        updateDisplay();
-    }
-    
-    public void updateBlockSpeed(double s){
-        bspeed = s;
-        updateDisplay();
-    }
-    
-    public void updateBlockAuthority(double a){
-        bauth = a;
-        updateDisplay();
-    }
-    
-    public double getbauth(){
-        return bauth;
-    }
-    
-    public double getbspeed(){
-        return bspeed;
-    }
- /*   public double calculateSafeAuthority(MBOTrain curr_train){
+    public double calculateSafeAuthority(MBOTrain curr_train){
         double loc1 = Double.parseDouble(curr_train.getLoc());
         double speed1 = Double.parseDouble(curr_train.getSpeed());
         double loc2 = Double.MAX_VALUE;
         double speed2 = 0;
-        for(MBOTrain t : trains){
-            if(Double.parseDouble(t.getLoc()) < loc2){
-                loc2 = Double.parseDouble(t.getLoc());
-                speed2 = Double.parseDouble(t.getSpeed());
+        for(TrainModel t : trains){
+            if(t.getCurrentPosition() < loc2){
+                loc2 = t.getCurrentPosition();
+                speed2 = t.getCurrentSpeed();
             }
         }
         double v_final = 0;
         double t_final = (0 - speed1)/deceleration;
         double distance = speed1 * t_final + .5 * deceleration * Math.pow(t_final, 2);
         return loc2 - (distance + loc1);
-    }*/
+    }
     
-   /* public double calculateSafeSpeed(MBOTrain curr_train){
-        double loc1 = Double.parseDouble(curr_train.getLoc());
-        double speed1 = Double.parseDouble(curr_train.getSpeed());
+    public double calculateSafeSpeed(TrainModel curr_train){
+        double loc1 = curr_train.getCurrentPosition();
+        double speed1 = curr_train.getCurrentSpeed();
         double loc2 = Double.MAX_VALUE;
         double speed2 = 0;
-        for(MBOTrain t : trains){
-            if(Double.parseDouble(t.getLoc()) < loc2){
-                loc2 = Double.parseDouble(t.getLoc());
-                speed2 = Double.parseDouble(t.getSpeed());
+        for(TrainModel t : trains){
+            if(t.getCurrentPosition() < loc2){
+                loc2 = t.getCurrentPosition();
+                speed2 = t.getCurrentSpeed();
             }
         }
         return speed2;
-    }*/
+    }
 
     public ArrayList getSchedule(){
         return schedule;
@@ -963,33 +1181,18 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
     public javax.swing.JTextField BlockSpeedField;
     private javax.swing.ButtonGroup ControlMode;
     public javax.swing.JPanel ControlPanel;
-    public javax.swing.JTextField FirstScheduleBox;
-    public javax.swing.JTextField FirstText;
     public javax.swing.JTextField FixedBlockDisplay;
     public javax.swing.JRadioButton FixedBlockRadio;
-    public javax.swing.JTextField HerronScheduleBox;
-    public javax.swing.JTextField HerronText;
     public javax.swing.JPanel InfoPanel;
+    private javax.swing.JComboBox LineSelectBox;
     public javax.swing.JTextField MovingBlockDisplay;
     public javax.swing.JRadioButton MovingBlockRadio;
     public javax.swing.JButton NewScheduleButton;
-    public javax.swing.JPanel PassengerPanel;
-    public javax.swing.JTextField PennScheduleBox;
-    public javax.swing.JTextField PennText;
-    public javax.swing.JTextField ShadyScheduleBox;
-    public javax.swing.JTextField ShadyText;
-    public javax.swing.JTextField SouthScheduleBox;
-    public javax.swing.JTextField SouthText;
+    private javax.swing.JPanel PassengerPanel;
     public javax.swing.JTextField SpeedVarianceField;
     public javax.swing.JButton StartButton;
-    public javax.swing.JTextField StartScheduleBox;
-    public javax.swing.JTextField StationScheduleBox;
-    public javax.swing.JTextField StationText;
-    public javax.swing.JTextField SteelScheduleBox;
-    public javax.swing.JTextField SteelText;
-    public javax.swing.JTextField SwissScheduleBox;
-    public javax.swing.JTextField SwissText;
-    public javax.swing.JTextField TotalText;
+    private javax.swing.JTextField StartTimeBox;
+    private javax.swing.JTextField TotalText;
     public javax.swing.JComboBox TrainList;
     public javax.swing.JTextField TrainLocationField;
     public javax.swing.JTextField TrainSpeedField;
@@ -997,31 +1200,52 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JFrame jFrame1;
     public javax.swing.JLabel jLabel1;
-    public javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel10;
     public javax.swing.JLabel jLabel11;
     public javax.swing.JLabel jLabel12;
     public javax.swing.JLabel jLabel13;
     public javax.swing.JLabel jLabel14;
     public javax.swing.JLabel jLabel15;
-    public javax.swing.JLabel jLabel19;
-    public javax.swing.JLabel jLabel2;
-    public javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel18;
     public javax.swing.JLabel jLabel24;
-    public javax.swing.JLabel jLabel3;
-    public javax.swing.JLabel jLabel33;
-    public javax.swing.JLabel jLabel34;
-    public javax.swing.JLabel jLabel35;
-    public javax.swing.JLabel jLabel36;
-    public javax.swing.JLabel jLabel37;
-    public javax.swing.JLabel jLabel38;
-    public javax.swing.JLabel jLabel39;
-    public javax.swing.JLabel jLabel4;
-    public javax.swing.JLabel jLabel5;
-    public javax.swing.JLabel jLabel6;
-    public javax.swing.JLabel jLabel7;
-    public javax.swing.JLabel jLabel8;
-    public javax.swing.JLabel jLabel9;
     public javax.swing.JPanel jPanel2;
     public javax.swing.JPanel jPanel5;
+    public javax.swing.JTextField sBox1;
+    private javax.swing.JTextField sBox10;
+    private javax.swing.JTextField sBox11;
+    private javax.swing.JTextField sBox12;
+    private javax.swing.JTextField sBox13;
+    private javax.swing.JTextField sBox14;
+    private javax.swing.JTextField sBox15;
+    private javax.swing.JTextField sBox16;
+    private javax.swing.JTextField sBox17;
+    private javax.swing.JTextField sBox18;
+    public javax.swing.JTextField sBox2;
+    public javax.swing.JTextField sBox3;
+    public javax.swing.JTextField sBox4;
+    public javax.swing.JTextField sBox5;
+    public javax.swing.JTextField sBox6;
+    public javax.swing.JTextField sBox7;
+    public javax.swing.JTextField sBox8;
+    public javax.swing.JTextField sBox9;
+    private javax.swing.JLabel sLabel1;
+    public javax.swing.JLabel sLabel10;
+    public javax.swing.JLabel sLabel11;
+    public javax.swing.JLabel sLabel12;
+    public javax.swing.JLabel sLabel13;
+    public javax.swing.JLabel sLabel14;
+    public javax.swing.JLabel sLabel15;
+    public javax.swing.JLabel sLabel16;
+    public javax.swing.JLabel sLabel17;
+    private javax.swing.JLabel sLabel18;
+    private javax.swing.JLabel sLabel2;
+    private javax.swing.JLabel sLabel3;
+    private javax.swing.JLabel sLabel4;
+    private javax.swing.JLabel sLabel5;
+    private javax.swing.JLabel sLabel6;
+    private javax.swing.JLabel sLabel7;
+    private javax.swing.JLabel sLabel8;
+    public javax.swing.JLabel sLabel9;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,10 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.border.*;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,8 +21,9 @@ import javax.swing.JFrame;
  * @author Q
  */
 public class TrackModelInterface extends javax.swing.JPanel {
-    
-        public static void main(String args[]){
+    TrackModel trackModel = new TrackModel();
+    int numberTrains = 0;
+    public static void main(String args[]){
     // <editor-fold defaultstate="collapsed" desc="Main"> 
         
     JFrame frame1 = new JFrame("Track Model");
@@ -35,7 +40,7 @@ public class TrackModelInterface extends javax.swing.JPanel {
      * Creates new form TrackModel
      */
     
-    TrackModel trackModel = new TrackModel();
+    
     public TrackModelInterface() {
         initComponents();
     }
@@ -48,8 +53,8 @@ public class TrackModelInterface extends javax.swing.JPanel {
             //trackModel.updatePosition(x);
             //x += .01;
         System.out.println("Query");
-        Block ID = trackModel.findBlockID();
-        System.out.println("On block: " + ID.getBlockId());
+        //Block ID = trackModel.findBlockID();
+        //System.out.println("On block: " + ID.getBlockId());
         //trainSpeed.setText(String.valueOf(ID.getSpeedLimit()));
         //trainLength.setText(String.valueOf(ID.getLength()));
         //trainBlockID.setText(String.valueOf(ID.getBlockId()));
@@ -122,124 +127,6 @@ public class TrackModelInterface extends javax.swing.JPanel {
         blockGrade = new javax.swing.JLabel();
         blockElevation = new javax.swing.JLabel();
         blockLength = new javax.swing.JLabel();
-        TrackGrid = new javax.swing.JPanel();
-        track0 = new javax.swing.JButton();
-        track1 = new javax.swing.JButton();
-        track2 = new javax.swing.JButton();
-        track3 = new javax.swing.JButton();
-        track4 = new javax.swing.JButton();
-        track5 = new javax.swing.JButton();
-        track6 = new javax.swing.JButton();
-        track7 = new javax.swing.JButton();
-        track8 = new javax.swing.JButton();
-        track9 = new javax.swing.JButton();
-        track10 = new javax.swing.JButton();
-        track11 = new javax.swing.JButton();
-        track12 = new javax.swing.JButton();
-        track13 = new javax.swing.JButton();
-        track14 = new javax.swing.JButton();
-        track15 = new javax.swing.JButton();
-        track16 = new javax.swing.JButton();
-        track17 = new javax.swing.JButton();
-        track18 = new javax.swing.JButton();
-        track19 = new javax.swing.JButton();
-        track20 = new javax.swing.JButton();
-        track21 = new javax.swing.JButton();
-        track22 = new javax.swing.JButton();
-        track23 = new javax.swing.JButton();
-        track24 = new javax.swing.JButton();
-        track25 = new javax.swing.JButton();
-        track26 = new javax.swing.JButton();
-        track27 = new javax.swing.JButton();
-        track28 = new javax.swing.JButton();
-        track29 = new javax.swing.JButton();
-        track30 = new javax.swing.JButton();
-        track31 = new javax.swing.JButton();
-        track32 = new javax.swing.JButton();
-        track33 = new javax.swing.JButton();
-        track34 = new javax.swing.JButton();
-        track35 = new javax.swing.JButton();
-        track36 = new javax.swing.JButton();
-        track37 = new javax.swing.JButton();
-        track38 = new javax.swing.JButton();
-        track39 = new javax.swing.JButton();
-        track40 = new javax.swing.JButton();
-        track41 = new javax.swing.JButton();
-        track42 = new javax.swing.JButton();
-        track43 = new javax.swing.JButton();
-        track44 = new javax.swing.JButton();
-        track45 = new javax.swing.JButton();
-        track46 = new javax.swing.JButton();
-        track47 = new javax.swing.JButton();
-        track48 = new javax.swing.JButton();
-        track49 = new javax.swing.JButton();
-        track50 = new javax.swing.JButton();
-        track51 = new javax.swing.JButton();
-        track52 = new javax.swing.JButton();
-        track53 = new javax.swing.JButton();
-        track54 = new javax.swing.JButton();
-        track55 = new javax.swing.JButton();
-        track56 = new javax.swing.JButton();
-        track57 = new javax.swing.JButton();
-        track58 = new javax.swing.JButton();
-        track59 = new javax.swing.JButton();
-        track60 = new javax.swing.JButton();
-        track61 = new javax.swing.JButton();
-        track62 = new javax.swing.JButton();
-        track63 = new javax.swing.JButton();
-        track64 = new javax.swing.JButton();
-        track65 = new javax.swing.JButton();
-        track66 = new javax.swing.JButton();
-        track67 = new javax.swing.JButton();
-        track68 = new javax.swing.JButton();
-        track69 = new javax.swing.JButton();
-        track70 = new javax.swing.JButton();
-        track71 = new javax.swing.JButton();
-        track72 = new javax.swing.JButton();
-        track73 = new javax.swing.JButton();
-        track74 = new javax.swing.JButton();
-        track75 = new javax.swing.JButton();
-        track76 = new javax.swing.JButton();
-        track77 = new javax.swing.JButton();
-        track78 = new javax.swing.JButton();
-        track79 = new javax.swing.JButton();
-        track80 = new javax.swing.JButton();
-        track81 = new javax.swing.JButton();
-        track82 = new javax.swing.JButton();
-        track83 = new javax.swing.JButton();
-        track84 = new javax.swing.JButton();
-        track85 = new javax.swing.JButton();
-        track86 = new javax.swing.JButton();
-        track87 = new javax.swing.JButton();
-        track88 = new javax.swing.JButton();
-        track89 = new javax.swing.JButton();
-        track90 = new javax.swing.JButton();
-        track91 = new javax.swing.JButton();
-        track92 = new javax.swing.JButton();
-        track93 = new javax.swing.JButton();
-        track94 = new javax.swing.JButton();
-        track95 = new javax.swing.JButton();
-        track96 = new javax.swing.JButton();
-        track97 = new javax.swing.JButton();
-        track98 = new javax.swing.JButton();
-        track99 = new javax.swing.JButton();
-        track100 = new javax.swing.JButton();
-        jButton30 = new javax.swing.JButton();
-        jButton31 = new javax.swing.JButton();
-        jButton33 = new javax.swing.JButton();
-        jButton32 = new javax.swing.JButton();
-        jButton34 = new javax.swing.JButton();
-        jButton35 = new javax.swing.JButton();
-        jButton36 = new javax.swing.JButton();
-        jButton38 = new javax.swing.JButton();
-        jButton37 = new javax.swing.JButton();
-        jButton39 = new javax.swing.JButton();
-        jButton40 = new javax.swing.JButton();
-        jButton41 = new javax.swing.JButton();
-        jButton42 = new javax.swing.JButton();
-        jButton43 = new javax.swing.JButton();
-        jButton44 = new javax.swing.JButton();
-        jButton45 = new javax.swing.JButton();
         power = new javax.swing.JButton();
         Rail = new javax.swing.JButton();
         TrackCircuit = new javax.swing.JButton();
@@ -248,6 +135,15 @@ public class TrackModelInterface extends javax.swing.JPanel {
         trainSpeed = new javax.swing.JTextField();
         trainLength = new javax.swing.JTextField();
         trainIsStation = new javax.swing.JTextField();
+        trackDisplay = new javax.swing.JPanel()
+        {
+            public void paint(Graphics g)
+            {
+                super.paint(g);
+                ourCustomPaintingMethod(g);
+            }
+        };
+        ;
 
         ImportTrack.setText("Import Track");
         ImportTrack.addActionListener(new java.awt.event.ActionListener() {
@@ -285,1061 +181,6 @@ public class TrackModelInterface extends javax.swing.JPanel {
 
         jLabel7.setText("Train on Block:");
 
-        TrackGrid.setLayout(new java.awt.GridLayout(13, 13));
-
-        track0.setBackground(new java.awt.Color(255, 255, 255));
-        track0.setToolTipText("");
-        track0.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track0);
-
-        track1.setBackground(new java.awt.Color(255, 255, 255));
-        track1.setToolTipText("");
-        track1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track1);
-
-        track2.setBackground(new java.awt.Color(255, 255, 255));
-        track2.setToolTipText("");
-        track2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track2);
-
-        track3.setBackground(new java.awt.Color(255, 255, 255));
-        track3.setToolTipText("");
-        track3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track3);
-
-        track4.setBackground(new java.awt.Color(255, 255, 255));
-        track4.setToolTipText("");
-        track4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track4);
-
-        track5.setBackground(new java.awt.Color(255, 255, 255));
-        track5.setToolTipText("");
-        track5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track5);
-
-        track6.setBackground(new java.awt.Color(255, 255, 255));
-        track6.setToolTipText("");
-        track6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track6);
-
-        track7.setBackground(new java.awt.Color(255, 255, 255));
-        track7.setToolTipText("");
-        track7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track7);
-
-        track8.setBackground(new java.awt.Color(255, 255, 255));
-        track8.setToolTipText("");
-        track8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track8);
-
-        track9.setBackground(new java.awt.Color(255, 255, 255));
-        track9.setToolTipText("");
-        track9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track9);
-
-        track10.setBackground(new java.awt.Color(255, 255, 255));
-        track10.setToolTipText("");
-        track10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track10);
-
-        track11.setBackground(new java.awt.Color(255, 255, 255));
-        track11.setToolTipText("");
-        track11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track11);
-
-        track12.setBackground(new java.awt.Color(255, 255, 255));
-        track12.setToolTipText("");
-        track12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track12);
-
-        track13.setBackground(new java.awt.Color(255, 255, 255));
-        track13.setToolTipText("");
-        track13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track13);
-
-        track14.setBackground(new java.awt.Color(255, 255, 255));
-        track14.setToolTipText("");
-        track14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track14);
-
-        track15.setBackground(new java.awt.Color(255, 255, 255));
-        track15.setToolTipText("");
-        track15.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track15);
-
-        track16.setBackground(new java.awt.Color(255, 255, 255));
-        track16.setToolTipText("");
-        track16.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track16);
-
-        track17.setBackground(new java.awt.Color(255, 255, 255));
-        track17.setToolTipText("");
-        track17.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track17);
-
-        track18.setBackground(new java.awt.Color(255, 255, 255));
-        track18.setToolTipText("");
-        track18.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track18);
-
-        track19.setBackground(new java.awt.Color(255, 255, 255));
-        track19.setToolTipText("");
-        track19.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track19);
-
-        track20.setBackground(new java.awt.Color(255, 255, 255));
-        track20.setToolTipText("");
-        track20.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track20);
-
-        track21.setBackground(new java.awt.Color(255, 255, 255));
-        track21.setToolTipText("");
-        track21.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track21);
-
-        track22.setBackground(new java.awt.Color(255, 255, 255));
-        track22.setToolTipText("");
-        track22.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track22);
-
-        track23.setBackground(new java.awt.Color(255, 255, 255));
-        track23.setToolTipText("");
-        track23.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track23);
-
-        track24.setBackground(new java.awt.Color(255, 255, 255));
-        track24.setToolTipText("");
-        track24.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track24);
-
-        track25.setBackground(new java.awt.Color(255, 255, 255));
-        track25.setToolTipText("");
-        track25.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track25);
-
-        track26.setBackground(new java.awt.Color(255, 255, 255));
-        track26.setToolTipText("");
-        track26.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track26);
-
-        track27.setBackground(new java.awt.Color(255, 255, 255));
-        track27.setToolTipText("");
-        track27.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track27);
-
-        track28.setBackground(new java.awt.Color(255, 255, 255));
-        track28.setToolTipText("");
-        track28.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track28);
-
-        track29.setBackground(new java.awt.Color(255, 255, 255));
-        track29.setToolTipText("");
-        track29.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track29);
-
-        track30.setBackground(new java.awt.Color(255, 255, 255));
-        track30.setToolTipText("");
-        track30.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track30);
-
-        track31.setBackground(new java.awt.Color(255, 255, 255));
-        track31.setToolTipText("");
-        track31.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track31);
-
-        track32.setBackground(new java.awt.Color(255, 255, 255));
-        track32.setToolTipText("");
-        track32.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track32);
-
-        track33.setBackground(new java.awt.Color(255, 255, 255));
-        track33.setToolTipText("");
-        track33.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track33);
-
-        track34.setBackground(new java.awt.Color(255, 255, 255));
-        track34.setToolTipText("");
-        track34.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track34);
-
-        track35.setBackground(new java.awt.Color(255, 255, 255));
-        track35.setToolTipText("");
-        track35.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track35);
-
-        track36.setBackground(new java.awt.Color(255, 255, 255));
-        track36.setToolTipText("");
-        track36.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track36);
-
-        track37.setBackground(new java.awt.Color(255, 255, 255));
-        track37.setToolTipText("");
-        track37.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track37);
-
-        track38.setBackground(new java.awt.Color(255, 255, 255));
-        track38.setToolTipText("");
-        track38.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track38);
-
-        track39.setBackground(new java.awt.Color(255, 255, 255));
-        track39.setToolTipText("");
-        track39.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track39);
-
-        track40.setBackground(new java.awt.Color(255, 255, 255));
-        track40.setToolTipText("");
-        track40.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track40);
-
-        track41.setBackground(new java.awt.Color(255, 255, 255));
-        track41.setToolTipText("");
-        track41.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track41);
-
-        track42.setBackground(new java.awt.Color(255, 255, 255));
-        track42.setToolTipText("");
-        track42.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track42);
-
-        track43.setBackground(new java.awt.Color(255, 255, 255));
-        track43.setToolTipText("");
-        track43.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track43);
-
-        track44.setBackground(new java.awt.Color(255, 255, 255));
-        track44.setToolTipText("");
-        track44.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track44);
-
-        track45.setBackground(new java.awt.Color(255, 255, 255));
-        track45.setToolTipText("");
-        track45.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track45);
-
-        track46.setBackground(new java.awt.Color(255, 255, 255));
-        track46.setToolTipText("");
-        track46.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track46);
-
-        track47.setBackground(new java.awt.Color(255, 255, 255));
-        track47.setToolTipText("");
-        track47.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track47);
-
-        track48.setBackground(new java.awt.Color(255, 255, 255));
-        track48.setToolTipText("");
-        track48.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track48);
-
-        track49.setBackground(new java.awt.Color(255, 255, 255));
-        track49.setToolTipText("");
-        track49.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track49);
-
-        track50.setBackground(new java.awt.Color(255, 255, 255));
-        track50.setToolTipText("");
-        track50.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track50);
-
-        track51.setBackground(new java.awt.Color(255, 255, 255));
-        track51.setToolTipText("");
-        track51.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track51);
-
-        track52.setBackground(new java.awt.Color(255, 255, 255));
-        track52.setToolTipText("");
-        track52.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track52);
-
-        track53.setBackground(new java.awt.Color(255, 255, 255));
-        track53.setToolTipText("");
-        track53.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track53);
-
-        track54.setBackground(new java.awt.Color(255, 255, 255));
-        track54.setToolTipText("");
-        track54.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track54);
-
-        track55.setBackground(new java.awt.Color(255, 255, 255));
-        track55.setToolTipText("");
-        track55.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track55);
-
-        track56.setBackground(new java.awt.Color(255, 255, 255));
-        track56.setToolTipText("");
-        track56.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track56);
-
-        track57.setBackground(new java.awt.Color(255, 255, 255));
-        track57.setToolTipText("");
-        track57.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track57);
-
-        track58.setBackground(new java.awt.Color(255, 255, 255));
-        track58.setToolTipText("");
-        track58.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track58);
-
-        track59.setBackground(new java.awt.Color(255, 255, 255));
-        track59.setToolTipText("");
-        track59.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track59);
-
-        track60.setBackground(new java.awt.Color(255, 255, 255));
-        track60.setToolTipText("");
-        track60.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track60);
-
-        track61.setBackground(new java.awt.Color(255, 255, 255));
-        track61.setToolTipText("");
-        track61.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track61);
-
-        track62.setBackground(new java.awt.Color(255, 255, 255));
-        track62.setToolTipText("");
-        track62.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track62);
-
-        track63.setBackground(new java.awt.Color(255, 255, 255));
-        track63.setToolTipText("");
-        track63.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track63);
-
-        track64.setBackground(new java.awt.Color(255, 255, 255));
-        track64.setToolTipText("");
-        track64.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track64);
-
-        track65.setBackground(new java.awt.Color(255, 255, 255));
-        track65.setToolTipText("");
-        track65.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track65);
-
-        track66.setBackground(new java.awt.Color(255, 255, 255));
-        track66.setToolTipText("");
-        track66.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track66);
-
-        track67.setBackground(new java.awt.Color(255, 255, 255));
-        track67.setToolTipText("");
-        track67.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track67);
-
-        track68.setBackground(new java.awt.Color(255, 255, 255));
-        track68.setToolTipText("");
-        track68.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track68);
-
-        track69.setBackground(new java.awt.Color(255, 255, 255));
-        track69.setToolTipText("");
-        track69.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track69);
-
-        track70.setBackground(new java.awt.Color(255, 255, 255));
-        track70.setToolTipText("");
-        track70.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track70);
-
-        track71.setBackground(new java.awt.Color(255, 255, 255));
-        track71.setToolTipText("");
-        track71.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track71);
-
-        track72.setBackground(new java.awt.Color(255, 255, 255));
-        track72.setToolTipText("");
-        track72.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track72);
-
-        track73.setBackground(new java.awt.Color(255, 255, 255));
-        track73.setToolTipText("");
-        track73.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track73);
-
-        track74.setBackground(new java.awt.Color(255, 255, 255));
-        track74.setToolTipText("");
-        track74.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track74);
-
-        track75.setBackground(new java.awt.Color(255, 255, 255));
-        track75.setToolTipText("");
-        track75.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track75);
-
-        track76.setBackground(new java.awt.Color(255, 255, 255));
-        track76.setToolTipText("");
-        track76.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track76);
-
-        track77.setBackground(new java.awt.Color(255, 255, 255));
-        track77.setToolTipText("");
-        track77.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track77);
-
-        track78.setBackground(new java.awt.Color(255, 255, 255));
-        track78.setToolTipText("");
-        track78.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track78);
-
-        track79.setBackground(new java.awt.Color(255, 255, 255));
-        track79.setToolTipText("");
-        track79.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track79);
-
-        track80.setBackground(new java.awt.Color(255, 255, 255));
-        track80.setToolTipText("");
-        track80.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track80);
-
-        track81.setBackground(new java.awt.Color(255, 255, 255));
-        track81.setToolTipText("");
-        track81.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track81);
-
-        track82.setBackground(new java.awt.Color(255, 255, 255));
-        track82.setToolTipText("");
-        track82.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track82);
-
-        track83.setBackground(new java.awt.Color(255, 255, 255));
-        track83.setToolTipText("");
-        track83.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track83);
-
-        track84.setBackground(new java.awt.Color(255, 255, 255));
-        track84.setToolTipText("");
-        track84.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track84);
-
-        track85.setBackground(new java.awt.Color(255, 255, 255));
-        track85.setToolTipText("");
-        track85.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track85);
-
-        track86.setBackground(new java.awt.Color(255, 255, 255));
-        track86.setToolTipText("");
-        track86.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track86);
-
-        track87.setBackground(new java.awt.Color(255, 255, 255));
-        track87.setToolTipText("");
-        track87.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track87);
-
-        track88.setBackground(new java.awt.Color(255, 255, 255));
-        track88.setToolTipText("");
-        track88.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track88);
-
-        track89.setBackground(new java.awt.Color(255, 255, 255));
-        track89.setToolTipText("");
-        track89.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track89);
-
-        track90.setBackground(new java.awt.Color(255, 255, 255));
-        track90.setToolTipText("");
-        track90.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track90);
-
-        track91.setBackground(new java.awt.Color(255, 255, 255));
-        track91.setToolTipText("");
-        track91.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track91);
-
-        track92.setBackground(new java.awt.Color(255, 255, 255));
-        track92.setToolTipText("");
-        track92.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track92);
-
-        track93.setBackground(new java.awt.Color(255, 255, 255));
-        track93.setToolTipText("");
-        track93.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track93);
-
-        track94.setBackground(new java.awt.Color(255, 255, 255));
-        track94.setToolTipText("");
-        track94.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track94);
-
-        track95.setBackground(new java.awt.Color(255, 255, 255));
-        track95.setToolTipText("");
-        track95.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track95);
-
-        track96.setBackground(new java.awt.Color(255, 255, 255));
-        track96.setToolTipText("");
-        track96.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track96);
-
-        track97.setBackground(new java.awt.Color(255, 255, 255));
-        track97.setToolTipText("");
-        track97.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track97);
-
-        track98.setBackground(new java.awt.Color(255, 255, 255));
-        track98.setToolTipText("");
-        track98.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track98);
-
-        track99.setBackground(new java.awt.Color(255, 255, 255));
-        track99.setToolTipText("");
-        track99.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track99);
-
-        track100.setBackground(new java.awt.Color(255, 255, 255));
-        track100.setToolTipText("");
-        track100.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(track100);
-
-        jButton30.setBackground(new java.awt.Color(255, 255, 255));
-        jButton30.setToolTipText("");
-        jButton30.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(jButton30);
-
-        jButton31.setBackground(new java.awt.Color(255, 255, 255));
-        jButton31.setToolTipText("");
-        jButton31.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(jButton31);
-
-        jButton33.setBackground(new java.awt.Color(255, 255, 255));
-        jButton33.setToolTipText("");
-        jButton33.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(jButton33);
-
-        jButton32.setBackground(new java.awt.Color(255, 255, 255));
-        jButton32.setToolTipText("");
-        jButton32.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(jButton32);
-
-        jButton34.setBackground(new java.awt.Color(255, 255, 255));
-        jButton34.setToolTipText("");
-        jButton34.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(jButton34);
-
-        jButton35.setBackground(new java.awt.Color(255, 255, 255));
-        jButton35.setToolTipText("");
-        jButton35.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(jButton35);
-
-        jButton36.setBackground(new java.awt.Color(255, 255, 255));
-        jButton36.setToolTipText("");
-        jButton36.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(jButton36);
-
-        jButton38.setBackground(new java.awt.Color(255, 255, 255));
-        jButton38.setToolTipText("");
-        jButton38.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(jButton38);
-
-        jButton37.setBackground(new java.awt.Color(255, 255, 255));
-        jButton37.setToolTipText("");
-        jButton37.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(jButton37);
-
-        jButton39.setBackground(new java.awt.Color(255, 255, 255));
-        jButton39.setToolTipText("");
-        jButton39.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(jButton39);
-
-        jButton40.setBackground(new java.awt.Color(255, 255, 255));
-        jButton40.setToolTipText("");
-        jButton40.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(jButton40);
-
-        jButton41.setBackground(new java.awt.Color(255, 255, 255));
-        jButton41.setToolTipText("");
-        jButton41.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(jButton41);
-
-        jButton42.setBackground(new java.awt.Color(255, 255, 255));
-        jButton42.setToolTipText("");
-        jButton42.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(jButton42);
-
-        jButton43.setBackground(new java.awt.Color(255, 255, 255));
-        jButton43.setToolTipText("");
-        jButton43.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(jButton43);
-
-        jButton44.setBackground(new java.awt.Color(255, 255, 255));
-        jButton44.setToolTipText("");
-        jButton44.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(jButton44);
-
-        jButton45.setBackground(new java.awt.Color(255, 255, 255));
-        jButton45.setToolTipText("");
-        jButton45.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPressed(evt);
-            }
-        });
-        TrackGrid.add(jButton45);
-
         power.setText("Power Failure");
         power.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1351,6 +192,17 @@ public class TrackModelInterface extends javax.swing.JPanel {
 
         TrackCircuit.setText("Circuit Failure");
 
+        javax.swing.GroupLayout trackDisplayLayout = new javax.swing.GroupLayout(trackDisplay);
+        trackDisplay.setLayout(trackDisplayLayout);
+        trackDisplayLayout.setHorizontalGroup(
+            trackDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 336, Short.MAX_VALUE)
+        );
+        trackDisplayLayout.setVerticalGroup(
+            trackDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -1358,26 +210,22 @@ public class TrackModelInterface extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(power, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(TrackCircuit)
-                                    .addComponent(Rail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(34, 34, 34)
-                                .addComponent(failureMode)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(trainBlockID, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
-                            .addComponent(trainSpeed, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
-                            .addComponent(trainLength)
-                            .addComponent(trainIsStation))
-                        .addGap(33, 33, 33)))
-                .addComponent(TrackGrid, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(power, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TrackCircuit)
+                            .addComponent(Rail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(failureMode))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(trainBlockID, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                        .addComponent(trainSpeed, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                        .addComponent(trainLength)
+                        .addComponent(trainIsStation)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(trackDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -1421,6 +269,7 @@ public class TrackModelInterface extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(trackDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(power)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1438,7 +287,6 @@ public class TrackModelInterface extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(trainIsStation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(TrackGrid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(ImportTrack)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1517,21 +365,16 @@ public class TrackModelInterface extends javax.swing.JPanel {
         String block = "track".concat(Integer.toString(ID));
         if(failureMode.getText().equals("1"))
         {
-            track32.setBackground(new Color(102,255,51));
+            //track32.setBackground(new Color(102,255,51));
             //(JButton)block.setBackground(Color.black);
         }
 
     }//GEN-LAST:event_powerActionPerformed
 
-    private void buttonPressed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPressed
-        // TODO add your handling code here:
-        System.out.println("button");
-    }//GEN-LAST:event_buttonPressed
-
    /**class track Model
     * track class that contains methods for finding blocks, trains, and information
     */ 
-public class TrackModel {
+    public class TrackModel {
 
 //    /**
 //     * @param args the command line arguments
@@ -1540,11 +383,14 @@ public class TrackModel {
 //        // TODO code application logic here
 //    }
     TrackObject trckOb; 
+    
     //blockList blockLinkList;
     double trainSpeed;
     double trainDistance;
     int nodePostion;
     int nodeNum;
+    int trainId = 0;
+    double[][] trainDist = new double[100][3];
     public TrackModel(){
         trckOb = new TrackObject();
         //blockLinkList = new blockList();
@@ -1552,45 +398,61 @@ public class TrackModel {
         trainDistance = 10000;
         nodePostion = 0;
         nodeNum = 77;
+        
+        for(int i=0; i<100; i++){
+            trainDist[i][2] = 77;
+        }
     }
     
     
-    public void updateSpeed(double speed)
-    {
+    public void updateSpeed(double speed){
         trainSpeed = speed;
     }
     
-    public void updatePosition(double position)
-    {
+    public void updatePosition(double position){
         trainDistance = position;
     }
     
-    public Block findBlockID(){
+    public void updateTrainId(int ID){
+        trainId = ID;
+    }
+    
+    //update block object to train true or false
+    public void findBlockID(){
+        double newDist = trainDistance - trainDist[trainId-1][1];
+        trainDist[trainId-1][1] = trainDistance;
         double blockLength = 0;
         int blockSpeed = 0;
-        double postion = trainDistance;
-        Block x;
+        Block b;
         while(true)
         {
-            postion = trainDistance;
             //System.out.println("1");
-            x = trckOb.getBlock(nodeNum);
-            System.out.println("on block: "+x.getBlockId());
+
+            b = trckOb.getBlock((int)trainDist[trainId-1][2]);
+            //System.out.println("on block: "+b.getBlockId());
             //System.out.println("2");
-            blockLength = x.getLength();
+            blockLength = b.getLength();
             //System.out.println("block length: "+ blockLength);
             //System.out.println("postion: "+ postion);
-            blockSpeed = x.getSpeedLimit();
-            if(blockLength > postion)
+            blockSpeed = b.getSpeedLimit();
+            if(blockLength > newDist)
+            {
+                trainDist[trainId-1][2] = b.getBlockId();
+                System.out.println("on block: "+b.getBlockId());
                 break;
+            }
             else
             {
-                trainDistance -= blockLength;
-                nodeNum = trckOb.getBlock(nodeNum).getPrevBlockId();
+                newDist -= blockLength;
+                trainDist[trainId-1][2] = trckOb.getBlock((int)trainDist[trainId-1][2]).getPrevBlockId();
             }
                         
         }
-        return x;
+    }
+    
+    //redraw with new color 
+   public void redraw(){
+        
     }
     //import csv track file
     public int InternalImport(String text){
@@ -1690,13 +552,24 @@ public class TrackModel {
         }	
     }
     
+    public void setNumTrains(int n){
+        numberTrains = n;
+    }
+    
+    
 }
     
-    
-    
-    public TrackModel getTrackModel()
-    {
+    //getter for the track model so the wrapper has access
+    public TrackModel getTrackModel(){
         return this.trackModel;
+    }
+    
+    
+    public void ourCustomPaintingMethod(Graphics g){
+        super.paintComponent(g);
+
+            g.drawString("BLAH", 20, 20);
+            g.drawRect(200, 200, 200, 200);
     }
     
     
@@ -1707,29 +580,12 @@ public class TrackModel {
     protected javax.swing.JButton Query;
     protected javax.swing.JButton Rail;
     protected javax.swing.JButton TrackCircuit;
-    protected javax.swing.JPanel TrackGrid;
     protected javax.swing.JLabel blockElevation;
     protected javax.swing.JLabel blockGrade;
     protected javax.swing.JLabel blockID;
     protected javax.swing.JLabel blockLength;
     protected javax.swing.JLabel blockSpeed;
     protected javax.swing.JLabel failureMode;
-    protected javax.swing.JButton jButton30;
-    protected javax.swing.JButton jButton31;
-    protected javax.swing.JButton jButton32;
-    protected javax.swing.JButton jButton33;
-    protected javax.swing.JButton jButton34;
-    protected javax.swing.JButton jButton35;
-    protected javax.swing.JButton jButton36;
-    protected javax.swing.JButton jButton37;
-    protected javax.swing.JButton jButton38;
-    protected javax.swing.JButton jButton39;
-    protected javax.swing.JButton jButton40;
-    protected javax.swing.JButton jButton41;
-    protected javax.swing.JButton jButton42;
-    protected javax.swing.JButton jButton43;
-    protected javax.swing.JButton jButton44;
-    protected javax.swing.JButton jButton45;
     protected javax.swing.JLabel jLabel1;
     protected javax.swing.JLabel jLabel2;
     protected javax.swing.JLabel jLabel3;
@@ -1739,107 +595,7 @@ public class TrackModel {
     protected javax.swing.JLabel jLabel7;
     protected javax.swing.JLabel onBlock;
     protected javax.swing.JButton power;
-    protected javax.swing.JButton track0;
-    protected javax.swing.JButton track1;
-    protected javax.swing.JButton track10;
-    protected javax.swing.JButton track100;
-    protected javax.swing.JButton track11;
-    protected javax.swing.JButton track12;
-    protected javax.swing.JButton track13;
-    protected javax.swing.JButton track14;
-    protected javax.swing.JButton track15;
-    protected javax.swing.JButton track16;
-    protected javax.swing.JButton track17;
-    protected javax.swing.JButton track18;
-    protected javax.swing.JButton track19;
-    protected javax.swing.JButton track2;
-    protected javax.swing.JButton track20;
-    protected javax.swing.JButton track21;
-    protected javax.swing.JButton track22;
-    protected javax.swing.JButton track23;
-    protected javax.swing.JButton track24;
-    protected javax.swing.JButton track25;
-    protected javax.swing.JButton track26;
-    protected javax.swing.JButton track27;
-    protected javax.swing.JButton track28;
-    protected javax.swing.JButton track29;
-    protected javax.swing.JButton track3;
-    protected javax.swing.JButton track30;
-    protected javax.swing.JButton track31;
-    protected javax.swing.JButton track32;
-    protected javax.swing.JButton track33;
-    protected javax.swing.JButton track34;
-    protected javax.swing.JButton track35;
-    protected javax.swing.JButton track36;
-    protected javax.swing.JButton track37;
-    protected javax.swing.JButton track38;
-    protected javax.swing.JButton track39;
-    protected javax.swing.JButton track4;
-    protected javax.swing.JButton track40;
-    protected javax.swing.JButton track41;
-    protected javax.swing.JButton track42;
-    protected javax.swing.JButton track43;
-    protected javax.swing.JButton track44;
-    protected javax.swing.JButton track45;
-    protected javax.swing.JButton track46;
-    protected javax.swing.JButton track47;
-    protected javax.swing.JButton track48;
-    protected javax.swing.JButton track49;
-    protected javax.swing.JButton track5;
-    protected javax.swing.JButton track50;
-    protected javax.swing.JButton track51;
-    protected javax.swing.JButton track52;
-    protected javax.swing.JButton track53;
-    protected javax.swing.JButton track54;
-    protected javax.swing.JButton track55;
-    protected javax.swing.JButton track56;
-    protected javax.swing.JButton track57;
-    protected javax.swing.JButton track58;
-    protected javax.swing.JButton track59;
-    protected javax.swing.JButton track6;
-    protected javax.swing.JButton track60;
-    protected javax.swing.JButton track61;
-    protected javax.swing.JButton track62;
-    protected javax.swing.JButton track63;
-    protected javax.swing.JButton track64;
-    protected javax.swing.JButton track65;
-    protected javax.swing.JButton track66;
-    protected javax.swing.JButton track67;
-    protected javax.swing.JButton track68;
-    protected javax.swing.JButton track69;
-    protected javax.swing.JButton track7;
-    protected javax.swing.JButton track70;
-    protected javax.swing.JButton track71;
-    protected javax.swing.JButton track72;
-    protected javax.swing.JButton track73;
-    protected javax.swing.JButton track74;
-    protected javax.swing.JButton track75;
-    protected javax.swing.JButton track76;
-    protected javax.swing.JButton track77;
-    protected javax.swing.JButton track78;
-    protected javax.swing.JButton track79;
-    protected javax.swing.JButton track8;
-    protected javax.swing.JButton track80;
-    protected javax.swing.JButton track81;
-    protected javax.swing.JButton track82;
-    protected javax.swing.JButton track83;
-    protected javax.swing.JButton track84;
-    protected javax.swing.JButton track85;
-    protected javax.swing.JButton track86;
-    protected javax.swing.JButton track87;
-    protected javax.swing.JButton track88;
-    protected javax.swing.JButton track89;
-    protected javax.swing.JButton track9;
-    protected javax.swing.JButton track90;
-    protected javax.swing.JButton track91;
-    protected javax.swing.JButton track92;
-    protected javax.swing.JButton track93;
-    protected javax.swing.JButton track94;
-    protected javax.swing.JButton track95;
-    protected javax.swing.JButton track96;
-    protected javax.swing.JButton track97;
-    protected javax.swing.JButton track98;
-    protected javax.swing.JButton track99;
+    protected javax.swing.JPanel trackDisplay;
     protected javax.swing.JTextField trainBlockID;
     protected javax.swing.JTextField trainIsStation;
     protected javax.swing.JTextField trainLength;

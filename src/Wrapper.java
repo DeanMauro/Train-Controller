@@ -2,14 +2,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.Timer;
 
 class Wrapper {
 	
 	protected static Office office;
-        protected static TrackModelInterface trackModelInterface;
+        protected static TrackModelInterface2 trackModelInterface;
 	protected static Vector<TrainModel> trainModel;
 	protected static Vector<TrainController> trainController;
         protected static TrainControllerUI trainControllerUI;
@@ -79,7 +77,7 @@ class Wrapper {
             
 		
             office 		= new Office();
-            trackModelInterface = new TrackModelInterface();
+            trackModelInterface = new TrackModelInterface2();
             trainModel          = new Vector();
             trainController     = new Vector();
             trainControllerUI   = new TrainControllerUI();
@@ -94,9 +92,6 @@ class Wrapper {
             addStartButtonListener(mbo.StartButton);
             
             /*Track Model Listeners*/
-            addBlockSpeedListener(trackModelInterface.trainSpeed);
-            addBlockLengthListener(trackModelInterface.trainLength);
-            addIsStationListener(trackModelInterface.trainIsStation);
             addMBRBListener(mbo.MovingBlockRadio);
             
             /*TrainModel Listeners*/
@@ -134,6 +129,11 @@ class Wrapper {
                   trackModelInterface.getTrackModel().updatePosition(currentTrain.getCurrentPosition());
                   Train.setPosition(office.trainsOnTracks.get(i), currentTrain.getCurrentPosition());
 
+                  /*Update Track Model with block for each Train ID*/
+                  trackModelInterface.getTrackModel().updateTrainId(currentTrain.getID());
+                  trackModelInterface.getTrackModel().findBlockID();
+                  
+                  
                   /*Update Train Controllers with new MBO Authorities*/
                   mbo.updateBlockAuthority(mbo.getbauth());
                   Train.setAuthority(office.trainsOnTracks.get(i), mbo.getbauth());
@@ -143,6 +143,10 @@ class Wrapper {
                   //trackModelInterface.queryButton();
 
               }
+              
+              //trackModelInterface.getTrackModel().redraw();
+              trainControllerUI.updateFields();
+              mbo.updateTrainList(trainModel);
 
             }
             };
@@ -240,7 +244,7 @@ class Wrapper {
                 {
                     int ID = Integer.parseInt(((JButton)e.getSource()).getActionCommand());
                     trainController.get(ID).setCtcAuthority(office.getSuggestedAuthority(ID));
-                    trainController.get(ID).setCtcSpeed(office.getSuggestedAuthority(ID));
+                    trainController.get(ID).setCtcSpeed(office.getSuggestedSpeed(ID));
                 }
             });
 
@@ -250,67 +254,6 @@ class Wrapper {
 	/////////////////////////////////
 	//TRACK MODEL LISTENERS
 	/////////////////////////////////
-        private static void addBlockSpeedListener(JTextField bs){
-            // <editor-fold defaultstate="collapsed" desc="Block Speed">
-            bs.getDocument().addDocumentListener(new DocumentListener(){
-
-                public void changedUpdate(DocumentEvent documentEvent) {
-                    double speed = Double.parseDouble(bs.getText());
-                    mbo.updateBlockSpeed(speed);
-                }
-                public void insertUpdate(DocumentEvent documentEvent) {
-                    double speed = Double.parseDouble(bs.getText());
-                    mbo.updateBlockSpeed(speed);
-                }
-                public void removeUpdate(DocumentEvent documentEvent) {
-                    //double speed = Double.parseDouble(bs.getText());
-                    //mbo.updateBlockSpeed(speed);
-                }
-            });        
-    }// </editor-fold> 
-    
-        private static void addBlockLengthListener(JTextField trainLength){
-            // <editor-fold defaultstate="collapsed" desc="Block Length">
-            trainLength.getDocument().addDocumentListener(new DocumentListener(){
-        	
- 		      public void changedUpdate(DocumentEvent documentEvent) {
- 		        //double position = Double.parseDouble(trainLength.getText());
-                        //trackModel.updatePosition(position);
- 		      }
- 		      public void insertUpdate(DocumentEvent documentEvent) {
- 		        //double position = Double.parseDouble(trainLength.getText());
-                        //trackModel.updatePosition(position);
- 		      }
- 		      public void removeUpdate(DocumentEvent documentEvent) {
- 		        //double position = Double.parseDouble(trainLength.getText());
-                        //trackModel.updatePosition(position);
-		      }
- 		      
-            });        
-                      
-	}// </editor-fold> 
-    
-        private static void addIsStationListener(JTextField trainIsStation){
-            // <editor-fold defaultstate="collapsed" desc="Is Station">
-            trainIsStation.getDocument().addDocumentListener(new DocumentListener(){
-        	
- 		      public void changedUpdate(DocumentEvent documentEvent) {
- 		        boolean position = Boolean.parseBoolean(trainIsStation.getText());
-                        //trackModel.updatePosition(position);
- 		      }
- 		      public void insertUpdate(DocumentEvent documentEvent) {
- 		        //double position = Double.parseDouble(trainIsStation.getText());
-                        //trackModel.updatePosition(position);
- 		      }
- 		      public void removeUpdate(DocumentEvent documentEvent) {
- 		        //double position = Double.parseDouble(trainIsStation.getText());
-                        //trackModel.updatePosition(position);
-		      }
- 		      
-            });        
-                      
-	}// </editor-fold> 
-    
 	
 	/////////////////////////////////
 	//TRAIN MODEL LISTENERS
@@ -328,7 +271,7 @@ class Wrapper {
         MovingBlockRadio.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
-                if(MovingBlockRadio.isSelected())
+                if(((JRadioButton)e.getSource()).isSelected())
                     office.setMovingBlock();
                 else
                     office.setFixedBlock();

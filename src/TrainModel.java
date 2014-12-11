@@ -155,6 +155,8 @@ public class TrainModel extends javax.swing.JFrame {
         else
             currentAcceleration = currentForce / (mass+passengerMass);
         
+        System.out.println(mass);
+        
         if(currentAcceleration > 1)         //Max acceleration can't
             currentAcceleration = 1;        //exceed 1 m/sec^2
     }
@@ -182,6 +184,10 @@ public class TrainModel extends javax.swing.JFrame {
 
     public double getCurrentPosition(){
         return currentPosition;
+    }
+    
+    public int getID(){
+        return ID;
     }
     
     

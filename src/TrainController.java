@@ -35,8 +35,8 @@ public class TrainController {
     //variables for power calculation       
     private double maxTrainDeceleration;
     private double maxTrainPower;
-    private final double KP = 10;//proportional gain
-    private final double KI = 3;//integral gain
+    private final double KP = 1000;//proportional gain
+    private final double KI = 300;//integral gain
     private double uk = 0; //integral error
     private double ek = 0;//proportional error
     private double T = 0.1;
@@ -129,7 +129,7 @@ public class TrainController {
     {
         //actual train velcity
         vAct = train.getCurrentSpeed();
-       
+       System.out.println("vAct=" +vAct);
         //convert vAct to m/s        
         
       //  tcUI.currentSpeedDisplay.setText(String.format("%.2f", vAct));
@@ -141,8 +141,8 @@ public class TrainController {
         //Vi^2 = -2ad
         //Vi = sqrt(-2ad)
         
-        //authority = Math.min(ctcSuggestedAuthority,mboCommandedAuthority);
-        authority = mboCommandedAuthority;
+        authority = Math.max(ctcSuggestedAuthority,mboCommandedAuthority);
+        //authority = mboCommandedAuthority;
         //authority = 5000;
         if(authority <= 0)
         {
@@ -153,14 +153,17 @@ public class TrainController {
         //double powerCheck = this.setPowerRedundant(vAct, authority, power, ek, uk);
         
         double vLimit = Math.sqrt(2*maxTrainDeceleration*authority);
-       //System.out.println("vlimit="+vLimit);
+       System.out.println("vlimit="+vLimit);
         //decide what speed setpoint to use
         
+        //trying this temporarily
+       velocitySetpoint = vLimit;
+       
         //check that setpoint is not greater than track speed limit or velocity limit
-        if(velocitySetpoint > Math.min(speedLimit, vLimit))
+        /*if(velocitySetpoint > Math.min(speedLimit, vLimit))
         {
             velocitySetpoint = Math.min(speedLimit, vLimit);
-        }
+        }*/
         System.out.println("velSetpoint="+velocitySetpoint);
        // tcUI.safeSpeedSetpointDisplay.setText(String.valueOf(velocitySetpoint));
         
@@ -169,10 +172,11 @@ public class TrainController {
              uk = uk + (T/2)*(ek + (velocitySetpoint - vAct));
         }
        
-       // System.out.println("uk="+uk);
+        System.out.println("uk="+uk);
         ek = velocitySetpoint - vAct;
-        //System.out.println("ek="+ek);
+        System.out.println("ek="+ek);
         power = (KP*ek) + (KI * uk);
+        System.out.println("power="+power);
         
         //Add redundant power check here
         /*if(powerCheck == power)
@@ -206,6 +210,8 @@ public class TrainController {
        //System.out.println("vlimit="+vLimit);
         //decide what speed setpoint to use
         this.evaluateVelocity();
+        //try this
+        velocitySetpoint = vLimit;
         //check that setpoint is not greater than track speed limit or velocity limit
         if(velocitySetpoint > Math.min(speedLimit, vLimit))
         {
@@ -267,9 +273,8 @@ public class TrainController {
     //evaluate whether to use ctcSpeed, mboSpeed, or ConductorSpeed
      public void evaluateVelocity()
      {
-         velocitySetpoint = Math.max(mboCommandedSpeed,controllerSpeedSetpoint);
-         
-        // tcUI.safeSpeedSetpointDisplay.setText(String.format("%.2f", velocitySetpoint));
+         velocitySetpoint = Math.max(mboCommandedSpeed,controllerSpeedSetpoint);         
+        
      }
              
          
