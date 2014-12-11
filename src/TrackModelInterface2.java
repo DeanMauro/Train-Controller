@@ -481,6 +481,7 @@ public class TrackModelInterface2 extends JFrame
             //gets the new total distance the current train traveled
             public void updatePosition(double position){
                 totalDistance = position;
+                System.out.println("Total distance: "+ totalDistance);
             }
     
             //gets train ID of the current one being tracked
@@ -490,8 +491,12 @@ public class TrackModelInterface2 extends JFrame
 
             //update block object to train true or false
             public void findBlockID(){
+                //System.out.println("train ID: "+ trainId);
+                //System.out.println("train distance: "+ trainDist[trainId-1][1]);
                 double newDist = totalDistance - trainDist[trainId-1][1];
-                trainDist[trainId-1][1] = totalDistance;
+                //System.out.println("new distance: "+ newDist);
+                trainDist[trainId-1][1] += newDist;
+                //System.out.println("train distance: "+ trainDist[trainId-1][1]);
                 double blockLength = 0;
                 int blockSpeed = 0;
                 Block b;
@@ -506,15 +511,19 @@ public class TrackModelInterface2 extends JFrame
                     //System.out.println("block length: "+ blockLength);
                     //System.out.println("postion: "+ postion);
                     blockSpeed = b.getSpeedLimit();
-                    if(blockLength > newDist)
+                    //System.out.println("block length: "+ blockLength);
+                    if(blockLength > trainDist[trainId-1][1])
                     {
                         trainDist[trainId-1][2] = b.getBlockId();
                         System.out.println("on block: "+b.getBlockId());
+                        redraw(b.getBlockId());
+                        //trainDist[trainId-1][1] = 0;
                         break;
                     }
                     else
                     {
-                        newDist -= blockLength;
+                        trainDist[trainId-1][1] -= blockLength;
+                        //newDist -= blockLength;
                         trainDist[trainId-1][2] = trackObject.getBlock((int)trainDist[trainId-1][2]).getPrevBlockId();
                     }
 
@@ -522,8 +531,8 @@ public class TrackModelInterface2 extends JFrame
             }
 
             //redraw with new color 
-            public void redraw(){
-
+            public void redraw(int ID){
+                
             }
             
             //import csv track file
