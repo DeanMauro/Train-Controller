@@ -39,7 +39,7 @@ public class TrackModelInterface2 extends JFrame
 	
 	private final String[] mLabelStrings = new String[] {"Type:", "Line:", "Section:", "Direction:", "Length (ft):", "Speed Limit (mph):", "Grade (%):", "Elevation (ft): ", "Cumulative Elevation (ft):", "is Underground:", "Train Present:", "Track Heater:"};
 	
-	private TrackModel trackModel = null;
+	private TrackModel trackModel;
 	private ArrayList<JLabel> mObjectPropertyLabels;
 	private ArrayList<JButton> mFailureModeButtons;
 	private Object mSelectedObject;
@@ -90,6 +90,7 @@ public class TrackModelInterface2 extends JFrame
                 importTrack.addActionListener(new ActionListener(){
                         @Override
 			public void actionPerformed(ActionEvent e){
+                            trackModel = new TrackModel();
                             String path = System.getProperty("user.dir");
                             System.out.println(path);
                             JFileChooser openFile = new JFileChooser(path);
@@ -240,15 +241,15 @@ public class TrackModelInterface2 extends JFrame
 		map = new JComponent(){
 			@Override
 			public void paintComponent(Graphics g){
-//				System.out.println("painting canvas");
+				System.out.println("painting canvas");
 				
 				g.clearRect(0, 0, getWidth(), getHeight());
 				
 				g.setColor(Color.GRAY);
 				g.fillRect(0, 0, getWidth(), getHeight());
 				
-				System.out.println("width: " + getWidth());
-				System.out.println("height: " + getHeight());
+				//System.out.println("width: " + getWidth());
+				//System.out.println("height: " + getHeight());
 				
 				// draw yard
 				g.setColor(Color.BLUE);
@@ -272,7 +273,7 @@ public class TrackModelInterface2 extends JFrame
                                     }
                                     else
                                     {
-                                        if(lineColor == 0)//red
+                                        if(trackModel.getLineColor() == 0)//red
                                         {
                                             g2d.setColor(Color.RED);
                                         }
@@ -472,7 +473,8 @@ public class TrackModelInterface2 extends JFrame
             int trainId;
             int numberTrains;
             int numBlocks;
-            double[][] trainDist = new double[100][3];
+            double[][] trainDistRed = new double[100][3];
+            double[][] trainDistGreen = new double[100][3];
             
             public TrackModel(){
                 trackObject = new TrackObject();
@@ -482,7 +484,8 @@ public class TrackModelInterface2 extends JFrame
                 nodePostion = 0;
                 
                 for(int i=0; i<100; i++){
-                    trainDist[i][2] = 77;
+                    trainDistRed[i][2] = 77;
+                    trainDistGreen[i][2] = 152;
                 }
             }
 
@@ -506,7 +509,11 @@ public class TrackModelInterface2 extends JFrame
             public void findBlockID(){
                 //System.out.println("train ID: "+ trainId);
                 //System.out.println("train distance: "+ trainDist[trainId-1][1]);
-                double newDist = totalDistance - trainDist[trainId-1][1];
+                double newDist;
+                if(getLineColor() == 0)
+                    newDist = totalDistance - trainDistRed[trainId-1][1];
+                else
+                    newDist = totalDistance - trainDistGreen[trainId-1][1];
                 //System.out.println("new distance: "+ newDist);
                 //trainDist[trainId-1][1] += newDist;
                 //System.out.println("train distance: "+ trainDist[trainId-1][1]);
@@ -517,7 +524,10 @@ public class TrackModelInterface2 extends JFrame
                 {
                     //System.out.println("1");
 
-                    b = trackObject.getBlock((int)trainDist[trainId-1][2]);
+                    if(getLineColor() == 0)
+                        b = trackObject.getBlock((int)trainDistRed[trainId-1][2]);
+                    else
+                        b = trackObject.getBlock((int)trainDistGreen[trainId-1][2]);
                     //System.out.println("on block: "+b.getBlockId());
                     //System.out.println("2");
                     blockLength = b.getLength();
@@ -527,7 +537,10 @@ public class TrackModelInterface2 extends JFrame
                     //System.out.println("block length: "+ blockLength);
                     if(blockLength > newDist)
                     {
-                        trainDist[trainId-1][2] = b.getBlockId();
+                        if(getLineColor() == 0)
+                            trainDistRed[trainId-1][2] = b.getBlockId();
+                        else
+                            trainDistGreen[trainId-1][2] = b.getBlockId();
                         //trainDist[trainId-1][1] = 0;
                         System.out.println("on block: "+b.getBlockId());
                         redraw(b.getBlockId());
@@ -536,11 +549,17 @@ public class TrackModelInterface2 extends JFrame
                     }
                     else
                     {
-                        trainDist[trainId-1][1] += blockLength;
+                        if(getLineColor() == 0)
+                            trainDistRed[trainId-1][1] += blockLength;
+                        else
+                            trainDistGreen[trainId-1][1] += blockLength;
                         newDist -= blockLength;//trainDist[trainId-1][1] -= blockLength;
                         //newDist -= blockLength;
                         b.setTrainDetected(false);
-                        trainDist[trainId-1][2] = trackObject.getBlock((int)trainDist[trainId-1][2]).getPrevBlockId();
+                        if(getLineColor() == 0)
+                            trainDistRed[trainId-1][2] = trackObject.getBlock((int)trainDistRed[trainId-1][2]).getPrevBlockId();
+                        else
+                            trainDistGreen[trainId-1][2] = trackObject.getBlock((int)trainDistGreen[trainId-1][2]).getPrevBlockId();
                     }
 
                 }
@@ -550,7 +569,10 @@ public class TrackModelInterface2 extends JFrame
             public void redraw(int ID){
                 Block b = trackObject.getBlock(ID);
                 b.setTrainDetected(true);
+                System.out.println("on block: "+b.getBlockId()+1);
+                System.out.println("on block: "+b.getBlockId()+2);
                 repaint();
+                System.out.println("on block: "+b.getBlockId()+3);
             }
             
             //import csv track file
@@ -656,8 +678,18 @@ public class TrackModelInterface2 extends JFrame
             
             //gives ID of train....returns block train is on
             public Block getBlockTrainIsOn(int ID){
-                Block b = trackObject.getBlock((int)trainDist[ID-1][2]);
-                return trackObject.getBlock((int)trainDist[ID-1][2]);
+                Block b;
+                if(getLineColor() == 0)
+                {
+                    b = trackObject.getBlock((int)trainDistRed[ID-1][2]);
+                    return trackObject.getBlock((int)trainDistRed[ID-1][2]);
+                }
+                else
+                {
+                    b = trackObject.getBlock((int)trainDistGreen[ID-1][2]);
+                    return trackObject.getBlock((int)trainDistGreen[ID-1][2]);
+                }
+                
             }
             
             public TrackObject getTrackObject(){
@@ -666,9 +698,16 @@ public class TrackModelInterface2 extends JFrame
             
             //get distance to next station from train block
             public double getNextStationDistance(int ID){
-                Block b = trackObject.getBlock((int)trainDist[ID-1][2]);
+                Block b;
+                if(getLineColor() == 0)
+                    b = trackObject.getBlock((int)trainDistRed[ID-1][2]);
+                else
+                    b = trackObject.getBlock((int)trainDistGreen[ID-1][2]);
                 Block s, next;
-                s =  trackObject.getBlock((int)trainDist[ID-1][2]);
+                if(getLineColor() == 0)
+                    s =  trackObject.getBlock((int)trainDistRed[ID-1][2]);
+                else
+                    s =  trackObject.getBlock((int)trainDistGreen[ID-1][2]);
                 double distance = 0;
                 if(s.isStation())
                 {
@@ -693,9 +732,16 @@ public class TrackModelInterface2 extends JFrame
             
             //get distance to next specific station from train block
             public double getNextSpecificStationDistance(int ID, String name){
-                Block b = trackObject.getBlock((int)trainDist[ID-1][2]);
+                Block b;
+                if(getLineColor() == 0)
+                    b = trackObject.getBlock((int)trainDistRed[ID-1][2]);
+                else
+                    b = trackObject.getBlock((int)trainDistGreen[ID-1][2]);
                 Block s, next;
-                s =  trackObject.getBlock((int)trainDist[ID-1][2]);
+                if(getLineColor() == 0)
+                    s =  trackObject.getBlock((int)trainDistRed[ID-1][2]);
+                else
+                    s =  trackObject.getBlock((int)trainDistGreen[ID-1][2]);
                 double distance = 0;
                 if(s.isStation())
                 {

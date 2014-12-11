@@ -81,11 +81,6 @@ public class TrainModel extends javax.swing.JFrame {
         stationName = b.getStationName();
         blockLength = b.getLength();
         blockClosed = b.isClosed();
-        
-        System.out.println("SPEED: "+ currentSpeed);
-        System.out.println("ACCEL: "+ currentAcceleration);
-        System.out.println("Power: "+ currentPower);
-        System.out.println("SPEED LIMIT: " + blockSpeedLimit);
     }
    
     
