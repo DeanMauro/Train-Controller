@@ -110,7 +110,6 @@ public class Office extends javax.swing.JPanel {
         workersBackground = new javax.swing.JLabel();
         screenLayeredPane = new javax.swing.JLayeredPane();
         screenFrontPanel = new javax.swing.JPanel();
-        trackModelInterface1 = new TrackModelInterface();
         MBOLayeredPane = new javax.swing.JLayeredPane();
         MBOFrontPanel = new javax.swing.JPanel();
         labelMoving = new javax.swing.JLabel();
@@ -152,8 +151,10 @@ public class Office extends javax.swing.JPanel {
         textClock.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textClock.setText("0:00");
 
+        buttonDecreaseClockSpeed.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         buttonDecreaseClockSpeed.setText("<<");
 
+        buttonIncreaseClockSpeed.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         buttonIncreaseClockSpeed.setText(">>");
 
         javax.swing.GroupLayout clockFrontPanelLayout = new javax.swing.GroupLayout(clockFrontPanel);
@@ -288,13 +289,11 @@ public class Office extends javax.swing.JPanel {
         screenFrontPanel.setLayout(screenFrontPanelLayout);
         screenFrontPanelLayout.setHorizontalGroup(
             screenFrontPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, screenFrontPanelLayout.createSequentialGroup()
-                .addGap(0, 42, Short.MAX_VALUE)
-                .addComponent(trackModelInterface1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(0, 699, Short.MAX_VALUE)
         );
         screenFrontPanelLayout.setVerticalGroup(
             screenFrontPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(trackModelInterface1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(0, 322, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout screenLayeredPaneLayout = new javax.swing.GroupLayout(screenLayeredPane);
@@ -626,7 +625,6 @@ public class Office extends javax.swing.JPanel {
     protected javax.swing.JTextArea textSchedule;
     protected javax.swing.JTextField textSchedulerBlock;
     protected javax.swing.JPanel topPanel;
-    protected TrackModelInterface trackModelInterface1;
     protected javax.swing.JPanel workersBackPanel;
     protected javax.swing.JLabel workersBackground;
     protected javax.swing.JPanel workersFrontPanel;
