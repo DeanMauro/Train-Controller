@@ -14,8 +14,9 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
     double location = 0;
     double bspeed[] = new double[850];
     double bauth[] = new double[850];
-    double deceleration = -25;
+    double deceleration = -1.2;
     int mode = 0;
+    int[] passengers = new int[850];
     ArrayList<ScheduleNode> schedule = new ArrayList();
     /**
      * Creates new form MovingBlockOverlayUI
@@ -49,6 +50,11 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
     
     public void updateBlockAuthority(double a,int ID){
         bauth[ID] = a;
+        updateDisplay();
+    }
+    
+    public void updatePassengerCount(int pass, int ID){
+        passengers[ID] = pass;
         updateDisplay();
     }
 
@@ -1117,6 +1123,7 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
     public void updateDisplay(){
         //Get current train info
         int curr_train_num = Integer.parseInt((String)TrainList.getSelectedItem()) - 1;
+        TotalText.setText(String.valueOf(passengers[curr_train_num]));
         curr_train = trains.get(curr_train_num);
         speed = curr_train.getCurrentSpeed();
         double speed_in_mph = speed * 2.23694;

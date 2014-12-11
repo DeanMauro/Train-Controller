@@ -144,6 +144,7 @@ class Wrapper {
                   mbo.updatePosition(currentTrain.getCurrentPosition());
                   mbo.updateBlockAuthority(trackModelInterface.getTrackModel().getNextStationDistance(currentTrain.getID()), i);
                   mbo.updateBlockSpeed(trackModelInterface.getTrackModel().getBlockTrainIsOn(currentTrain.getID()).getSpeedLimit(),i);
+                  mbo.updatePassengerCount(trainModel.get(i).getPassengerCount(),i);
                   
                   
                   /*Update Office*/

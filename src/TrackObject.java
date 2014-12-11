@@ -113,9 +113,9 @@ public class TrackObject {
                 {
                     Block b = getBlock(i);
                     if(i!= numBlocks)
-                        b.setNextBlockId(i+1);
+                        b.setPrevBlockId(i+1);
                     if(i!= numBlocks)
-                        b.setPrevBlockId(i-1);
+                        b.setNextBlockId(i-1);
 
                 }
                 //create station list
@@ -126,6 +126,16 @@ public class TrackObject {
                     {
                         stationList.add(b.getStationName());
                     }
+                }
+                
+                for(int i = 1;i<16;i++)
+                {
+                    Block b = getBlock(i);
+                    if(i!= numBlocks)
+                        b.setNextBlockId(i+1);
+                    if(i!= numBlocks)
+                        b.setPrevBlockId(i-1);
+
                 }
                 
                 //create switchs
@@ -148,57 +158,57 @@ public class TrackObject {
                 b.setCurrentlySwitchedTo(1);
                 b.setNextBlockId(1);
                 b = getBlock(1);
-                b.setPrevBlockId(15);
+                b.setPrevBlockId(16);
                 
                 //switch 7
                 b = getBlock(27);
                 b.setBlockSwitchId1(28);
                 b.setBlockSwitchId2(76);
-                b.setPrevBlockId(26);
+                b.setPrevBlockId(28);
                 b.setCurrentlySwitchedTo(1);
                 b.setNextBlockId(28);
                 b = getBlock(28);
-                b.setPrevBlockId(27);
+                b.setPrevBlockId(29);
                 
                 //switch 8
                 b = getBlock(32);
                 b.setBlockSwitchId1(33);
                 b.setBlockSwitchId2(72);
-                b.setPrevBlockId(31);
+                b.setPrevBlockId(33);
                 b.setCurrentlySwitchedTo(1);
                 b.setNextBlockId(33);
                 b = getBlock(33);
-                b.setPrevBlockId(32);
+                b.setPrevBlockId(34);
                 
                 //switch 9
                 b = getBlock(38);
                 b.setBlockSwitchId1(39);
                 b.setBlockSwitchId2(71);
-                b.setPrevBlockId(37);
+                b.setPrevBlockId(39);
                 b.setCurrentlySwitchedTo(1);
                 b.setNextBlockId(39);
                 b = getBlock(39);
-                b.setPrevBlockId(38);
+                b.setPrevBlockId(40);
                 
                 //switch 10
                 b = getBlock(43);
                 b.setBlockSwitchId1(44);
                 b.setBlockSwitchId2(67);
-                b.setPrevBlockId(42);
+                b.setPrevBlockId(44);
                 b.setCurrentlySwitchedTo(1);
                 b.setNextBlockId(44);
                 b = getBlock(44);
-                b.setPrevBlockId(43);
+                b.setPrevBlockId(45);
                 
                 //switch 11
                 b = getBlock(52);
                 b.setBlockSwitchId1(53);
                 b.setBlockSwitchId2(66);
-                b.setPrevBlockId(51);
+                b.setPrevBlockId(53);
                 b.setCurrentlySwitchedTo(1);
                 b.setNextBlockId(53);
                 b = getBlock(53);
-                b.setPrevBlockId(52);
+                b.setPrevBlockId(54);
                 
             }
             if(getLine().equals("Green"))
