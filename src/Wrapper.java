@@ -16,6 +16,9 @@ class Wrapper {
         
         protected static ArrayList<ScheduleNode> schedule;
         protected static boolean fromMBO = false;
+        protected static boolean ctcAutoMode = true;
+        protected static double ctcManSpeed = 0;
+        protected static double ctcManAuth = 0;
         protected static int numStations = 0;
         protected static int timerDelay = 1000;
         protected static ActionListener ClockListener;
@@ -153,7 +156,7 @@ class Wrapper {
                   /*Update Office*/
                   Train.setSpeed(office.trainsOnTracks.get(i), currentTrain.getCurrentSpeed());
                   Train.setPosition(office.trainsOnTracks.get(i), currentTrain.getCurrentPosition());
-                  
+                  ctcAutoMode = Train.getAutoMode(office.trainsOnTracks.get(i));
                   
                   /*Update Train Controllers with new MBO Authorities*/
                   //mbo.updateBlockAuthority(trackModelInterface.getTrackModel().getNextStationDistance(i));
@@ -168,9 +171,15 @@ class Wrapper {
                       distToStation = trackModelInterface.getTrackModel().getNextSpecificStationDistance(currentTrain.getID(), currentTrain.getNextStation());
                   }
                   
-                  trainController.get(i).setCtcAuthority(distToStation);
-                  ctcSpeed = Train.getSetRecommendedSpeed(office.trainsOnTracks.get(i), distToStation, 10);
-                  trainController.get(i).setCtcSpeed(ctcSpeed);
+                  if(ctcAutoMode){
+                    trainController.get(i).setCtcAuthority(distToStation);
+                    ctcSpeed = Train.getSetRecommendedSpeed(office.trainsOnTracks.get(i), distToStation, 10);
+                    trainController.get(i).setCtcSpeed(ctcSpeed);
+                  }else{
+                    trainController.get(i).setCtcAuthority(Math.min(ctcManAuth ,  distToStation));
+                    trainController.get(i).setCtcSpeed(Math.min(ctcManSpeed , Train.getSetRecommendedSpeed(office.trainsOnTracks.get(i), distToStation, 10)));
+                  }
+                  
                   trainController.get(i).setSpeedLimit(currentTrain.getSpeedLimit());
                   trainController.get(i).setMboAuthority(mbo.getbauth(i));
                   trainController.get(i).setMboSpeed(mbo.getbspeed(i));
@@ -335,8 +344,13 @@ class Wrapper {
                 public void actionPerformed(ActionEvent e)
                 {
                     int ID = Integer.parseInt(((JButton)e.getSource()).getActionCommand());
-                    trainController.get(ID).setCtcAuthority(office.getSuggestedAuthority(ID));
-                    trainController.get(ID).setCtcSpeed(office.getSuggestedSpeed(ID));
+                    ctcManAuth = office.getSuggestedAuthority(ID);
+                    ctcManSpeed = office.getSuggestedSpeed(ID);
+                    
+                    trainController.get(ID).setCtcAuthority(ctcManAuth);
+                    trainController.get(ID).setCtcSpeed(ctcManSpeed);
+                    
+                    ctcAutoMode = false;
                 }
             });
 

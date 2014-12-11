@@ -136,11 +136,14 @@ public class Train extends javax.swing.JPanel {
             public void actionPerformed(ActionEvent e)
             {
                 if(((JCheckBox)e.getSource()).isSelected()){
+                    autoMode = true;
                     textSetSpeed.setEnabled(false);
                     textSetAuthority.setEnabled(false);
                 }else{
+                    autoMode = false;
                     textSetSpeed.setEnabled(true);
                     textSetAuthority.setEnabled(true);
+                    
                 }
             }
         });
@@ -237,6 +240,13 @@ public class Train extends javax.swing.JPanel {
         return stationNum;
     }
     
+    
+///////////////////////////
+    //Auto or Manual Mode
+///////////////////////////
+    public static boolean getAutoMode(Train t){
+        return t.autoMode;
+    }
         
         
     
