@@ -15,6 +15,7 @@ public class Train extends javax.swing.JPanel {
     double recommendedSpeed = 0;
     double recommendedAuthority = 0;
     int stationNum = 0;
+    boolean autoMode = true;
 
     public Train(int numTrain) {
         initComponents();
@@ -178,10 +179,13 @@ public class Train extends javax.swing.JPanel {
     
     public static double getSetRecommendedSpeed(Train t, double distance, double time){
     // <editor-fold defaultstate="collapsed" desc="Recommend Speed">
-        t.recommendedSpeed = distance / time;
-        t.textSetSpeed.setText(String.valueOf(2.23694 * t.recommendedSpeed));
+        t.recommendedSpeed = (distance / time);
         t.recommendedAuthority = distance;
-        t.textSetAuthority.setText(String.valueOf(3.28084 * t.recommendedAuthority));
+        
+        if(t.autoMode){
+            t.textSetSpeed.setText(d1.format(2.23694 * t.recommendedSpeed) + " mph");
+            t.textSetAuthority.setText(d0.format(3.28084 * distance) + " ft.");
+        }
         
         return t.recommendedSpeed;
     }// </editor-fold>

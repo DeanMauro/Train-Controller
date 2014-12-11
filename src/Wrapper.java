@@ -111,30 +111,13 @@ class Wrapper {
             /*Calculate new train metrics*/
               TrainModel currentTrain;
               String station;
-              double timeToStation;
-              int stationNum;
               double distToStation;
+              double ctcSpeed = 0;
               mbo.updateTrainList(trainModel);
               
               for(int i=0; i<numberOfTrains; i++){
                   currentTrain = trainModel.get(i);
-                  
-                  if(fromMBO){
-                     /*Get destination station and transit time*/
-                    stationNum = office.trainsOnTracks.get(i).getStationNum();
-                    station = schedule.get(stationNum).getStop();
-
-                    System.out.println("StationNum: " + stationNum);
-                    System.out.println("I "+i);
-                    timeToStation = schedule.get(stationNum).getTime().get(i);
-                    distToStation = trackModelInterface.getTrackModel().getNextSpecificStationDistance(i+1, station);
-                    trainController.get(i).setCtcSpeed(Train.getSetRecommendedSpeed(office.trainsOnTracks.get(i), distToStation, timeToStation));
-
-                    trainController.get(i).setCtcAuthority(Train.getRecommendedAuthority(office.trainsOnTracks.get(i)));
-                  }
-                  
-                  
-                  
+                
                   /*Calculate Trains' new Speeds, Accelerations, Positions*/
                   currentTrain.update(totalSeconds);
                   
@@ -167,6 +150,15 @@ class Wrapper {
                   Train.setAuthority(office.trainsOnTracks.get(i), mbo.getbauth(i));
 
                   /*Update Train Controllers*/
+                  if(currentTrain.getNextStation() == null){
+                      distToStation = trackModelInterface.getTrackModel().getNextStationDistance(currentTrain.getID());
+                  } else{
+                      distToStation = trackModelInterface.getTrackModel().getNextSpecificStationDistance(currentTrain.getID(), currentTrain.getNextStation());
+                  }
+                  
+                  trainController.get(i).setCtcAuthority(distToStation);
+                  ctcSpeed = Train.getSetRecommendedSpeed(office.trainsOnTracks.get(i), distToStation, 10);
+                  trainController.get(i).setCtcSpeed(ctcSpeed);
                   trainController.get(i).setSpeedLimit(currentTrain.getSpeedLimit());
                   trainController.get(i).setMboAuthority(mbo.getbauth(i));
                   trainController.get(i).setMboSpeed(mbo.getbspeed(i));
@@ -197,6 +189,10 @@ class Wrapper {
  * * * * * * * * * * * * * * * * * * * * * * * * * */
 	
         public static void spawnTrain(){
+            //Start the clock if it is not already running
+            if(!timer.isRunning())
+                timer.start();
+            
             //Increment number of trains
             numberOfTrains++;
             //Create Train
@@ -209,9 +205,28 @@ class Wrapper {
             office.addTrain(numberOfTrains);
             mbo.addTrain(numberOfTrains);
             
+            
+        }
+        
+        public static void spawnDirectedTrain(String stat){
             //Start the clock if it is not already running
             if(!timer.isRunning())
                 timer.start();
+            
+            //Increment number of trains
+            numberOfTrains++;
+            //Create Train
+            trainModel.add(new TrainModel(numberOfTrains));
+            trainModel.lastElement().setNextStation(stat);
+            //Create Train Controller for new Train
+            trainController.add(new TrainController(numberOfTrains, trainModel.lastElement()));
+            //Add Train Controller to Train Controller UI's list
+            trainControllerUI.addToTrainList(numberOfTrains, trainController.lastElement());
+            //Display new train in Office
+            office.addTrain(numberOfTrains);
+            mbo.addTrain(numberOfTrains);
+            
+            
         }
 	
         
@@ -259,6 +274,7 @@ class Wrapper {
             Go.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e)
                 {
+                    String station = office.textSchedulerBlock.getText();
                     spawnTrain();
                 }
             });
