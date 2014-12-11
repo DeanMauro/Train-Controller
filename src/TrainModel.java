@@ -40,6 +40,14 @@ public class TrainModel extends javax.swing.JFrame {
     double initSpeed = .001;    //Meters/sec.
     int currentTime = 0;        //Seconds
     double deltaT=1;            //Seconds
+    double currentSpeedLimite;
+    double blockSpeedLimite;
+    boolean isUnderGround;
+    boolean isStation;
+    String stationName;
+    double blockLength;
+    boolean isClosed;
+    
     
     int maxPassengers = 222;    //Train can hold no more than 222 passengers
     double maxSpeed = 19.44;    //Train speed can't exceed 70 km/hr (19.44 m/s)
@@ -65,7 +73,15 @@ public class TrainModel extends javax.swing.JFrame {
         calculateAcceleration();
         calculateSpeed();
         calculatePosition();
-        calculateDeltaT(time);
+    }
+    
+    public void updateBlockItems(Block b){
+        blockSpeedLimite = b.getSpeedLimit();
+        isUnderGround = b.isUnderground();
+        isStation = b.isStation();
+        stationName = b.getStationName();
+        blockLength = b.getLength();
+        isClosed = b.isClosed();
     }
    
     
@@ -152,6 +168,10 @@ public class TrainModel extends javax.swing.JFrame {
             currentAcceleration = -2.73;    // m/sec^2
         else if(inputBrakeFailure)
             currentAcceleration = 0;
+        else if(currentSpeed==blockSpeedLimite)
+            currentAcceleration = 0;
+        else if(currentSpeed>blockSpeedLimite)
+            currentAcceleration = -0.1;
         else
             currentAcceleration = currentForce / (mass+passengerMass);
         
