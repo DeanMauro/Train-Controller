@@ -1135,8 +1135,8 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
     public void updateTrainList(Vector<TrainModel> TL){
         int old_l = trains.size();
         trains = TL;
-        if(trains.size() != old_l);
-        TrainList.addItem(String.valueOf(old_l + 1));
+        if(trains.size() != old_l)
+            TrainList.addItem(String.valueOf(old_l + 1));
     }
 
     
