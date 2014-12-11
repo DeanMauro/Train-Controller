@@ -170,13 +170,16 @@ class Wrapper {
                   trainController.get(i).setSpeedLimit(currentTrain.getSpeedLimit());
                   trainController.get(i).setMboAuthority(mbo.getbauth(i));
                   trainController.get(i).setMboSpeed(mbo.getbspeed(i));
+                  if(trackModelInterface.getTrackModel().getBlockTrainIsOn(currentTrain.getID()).isStation())
+                      System.out.println("advertisement");
                   
                   
               }
               
               //trackModelInterface.getTrackModel().redraw();
-              trainControllerUI.updateFields();
-              
+              trainControllerUI.updateFields();              
+
+
 
             }
             };

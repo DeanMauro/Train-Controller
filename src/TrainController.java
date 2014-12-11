@@ -47,7 +47,8 @@ public class TrainController {
     public double ctcSuggestedAuthority;
     public double mboCommandedSpeed;
     public double mboCommandedAuthority;
-    public double controllerSpeedSetpoint;    
+    public double controllerSpeedSetpoint;
+    public double controllerSpeedSetpointMPS;
     
     public TrainController(int ID, TrainModel newTrain)
     {
@@ -94,7 +95,9 @@ public class TrainController {
     
     public void setControllerSpeedSetpoint(double speed)
     {
+        //convert from m/h to m/s
         controllerSpeedSetpoint = speed; 
+        controllerSpeedSetpointMPS = speed*0.44704;
         setPower();
     }
    
@@ -121,56 +124,64 @@ public class TrainController {
        
     public void setPower()
     {
+        this.evaluateFailure();
         
-        //actual train velcity
-        vAct = train.getCurrentSpeed();   
-        //call redundant method to check
-        double powerCheck = setPowerRedundant(vAct,  authority, ctcSuggestedAuthority,mboCommandedAuthority, power, uk, ek);
-        //use min authority
-        authority = Math.min(ctcSuggestedAuthority,mboCommandedAuthority);       
-        if(authority <= 0)
+        if(engineFailure ||  brakeFailure ||    signalPickupFailure)
         {
-            authority = 0.1;            
-        }      
-        
-        //
-        
-        //Need to calculate a velocity such that train stops moving 
-        //(Vf=0) based on given authority (d) and trains max deceleration (a)
-        //Vf^2 = Vi^2 +2ad
-        //0 = Vi^2 +2ad
-        //Vi^2 = -2ad
-        //Vi = sqrt(-2ad) -> ommitting the - sign and using a positive value for deceleration(1.2)
-        
-        double vLimit = Math.sqrt(2*maxTrainDeceleration*authority);
-        //System.out.println("vlimit="+vLimit);        
-        
-        //decide what speed setpoint to use
-        velocitySetpoint = evaluateVelocity(vLimit);
-        
-        //trying this temporarily
-
-        velocitySetpoint = 15;
-
-        //check that setpoint is not greater than track speed limit or velocity limit      
-        if(power < maxTrainPower)//if pcm < pmax
-        {
-             uk = uk + (T/2)*(ek + (velocitySetpoint - vAct));
-        }       
-        //System.out.println("uk="+uk);
-        ek = velocitySetpoint - vAct;
-        //System.out.println("ek="+ek);
-        power = (KP*ek) + (KI * uk);           
-        
-        if (Math.abs(power) < Math.abs(powerCheck) * 0.8 || Math.abs(power) > Math.abs(powerCheck) * 1.2) // If redundant power does not agree with this power by +/-20%, stop train
-        {
-            power = 0.0;
-        }        
-        if(power < 0)
-        {
-            power = 0;
+            train.setPower(0);
         }
-        train.setPower(power); 
+        else
+        {
+            //actual train velcity
+            vAct = train.getCurrentSpeed();   
+            //call redundant method to check
+            double powerCheck = setPowerRedundant(vAct,  authority, ctcSuggestedAuthority,mboCommandedAuthority, power, uk, ek);
+            //use min authority
+            authority = Math.min(ctcSuggestedAuthority,mboCommandedAuthority);       
+            if(authority <= 0)
+            {
+                authority = 0.1;            
+            }      
+
+            //
+
+            //Need to calculate a velocity such that train stops moving 
+            //(Vf=0) based on given authority (d) and trains max deceleration (a)
+            //Vf^2 = Vi^2 +2ad
+            //0 = Vi^2 +2ad
+            //Vi^2 = -2ad
+            //Vi = sqrt(-2ad) -> ommitting the - sign and using a positive value for deceleration(1.2)
+
+            double vLimit = Math.sqrt(2*maxTrainDeceleration*authority);
+            //System.out.println("vlimit="+vLimit);        
+
+            //decide what speed setpoint to use
+            velocitySetpoint = evaluateVelocity(vLimit);
+
+            //trying this temporarily
+
+            //velocitySetpoint = 15;
+
+            //check that setpoint is not greater than track speed limit or velocity limit      
+            if(power < maxTrainPower)//if pcm < pmax
+            {
+                 uk = uk + (T/2)*(ek + (velocitySetpoint - vAct));
+            }       
+            //System.out.println("uk="+uk);
+            ek = velocitySetpoint - vAct;
+            //System.out.println("ek="+ek);
+            power = (KP*ek) + (KI * uk);           
+
+            if (Math.abs(power) < Math.abs(powerCheck) * 0.8 || Math.abs(power) > Math.abs(powerCheck) * 1.2) // If redundant power does not agree with this power by +/-20%, stop train
+            {
+                power = 0.0;
+            }        
+            if(power < 0)
+            {
+                power = 0;
+            }
+            train.setPower(power); 
+        }
     }   
 
     
