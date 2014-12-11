@@ -191,6 +191,7 @@ class Wrapper {
                   if(trackModelInterface.getTrackModel().getBlockTrainIsOn(currentTrain.getID()).isStation())
                   {
                       numPassengers = randomGen.nextInt(222);
+                      currentTrain.passengerCount = numPassengers;
                   }
                   
               }
