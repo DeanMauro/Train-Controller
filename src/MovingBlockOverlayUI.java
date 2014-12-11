@@ -1130,8 +1130,6 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         SpeedVarianceField.setText(String.format("%5f",speed_var));
         double auth_var = bauth - location;
         AuthVarianceField.setText(String.format("%5f",auth_var));
-        
-       
     }
     
     public void addTrain(int ID){
