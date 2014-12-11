@@ -48,6 +48,7 @@ class Wrapper {
             trainControllerFrame	.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             mbo          		.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             ad                          .setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+            //trainModel.get(0)           .setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
             //Add visible components
 	    officeFrame                 .add(office);
@@ -62,7 +63,7 @@ class Wrapper {
             trainControllerFrame	.setVisible(true);
             mbo          		.setVisible(true);
             trackModelInterface		.setVisible(true);
-            
+            //trainModel.get(0)           .setVisible(true);
             
 		
 	}
@@ -143,6 +144,7 @@ class Wrapper {
                   mbo.updatePosition(currentTrain.getCurrentPosition());
                   mbo.updateBlockAuthority(trackModelInterface.getTrackModel().getNextStationDistance(currentTrain.getID()), i);
                   mbo.updateBlockSpeed(trackModelInterface.getTrackModel().getBlockTrainIsOn(currentTrain.getID()).getSpeedLimit(),i);
+                  mbo.updatePassengerCount(trainModel.get(i).getPassengerCount(),i);
                   
                   
                   /*Update Office*/
@@ -191,6 +193,7 @@ class Wrapper {
                   if(trackModelInterface.getTrackModel().getBlockTrainIsOn(currentTrain.getID()).isStation())
                   {
                       numPassengers = randomGen.nextInt(222);
+                      currentTrain.passengerCount = numPassengers;
                   }
                   
               }
@@ -232,7 +235,8 @@ class Wrapper {
             office.addTrain(numberOfTrains);
             mbo.addTrain(numberOfTrains);
             
-            
+            trainModel.get(0)           .setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            trainModel.get(0)           .setVisible(true);
         }
         
         public static void spawnDirectedTrain(String stat){
