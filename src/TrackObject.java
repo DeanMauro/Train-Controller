@@ -246,16 +246,16 @@ public class TrackObject {
                 b.setPrevBlockId(62);
                 
                 
-                //switch 4
-                b = getBlock(76);
-                b.setBlockSwitchId1(77);
-                b.setBlockSwitchId2(107);
-                b.setPrevBlockId(77);
-                b.setCurrentlySwitchedTo(1);
-                b.setNextBlockId(107);
-                b = getBlock(77);
-                b.setPrevBlockId(78);
-                b.setNextBlockId(76);
+                //switch 1
+                b = getBlock(12);
+                b.setBlockSwitchId1(13);
+                b.setBlockSwitchId2(1);
+                b.setPrevBlockId(13);
+                b.setCurrentlySwitchedTo(2);
+                b.setNextBlockId(13);
+                b = getBlock(13);
+                b.setPrevBlockId(14);
+                b.setNextBlockId(12);
                 
                 
                 //switch 4
@@ -295,15 +295,15 @@ public class TrackObject {
                 b.setNextBlockId(149);
                 
                 //switch 3
-                b = getBlock(29);
-                b.setBlockSwitchId1(28);
-                b.setBlockSwitchId2(150);
-                b.setPrevBlockId(30);
+                b = getBlock(58);
+                b.setBlockSwitchId1(151);
+                b.setBlockSwitchId2(57);
+                b.setPrevBlockId(151);
                 b.setCurrentlySwitchedTo(1);
-                b.setNextBlockId(28);
-                b = getBlock(150);
-                b.setPrevBlockId(29);
-                b.setNextBlockId(149);
+                b.setNextBlockId(57);
+                b = getBlock(151);
+                b.setPrevBlockId(152);
+                b.setNextBlockId(150);
                 
                 
             }

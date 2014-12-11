@@ -257,8 +257,8 @@ public class TrackModelInterface2 extends JFrame
 
                                // draw blocks
                                 g2d.setStroke(new BasicStroke(2f));
-                                g2d.scale(1.75,1.75);
-                                g2d.translate(-140, -100);
+                                //g2d.scale(1.75,1.75);
+                                //g2d.translate(-140, -100);
                                 for(int i = 1; i< trackModel.getNumBlocks();i++)
                                 {
                                     Block b = trackModel.getTrackObject().getBlock(i);
