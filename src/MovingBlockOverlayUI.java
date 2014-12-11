@@ -1114,7 +1114,7 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
     
     public void updateDisplay(){
         //Get current train info
-        int curr_train_num = Integer.parseInt((String)TrainList.getSelectedItem());
+        int curr_train_num = Integer.parseInt((String)TrainList.getSelectedItem()) - 1;
         curr_train = trains.get(curr_train_num);
         speed = curr_train.getCurrentSpeed();
         location = curr_train.getCurrentPosition();
@@ -1140,9 +1140,9 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
     }
 
     
-    public double calculateSafeAuthority(MBOTrain curr_train){
-        double loc1 = Double.parseDouble(curr_train.getLoc());
-        double speed1 = Double.parseDouble(curr_train.getSpeed());
+    public double calculateSafeAuthority(TrainModel curr_train){
+        double loc1 = curr_train.getCurrentPosition();
+        double speed1 = curr_train.getCurrentSpeed();
         double loc2 = Double.MAX_VALUE;
         double speed2 = 0;
         for(TrainModel t : trains){

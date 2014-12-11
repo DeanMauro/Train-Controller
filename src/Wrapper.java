@@ -43,17 +43,17 @@ class Wrapper {
 		
             //Add visible components
 	    officeFrame                 .add(office);
-            trackModelFrame		.add(trackModelInterface);
+            //trackModelFrame		.add(trackModelInterface);
             trainControllerFrame	.add(trainControllerUI);
 		
             //Reset JFrames
 	    officeFrame			.pack();
-            trackModelFrame		.pack();
+            //trackModelFrame		.pack();
             trainControllerFrame	.pack();
 		
             //Make JFrames Visible
 	    officeFrame			.setVisible(true);
-            trackModelFrame		.setVisible(true);
+            trackModelInterface		.setVisible(true);
             trainControllerFrame	.setVisible(true);
             mbo          		.setVisible(true);
             
@@ -112,6 +112,7 @@ class Wrapper {
               
             /*Calculate new train metrics*/
               TrainModel currentTrain;
+              mbo.updateTrainList(trainModel);
               
               for(int i=0; i<numberOfTrains; i++){
                   currentTrain = trainModel.get(i);
@@ -139,14 +140,11 @@ class Wrapper {
                   Train.setAuthority(office.trainsOnTracks.get(i), mbo.getbauth());
                   trainController.get(i).setMboAuthority(mbo.getbauth());
                   trainController.get(i).setMboSpeed(mbo.getbspeed());
-
-                  //trackModelInterface.queryButton();
-
               }
               
               //trackModelInterface.getTrackModel().redraw();
               trainControllerUI.updateFields();
-              mbo.updateTrainList(trainModel);
+              
 
             }
             };
