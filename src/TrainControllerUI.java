@@ -51,12 +51,12 @@ public class TrainControllerUI extends javax.swing.JPanel {
     
     public void updateFields()
     {
-        safeSpeedSetpointDisplay.setText(String.format("%.2f", TC.velocitySetpoint));
+        safeSpeedSetpointDisplay.setText(String.format("%.2f", convertToMPH(TC.velocitySetpoint)) +" MPH");
         
 
-        ctcSuggestedAuthority.setText(String.format("%.2f", TC.ctcSuggestedAuthority));
-        ctcSuggestedSpeed.setText(String.format("%.2f", TC.ctcSuggestedSpeed));
-        currentSpeedDisplay.setText(String.format("%.2f", TC.vAct));
+        ctcSuggestedAuthority.setText(String.format("%.2f", convertToM(TC.ctcSuggestedAuthority)) +" M");
+        ctcSuggestedSpeed.setText(String.format("%.2f", convertToMPH(TC.ctcSuggestedSpeed)) +" MPH");
+        currentSpeedDisplay.setText(String.format("%.2f", convertToMPH(TC.vAct)) +" MPH");
         
         doorStatusDisplay.setText( (TC.doorStatus) ? ("Open") : ("Closed") );
         inputDoorsButton.setText( (TC.doorStatus) ? ("CLOSE DOORS") : ("OPEN DOORS") );
@@ -69,23 +69,29 @@ public class TrainControllerUI extends javax.swing.JPanel {
         inputBrakeButton.setText( (TC.brakeStatus) ? ("RELEASE BRAKE") : ("SET BRAKE") );
         inputBrakeButton.setSelected( TC.brakeStatus );
         
-        mboAuthorityDisplay.setText(String.format("%.2f", TC.mboCommandedAuthority));
-        mboSpeedSetpoint.setText(String.format("%.2f", TC.mboCommandedSpeed));
+        mboAuthorityDisplay.setText(String.format("%.2f", convertToM(TC.mboCommandedAuthority)) +" M");
+        mboSpeedSetpoint.setText(String.format("%.2f", convertToMPH(TC.mboCommandedSpeed)) +" MPH");
         nextStopDisplay.setText(TC.nextStop);
         failureMessageDisplay.setText(TC.failureMessage);
         
         
         
-        powerOutputDisplay.setText(String.format("%.2f", TC.power));
+        powerOutputDisplay.setText(String.format("%.2f", TC.power/1000)  +" kW");
            
-        speedLimitDisplay.setText(String.format("%.2f", TC.speedLimit));        
-        inputSpeedSpinner.setValue(TC.controllerSpeedSetpoint);
-        
+        speedLimitDisplay.setText(String.format("%.2f", convertToMPH(TC.speedLimit))  +" MPH");        
+        inputSpeedSpinner.setValue(TC.controllerSpeedSetpoint);        
         
     }
     
- 
-
+    public double convertToMPH(double mps)
+    {        
+        return mps* 2.23694;
+    }
+    
+    public double convertToM(double m)
+    {        
+        return m * 0.000621371;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -399,7 +405,7 @@ public class TrainControllerUI extends javax.swing.JPanel {
         // TODO add your handling code here:
        // inputSpeed = inputSpeedSpinner.getValue().toString();
         inputSpeed = Double.parseDouble(inputSpeedSpinner.getValue().toString());
-        //System.out.println("Speed Setpoint: "+inputSpeed);
+        //System.out.println("Speed Setpoint: "+inputSpeed);       
         if(inputSpeed < 0){ //cannot set speed to be lower than 0
             inputSpeedSpinner.setValue(0);
         }
