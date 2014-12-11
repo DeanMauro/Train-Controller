@@ -188,7 +188,7 @@ public class TrainModel extends javax.swing.JFrame {
     
     public void calculateForce(){
         if (currentSpeed==0)
-            currentSpeed = .001;
+            currentSpeed = .0001;
 
         currentForce = currentPower / currentSpeed;
     }
