@@ -27,6 +27,8 @@ class Wrapper {
         protected static int numberOfTrains = 0;
         
         protected static Random randomGen = new Random();
+        
+        public static int numPassengers = 0;
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * *
  * MAIN 
@@ -186,6 +188,11 @@ class Wrapper {
                           ad.setAdToTaco();
                           ad.setVisible(true);
                       }
+                  }
+                  if(trackModelInterface.getTrackModel().getBlockTrainIsOn(currentTrain.getID()).isStation())
+                  {
+                      numPassengers = randomGen.nextInt(222);
+                      currentTrain.passengerCount = numPassengers;
                   }
                   
               }
