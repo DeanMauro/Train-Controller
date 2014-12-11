@@ -495,7 +495,7 @@ public class TrackModelInterface2 extends JFrame
                 //System.out.println("train distance: "+ trainDist[trainId-1][1]);
                 double newDist = totalDistance - trainDist[trainId-1][1];
                 //System.out.println("new distance: "+ newDist);
-                trainDist[trainId-1][1] += newDist;
+                //trainDist[trainId-1][1] += newDist;
                 //System.out.println("train distance: "+ trainDist[trainId-1][1]);
                 double blockLength = 0;
                 int blockSpeed = 0;
@@ -512,9 +512,10 @@ public class TrackModelInterface2 extends JFrame
                     //System.out.println("postion: "+ postion);
                     blockSpeed = b.getSpeedLimit();
                     //System.out.println("block length: "+ blockLength);
-                    if(blockLength > trainDist[trainId-1][1])
+                    if(blockLength > newDist)
                     {
                         trainDist[trainId-1][2] = b.getBlockId();
+                        //trainDist[trainId-1][1] = 0;
                         System.out.println("on block: "+b.getBlockId());
                         redraw(b.getBlockId());
                         //trainDist[trainId-1][1] = 0;
@@ -522,7 +523,8 @@ public class TrackModelInterface2 extends JFrame
                     }
                     else
                     {
-                        trainDist[trainId-1][1] -= blockLength;
+                        trainDist[trainId-1][1] += blockLength;
+                        newDist -= blockLength;//trainDist[trainId-1][1] -= blockLength;
                         //newDist -= blockLength;
                         trainDist[trainId-1][2] = trackObject.getBlock((int)trainDist[trainId-1][2]).getPrevBlockId();
                     }
