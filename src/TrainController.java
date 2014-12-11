@@ -25,7 +25,7 @@ public class TrainController {
     public boolean lightStatus;
     public boolean brakeStatus;  
     public boolean conductorLight;
-    boolean eBrake;                 //true means engaged and false means disengaged
+    boolean eBrakeStatus;                 //true means engaged and false means disengaged
     boolean engineFailure;          //true means failed engine and false means okay
     boolean brakeFailure;           //true means failed brakes and false means okay
     boolean signalPickupFailure;    //true means failed antenna and false means okay
@@ -64,12 +64,8 @@ public class TrainController {
         lightStatus = false;
         brakeStatus = false; 
         conductorLight = false;
-        eBrake = false;                 //true means engaged and false means disengaged
-        engineFailure = false;          //true means failed engine and false means okay
-        brakeFailure = false;           //true means failed brakes and false means okay
-        signalPickupFailure = false;    //true means failed antenna and false means okay
-    
-        eBrake = false;                 //true means engaged and false means disengaged
+        eBrakeStatus = false;                 //true means engaged and false means disengaged
+             
         engineFailure = false;          //true means failed engine and false means okay
         brakeFailure = false;           //true means failed brakes and false means okay
         signalPickupFailure = false;    //true means failed antenna and false means okay
@@ -107,12 +103,13 @@ public class TrainController {
     {
         this.evaluateFailure();
         
-        if(engineFailure ||  brakeFailure ||    signalPickupFailure)
+        /*if(engineFailure ||  brakeFailure || signalPickupFailure)
         {
             train.setPower(0);
+            
         }
         else
-        {
+        {*/
             //actual train velcity
             vAct = train.getCurrentSpeed();   
             //call redundant method to check
@@ -149,12 +146,12 @@ public class TrainController {
             {
                 power = 0.0;
             }        
-            if(power < 0)
+            /*if(power < 0)
             {
                 power = 0;
-            }
+            }*/
             train.setPower(power); 
-        }
+        //}
     }   
 
     
@@ -178,10 +175,10 @@ public class TrainController {
        
         power1 = (KP*ek1) + (KI * uk1);      
         
-        if(power1 < 0)
+        /*if(power1 < 0)
         {
             power1 = 0;
-        }
+        }*/
         return power1;
     }
     
@@ -314,25 +311,46 @@ public class TrainController {
     public void evaluateFailure()
     {
         boolean failFlag = false;
+        
+        this.brakeFailure = train.brakeFailure;
+        this.engineFailure = train.engineFailure;
+        this.signalPickupFailure = train.signalPickupFailure;
+        
         if(train.brakeFailure)
         {
             this.brakeFailure = true;
             this.failureMessage = train.failure;
+            failFlag = true;
         }
         else if(train.engineFailure)
         {
             this.engineFailure = true;
             this.failureMessage = train.failure;
+            failFlag = true;
         }
         else if(train.signalPickupFailure)
         {
             this.engineFailure = true;
             this.failureMessage = train.failure;
+            failFlag = true;
         }
         if(failFlag)
         {
-            train.setConductorBrake(true);
+            train.setConductorBrake(true);            
         }
+        else
+        {
+            train.setConductorBrake(false);
+            this.failureMessage="";
+        }
+    }
+    
+    public void update()
+    {
+        this.evaluateLights(false);
+        this.evaluateDoors(false);
+        this.evaluateEbrake();
+        this.evaluateFailure();
     }
     
     public void setNextStop(String n)
@@ -341,8 +359,8 @@ public class TrainController {
     }
     
     public void evaluateEbrake()
-    {
-        eBrake = train.eBrake;        
+    {      
+        this.eBrakeStatus = train.eBrake;        
     }
     
     public double getMboAuthority()
