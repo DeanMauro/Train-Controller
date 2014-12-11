@@ -129,7 +129,7 @@ public class TrainController {
     {
         //actual train velcity
         vAct = train.getCurrentSpeed();
-       System.out.println("vAct=" +vAct);
+       //System.out.println("vAct=" +vAct);
         //convert vAct to m/s        
         
       //  tcUI.currentSpeedDisplay.setText(String.format("%.2f", vAct));
@@ -153,7 +153,7 @@ public class TrainController {
         //double powerCheck = this.setPowerRedundant(vAct, authority, power, ek, uk);
         
         double vLimit = Math.sqrt(2*maxTrainDeceleration*authority);
-       System.out.println("vlimit="+vLimit);
+       //System.out.println("vlimit="+vLimit);
         //decide what speed setpoint to use
         
         //trying this temporarily
@@ -164,7 +164,7 @@ public class TrainController {
         {
             velocitySetpoint = Math.min(speedLimit, vLimit);
         }*/
-        System.out.println("velSetpoint="+velocitySetpoint);
+        //System.out.println("velSetpoint="+velocitySetpoint);
        // tcUI.safeSpeedSetpointDisplay.setText(String.valueOf(velocitySetpoint));
         
         if(power < maxTrainPower)//if pcm < pmax
@@ -172,11 +172,11 @@ public class TrainController {
              uk = uk + (T/2)*(ek + (velocitySetpoint - vAct));
         }
        
-        System.out.println("uk="+uk);
+        //System.out.println("uk="+uk);
         ek = velocitySetpoint - vAct;
-        System.out.println("ek="+ek);
+        //System.out.println("ek="+ek);
         power = (KP*ek) + (KI * uk);
-        System.out.println("power="+power);
+        //System.out.println("power="+power);
         
         //Add redundant power check here
         /*if(powerCheck == power)
@@ -217,7 +217,7 @@ public class TrainController {
         {
             velocitySetpoint = Math.min(speedLimit, vLimit);
         }
-        System.out.println("velSetpoint="+velocitySetpoint);
+       // System.out.println("velSetpoint="+velocitySetpoint);
        
         
         if(pow < maxTrainPower)//if pcm < pmax
