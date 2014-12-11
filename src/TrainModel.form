@@ -65,14 +65,25 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="nextStationDisplay" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="lightStatusDisplay" max="32767" attributes="0"/>
-                                  <Component id="doorStatusDisplay" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="nextStationDisplay" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="lightStatusDisplay" max="32767" attributes="0"/>
+                                          <Component id="doorStatusDisplay" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="passengerCountDisplay" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                       </Group>
@@ -112,7 +123,11 @@
                   </Group>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="passengerCountDisplay" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="engineFailureButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -136,7 +151,7 @@
               </Group>
               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="124" max="32767" attributes="0"/>
+              <EmptySpace pref="112" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -221,6 +236,9 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="brakeFailureDisplay">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="brakeFailureDisplayActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="signalFailureDisplay">
       <Events>
@@ -248,17 +266,17 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="DoorStatus:"/>
+        <Property name="text" type="java.lang.String" value="Door Status:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="LightStatus:"/>
+        <Property name="text" type="java.lang.String" value="Light Status:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="NextStation:"/>
+        <Property name="text" type="java.lang.String" value="Next Station:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="doorStatusDisplay">
@@ -286,6 +304,16 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="trainSelectActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel6">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Passengers:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="passengerCountDisplay">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="passengerCountDisplayActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

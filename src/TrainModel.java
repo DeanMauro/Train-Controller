@@ -5,6 +5,7 @@ import java.util.Vector;
 public class TrainModel extends javax.swing.JFrame {
 
     int ID;
+    static int num_trains = 0;
     String announcement;
     String currentStation;
     String nextStation;
@@ -27,7 +28,7 @@ public class TrainModel extends javax.swing.JFrame {
     boolean inputEmergencyBrake = false;
     
     double passengerMass = 80.7;//Kilograms
-    int passengerCount;
+    int passengerCount = 0;
     int crewCount = 10;         //Randomly chosen
     double temperature;
     double trainLength = 32.2;  //meters
@@ -67,6 +68,7 @@ public class TrainModel extends javax.swing.JFrame {
     
      void addToTrainList(int ID, TrainModel t){
         this.trainList.add(t);
+        num_trains=1;
         updateTrainList(ID);
     }
 
@@ -84,6 +86,9 @@ public class TrainModel extends javax.swing.JFrame {
         doorStatusDisplay.setText( (TM.doorStatus) ? ("Open") : ("Closed") );
         lightStatusDisplay.setText( (TM.lightStatus) ? ("On") : ("Off") );
         nextStationDisplay.setText(nextStation);
+        currentSpeedDisplay.setText(String.format("%.2f",TM.currentSpeed));
+        currentPositionDisplay.setText(String.valueOf(TM.currentPosition));
+        passengerCountDisplay.setText(String.valueOf(passengerCount));
         
     }
  
@@ -92,7 +97,9 @@ public class TrainModel extends javax.swing.JFrame {
         initComponents();
         System.out.println("TRAIN ID: " + trainID);
         this.ID = trainID;
-        //addToTrainList(trainID, this);
+        if(num_trains == 0){
+            addToTrainList(trainID, this);
+        }
     }
         
     /////////////////////////////////////////
@@ -105,6 +112,8 @@ public class TrainModel extends javax.swing.JFrame {
         calculateAcceleration();
         calculateSpeed();
         calculatePosition();
+       
+        
     }
     
     public void updateBlockItems(Block b){
@@ -288,6 +297,8 @@ public class TrainModel extends javax.swing.JFrame {
         lightStatusDisplay = new javax.swing.JTextField();
         nextStationDisplay = new javax.swing.JTextField();
         trainSelect = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
+        passengerCountDisplay = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -349,6 +360,12 @@ public class TrainModel extends javax.swing.JFrame {
             }
         });
 
+        brakeFailureDisplay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                brakeFailureDisplayActionPerformed(evt);
+            }
+        });
+
         signalFailureDisplay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 signalFailureDisplayActionPerformed(evt);
@@ -369,11 +386,11 @@ public class TrainModel extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("DoorStatus:");
+        jLabel3.setText("Door Status:");
 
-        jLabel4.setText("LightStatus:");
+        jLabel4.setText("Light Status:");
 
-        jLabel5.setText("NextStation:");
+        jLabel5.setText("Next Station:");
 
         doorStatusDisplay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -387,6 +404,14 @@ public class TrainModel extends javax.swing.JFrame {
         trainSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 trainSelectActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Passengers:");
+
+        passengerCountDisplay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passengerCountDisplayActionPerformed(evt);
             }
         });
 
@@ -430,13 +455,20 @@ public class TrainModel extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel5))
-                                .addGap(12, 12, 12)
+                                    .addComponent(jLabel5)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nextStationDisplay)
-                                    .addComponent(lightStatusDisplay)
-                                    .addComponent(doorStatusDisplay))))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(nextStationDisplay)
+                                            .addComponent(lightStatusDisplay)
+                                            .addComponent(doorStatusDisplay)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(passengerCountDisplay)))))))
                 .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
@@ -463,7 +495,10 @@ public class TrainModel extends javax.swing.JFrame {
                             .addComponent(setSpeedLB)
                             .addComponent(setPowerTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel6)
+                    .addComponent(passengerCountDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(engineFailureButton)
@@ -484,7 +519,7 @@ public class TrainModel extends javax.swing.JFrame {
                     .addComponent(nextStationDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addComponent(jButton1)
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         jButton1.getAccessibleContext().setAccessibleName("resetEbrakeButton");
@@ -588,7 +623,16 @@ public class TrainModel extends javax.swing.JFrame {
         
         //Update UI fields
         updateFields();
+        
     }//GEN-LAST:event_trainSelectActionPerformed
+
+    private void brakeFailureDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brakeFailureDisplayActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_brakeFailureDisplayActionPerformed
+
+    private void passengerCountDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passengerCountDisplayActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passengerCountDisplayActionPerformed
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -639,8 +683,10 @@ public class TrainModel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField lightStatusDisplay;
     private javax.swing.JTextField nextStationDisplay;
+    private javax.swing.JTextField passengerCountDisplay;
     private javax.swing.JTextField setPowerTF;
     private javax.swing.JLabel setSpeedLB;
     private javax.swing.JToggleButton signalFailureButton;
