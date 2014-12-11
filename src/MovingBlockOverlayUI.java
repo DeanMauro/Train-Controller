@@ -148,7 +148,7 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        PassengerPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Passenger Movement", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 102, 255))); // NOI18N
+        PassengerPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Passenger Movement", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 13), new java.awt.Color(0, 102, 255))); // NOI18N
 
         jLabel10.setText("Passengers Currently Onboard:");
 
@@ -167,7 +167,7 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
             PassengerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PassengerPanelLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 164, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(PassengerPanelLayout.createSequentialGroup()
                 .addGap(68, 68, 68)
@@ -193,7 +193,7 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
 
         jLabel1.setText("Select Train:");
 
-        InfoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Train And Block Information", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 102, 255))); // NOI18N
+        InfoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Train And Block Information", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 13), new java.awt.Color(0, 102, 255))); // NOI18N
 
         jLabel11.setText("Train Speed:");
 
@@ -287,7 +287,7 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        ControlPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Control Mode", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 102, 255))); // NOI18N
+        ControlPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Control Mode", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 13), new java.awt.Color(0, 102, 255))); // NOI18N
 
         MovingBlockDisplay.setEditable(false);
         MovingBlockDisplay.setBackground(new java.awt.Color(255, 0, 0));
@@ -319,31 +319,31 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Train Scheduler", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 102, 255))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Train Scheduler", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 13), new java.awt.Color(0, 102, 255))); // NOI18N
 
-        sLabel9.setForeground(new java.awt.Color(240, 240, 240));
-        sLabel9.setText("Glenbury:");
+        sLabel9.setForeground(new java.awt.Color(238, 238, 238));
+        sLabel9.setText("GLENBURY");
 
-        sLabel10.setForeground(new java.awt.Color(240, 240, 240));
-        sLabel10.setText("Dormont:");
+        sLabel10.setForeground(new java.awt.Color(238, 238, 238));
+        sLabel10.setText("DORMONT");
 
-        sLabel11.setForeground(new java.awt.Color(240, 240, 240));
-        sLabel11.setText("Lebanon:");
+        sLabel11.setForeground(new java.awt.Color(238, 238, 238));
+        sLabel11.setText("MT LEBANON");
 
-        sLabel12.setForeground(new java.awt.Color(240, 240, 240));
-        sLabel12.setText("Poplar:");
+        sLabel12.setForeground(new java.awt.Color(238, 238, 238));
+        sLabel12.setText("POPLAR");
 
-        sLabel13.setForeground(new java.awt.Color(240, 240, 240));
-        sLabel13.setText("Shannon:");
+        sLabel13.setForeground(new java.awt.Color(238, 238, 238));
+        sLabel13.setText("CASTLE SHANNON");
 
-        sLabel14.setForeground(new java.awt.Color(240, 240, 240));
-        sLabel14.setText("Dormont:");
+        sLabel14.setForeground(new java.awt.Color(238, 238, 238));
+        sLabel14.setText("DORMONT");
 
-        sLabel15.setForeground(new java.awt.Color(240, 240, 240));
-        sLabel15.setText("Glenbury:");
+        sLabel15.setForeground(new java.awt.Color(238, 238, 238));
+        sLabel15.setText("GLENBURY");
 
-        sLabel16.setForeground(new java.awt.Color(240, 240, 240));
-        sLabel16.setText("Overbrook:");
+        sLabel16.setForeground(new java.awt.Color(238, 238, 238));
+        sLabel16.setText("OVERBROOK");
 
         sBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -357,8 +357,8 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
             }
         });
 
-        sLabel17.setForeground(new java.awt.Color(240, 240, 240));
-        sLabel17.setText("Inglewood:");
+        sLabel17.setForeground(new java.awt.Color(238, 238, 238));
+        sLabel17.setText("INGLEWOOD");
 
         NewScheduleButton.setText("Make New Schedule");
         NewScheduleButton.addActionListener(new java.awt.event.ActionListener() {
@@ -392,24 +392,24 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
 
         jLabel16.setText("Line:");
 
-        sLabel8.setText("South:");
+        sLabel8.setText("SOUTH HILLS JUNCTION");
 
-        sLabel7.setText("Station:");
+        sLabel7.setText("STATION SQUARE");
 
-        sLabel6.setText("First:");
+        sLabel6.setText("FIRST AVE");
 
-        sLabel5.setText("Steel:");
+        sLabel5.setText("STEEL PLAZA");
 
-        sLabel4.setText("Penn:");
+        sLabel4.setText("PENN STATION");
 
-        sLabel3.setText("Swiss:");
+        sLabel3.setText("SWISSVILLE");
 
-        sLabel2.setText("Herron:");
+        sLabel2.setText("HERRON AVE");
 
-        sLabel1.setText("Shady:");
+        sLabel1.setText("SHADYSIDE");
 
-        sLabel18.setForeground(new java.awt.Color(240, 240, 240));
-        sLabel18.setText("Central:");
+        sLabel18.setForeground(new java.awt.Color(238, 238, 238));
+        sLabel18.setText("CENTRAL");
 
         jLabel18.setText("Start Time:");
 
@@ -470,24 +470,16 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
                             .addComponent(sLabel6)
                             .addComponent(sLabel7)
                             .addComponent(sLabel8)
-                            .addComponent(sLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel18))
-                        .addGap(32, 32, 32)
+                            .addComponent(jLabel18)
+                            .addComponent(sLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addComponent(sBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(sLabel11))
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
                                         .addComponent(sBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(sLabel10))
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addComponent(sBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(sLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel5Layout.createSequentialGroup()
                                         .addComponent(sBox7, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
@@ -510,8 +502,17 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
                                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(sLabel17)
                                             .addComponent(sLabel16)
-                                            .addComponent(sLabel18))))
-                                .addGap(0, 32, Short.MAX_VALUE)
+                                            .addComponent(sLabel18)))
+                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                                            .addComponent(sBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(sLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                                            .addComponent(sBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(sLabel11))))
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel5Layout.createSequentialGroup()
                                         .addGap(10, 10, 10)
@@ -538,7 +539,7 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(AddScheduleButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(NewScheduleButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE))
+                            .addComponent(NewScheduleButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ViewScheduleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -637,7 +638,7 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
                     .addComponent(StartButton)))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Block Control Mode", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 102, 255))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Block Control Mode", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 13), new java.awt.Color(0, 102, 255))); // NOI18N
 
         ControlMode.add(MovingBlockRadio);
         MovingBlockRadio.setText("Moving Block");
@@ -1025,14 +1026,14 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         TrainList.setSelectedItem(new_label);
         
         if(new_label.equals("Red")){
-           sLabel1.setText("Shady");
-           sLabel2.setText("Herron");
-           sLabel3.setText("Swiss");
-           sLabel4.setText("Penn");
-           sLabel5.setText("Steel");
-           sLabel6.setText("First");
-           sLabel7.setText("Station");
-           sLabel8.setText("South");
+           sLabel1.setText("SHADYSIDE");
+           sLabel2.setText("HERRON AVE");
+           sLabel3.setText("SWISSVILLE");
+           sLabel4.setText("PENN STATION");
+           sLabel5.setText("STEEL PLAZA");
+           sLabel6.setText("FIRST AVE");
+           sLabel7.setText("STATION SQUARE");
+           sLabel8.setText("SOUTH HILLS JUNCTION");
            sLabel9.setForeground(new Color(240,240,240));
            sLabel10.setForeground(new Color(240,240,240));
            sLabel11.setForeground(new Color(240,240,240));
@@ -1065,14 +1066,14 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
            sBox18.setEditable(false);
         }
         else{
-           sLabel1.setText("Pioneer");
-           sLabel2.setText("Edgebrook");
-           sLabel3.setText("Station");
-           sLabel4.setText("Whited");
-           sLabel5.setText("Southbank");
-           sLabel6.setText("Central");
-           sLabel7.setText("Inglewood");
-           sLabel8.setText("Overbrook");
+           sLabel1.setText("PIONEER");
+           sLabel2.setText("EDGEBROOK");
+           sLabel3.setText("STATION");
+           sLabel4.setText("WHITED");
+           sLabel5.setText("SOUTH BANK");
+           sLabel6.setText("CENTRAL");
+           sLabel7.setText("INGLEWOOD");
+           sLabel8.setText("OVERBROOK");
            sLabel9.setForeground(new Color(0,0,0));
            sLabel10.setForeground(new Color(0,0,0));
            sLabel11.setForeground(new Color(0,0,0));

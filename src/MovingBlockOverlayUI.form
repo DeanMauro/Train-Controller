@@ -468,27 +468,17 @@
                               <Component id="sLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="sLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="sLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="sLabel1" alignment="0" min="-2" pref="46" max="-2" attributes="0"/>
                               <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="sLabel1" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="sBox3" min="-2" pref="56" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="sLabel11" min="-2" max="-2" attributes="0"/>
-                                      </Group>
                                       <Group type="102" attributes="0">
                                           <Component id="sBox2" min="-2" pref="56" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="sLabel10" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="sBox4" min="-2" pref="56" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="sLabel12" min="-2" pref="46" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="sBox7" min="-2" pref="56" max="-2" attributes="0"/>
@@ -519,8 +509,20 @@
                                               <Component id="sLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
+                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="sBox4" min="-2" pref="56" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="sLabel12" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="sBox3" min="-2" pref="56" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="sLabel11" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                   </Group>
-                                  <EmptySpace min="0" pref="32" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
@@ -556,7 +558,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Component id="AddScheduleButton" alignment="0" max="32767" attributes="0"/>
-                              <Component id="NewScheduleButton" alignment="0" pref="141" max="32767" attributes="0"/>
+                              <Component id="NewScheduleButton" alignment="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -690,9 +692,9 @@
         <Component class="javax.swing.JLabel" name="sLabel9">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="f0" green="f0" red="f0" type="rgb"/>
+              <Color blue="ee" green="ee" red="ee" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Glenbury:"/>
+            <Property name="text" type="java.lang.String" value="GLENBURY"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -701,9 +703,9 @@
         <Component class="javax.swing.JLabel" name="sLabel10">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="f0" green="f0" red="f0" type="rgb"/>
+              <Color blue="ee" green="ee" red="ee" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Dormont:"/>
+            <Property name="text" type="java.lang.String" value="DORMONT"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -712,9 +714,9 @@
         <Component class="javax.swing.JLabel" name="sLabel11">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="f0" green="f0" red="f0" type="rgb"/>
+              <Color blue="ee" green="ee" red="ee" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Lebanon:"/>
+            <Property name="text" type="java.lang.String" value="MT LEBANON"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -723,9 +725,9 @@
         <Component class="javax.swing.JLabel" name="sLabel12">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="f0" green="f0" red="f0" type="rgb"/>
+              <Color blue="ee" green="ee" red="ee" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Poplar:"/>
+            <Property name="text" type="java.lang.String" value="POPLAR"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -734,9 +736,9 @@
         <Component class="javax.swing.JLabel" name="sLabel13">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="f0" green="f0" red="f0" type="rgb"/>
+              <Color blue="ee" green="ee" red="ee" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Shannon:"/>
+            <Property name="text" type="java.lang.String" value="CASTLE SHANNON"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -745,9 +747,9 @@
         <Component class="javax.swing.JLabel" name="sLabel14">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="f0" green="f0" red="f0" type="rgb"/>
+              <Color blue="ee" green="ee" red="ee" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Dormont:"/>
+            <Property name="text" type="java.lang.String" value="DORMONT"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -756,9 +758,9 @@
         <Component class="javax.swing.JLabel" name="sLabel15">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="f0" green="f0" red="f0" type="rgb"/>
+              <Color blue="ee" green="ee" red="ee" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Glenbury:"/>
+            <Property name="text" type="java.lang.String" value="GLENBURY"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -767,9 +769,9 @@
         <Component class="javax.swing.JLabel" name="sLabel16">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="f0" green="f0" red="f0" type="rgb"/>
+              <Color blue="ee" green="ee" red="ee" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Overbrook:"/>
+            <Property name="text" type="java.lang.String" value="OVERBROOK"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -824,9 +826,9 @@
         <Component class="javax.swing.JLabel" name="sLabel17">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="f0" green="f0" red="f0" type="rgb"/>
+              <Color blue="ee" green="ee" red="ee" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Inglewood:"/>
+            <Property name="text" type="java.lang.String" value="INGLEWOOD"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -893,50 +895,50 @@
         </Component>
         <Component class="javax.swing.JLabel" name="sLabel8">
           <Properties>
-            <Property name="text" type="java.lang.String" value="South:"/>
+            <Property name="text" type="java.lang.String" value="SOUTH HILLS JUNCTION"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="sLabel7">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Station:"/>
+            <Property name="text" type="java.lang.String" value="STATION SQUARE"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="sLabel6">
           <Properties>
-            <Property name="text" type="java.lang.String" value="First:"/>
+            <Property name="text" type="java.lang.String" value="FIRST AVE"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="sLabel5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Steel:"/>
+            <Property name="text" type="java.lang.String" value="STEEL PLAZA"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="sLabel4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Penn:"/>
+            <Property name="text" type="java.lang.String" value="PENN STATION"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="sLabel3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Swiss:"/>
+            <Property name="text" type="java.lang.String" value="SWISSVILLE"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="sLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Herron:"/>
+            <Property name="text" type="java.lang.String" value="HERRON AVE"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="sLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Shady:"/>
+            <Property name="text" type="java.lang.String" value="SHADYSIDE"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="sLabel18">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="f0" green="f0" red="f0" type="rgb"/>
+              <Color blue="ee" green="ee" red="ee" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Central:"/>
+            <Property name="text" type="java.lang.String" value="CENTRAL"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel18">
