@@ -27,6 +27,7 @@ public class TrainModel extends javax.swing.JFrame {
     boolean inputSignalFailure = false;
     boolean inputEmergencyBrake = false;
     
+    
     double passengerMass = 80.7;//Kilograms
     int passengerCount = 0;
     int crewCount = 10;         //Randomly chosen
