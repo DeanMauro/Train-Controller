@@ -526,6 +526,7 @@ public class TrackModelInterface2 extends JFrame
                         trainDist[trainId-1][1] += blockLength;
                         newDist -= blockLength;//trainDist[trainId-1][1] -= blockLength;
                         //newDist -= blockLength;
+                        b.setTrainDetected(false);
                         trainDist[trainId-1][2] = trackObject.getBlock((int)trainDist[trainId-1][2]).getPrevBlockId();
                     }
 
@@ -534,7 +535,9 @@ public class TrackModelInterface2 extends JFrame
 
             //redraw with new color 
             public void redraw(int ID){
-                
+                Block b = trackObject.getBlock(ID);
+                b.setTrainDetected(true);
+                repaint();
             }
             
             //import csv track file
