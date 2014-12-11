@@ -15,7 +15,7 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
     double bspeed[] = new double[850];
     double bauth[] = new double[850];
     double deceleration = -25;
-    int mode = 1;
+    int mode = 0;
     ArrayList<ScheduleNode> schedule = new ArrayList();
     /**
      * Creates new form MovingBlockOverlayUI
@@ -748,6 +748,7 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         MovingBlockDisplay.setBackground(Color.GREEN);
         FixedBlockDisplay.setBackground(Color.RED);
         mode = 1;
+        updateToMovingBlock();
         updateDisplay();
     }//GEN-LAST:event_MovingBlockRadioActionPerformed
 
@@ -1124,13 +1125,15 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         //Set Train info panel
         TrainSpeedField.setText(String.format("%5f",speed_in_mph) + " mph");
         TrainLocationField.setText(String.format("%5f",location_in_feet) + " ft");
+        if(mode == 1) updateToMovingBlock();
         BlockSpeedField.setText(String.format("%5f",bspeed[curr_train_num] * 2.23694) + " mph");
         BlockAuthorityField.setText(String.format("%f",bauth[curr_train_num] * 3.28084) + " ft");
+        
         //Calculate and display block info
         double speed_var = bspeed[curr_train_num] - speed;
-        SpeedVarianceField.setText(String.format("%5f",speed_var));
+        SpeedVarianceField.setText(String.format("%5f",speed_var) + " mph");
         double auth_var = bauth[curr_train_num] - location;
-        AuthVarianceField.setText(String.format("%5f",auth_var));
+        AuthVarianceField.setText(String.format("%5f",auth_var) + " ft");
     }
     
     public void addTrain(int ID){
@@ -1153,10 +1156,9 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
                 speed2 = t.getCurrentSpeed();
             }
         }
-        double v_final = 0;
         double t_final = (0 - speed1)/deceleration;
         double distance = speed1 * t_final + .5 * deceleration * Math.pow(t_final, 2);
-        return loc2 - (distance + loc1);
+        return -(loc2 - (distance + loc1));
     }
     
     public double calculateSafeSpeed(TrainModel curr_train){
@@ -1175,6 +1177,13 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
 
     public ArrayList getSchedule(){
         return schedule;
+    }
+    
+    public void updateToMovingBlock(){
+        for(int i = 0; i < trains.size(); i++){
+            bauth[i] = calculateSafeAuthority(trains.get(i));
+            bspeed[i] = calculateSafeSpeed(trains.get(i));
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton AddScheduleButton;
