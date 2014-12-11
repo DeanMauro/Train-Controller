@@ -164,6 +164,7 @@ class Wrapper {
                   trainController.get(i).setMboSpeed(mbo.getbspeed(i));
                   trainController.get(i).evaluateLights(false);
                   trainController.get(i).evaluateDoors(false);
+                  trainController.get(i).setNextStop(trackModelInterface.getTrackModel().getBlockTrainIsOn(currentTrain.getID()).getStationName());
                   if(trackModelInterface.getTrackModel().getBlockTrainIsOn(currentTrain.getID()).isStation())
                       System.out.println("advertisement");
                   
