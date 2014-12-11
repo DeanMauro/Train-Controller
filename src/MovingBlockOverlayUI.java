@@ -12,8 +12,8 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
     ArrayList<Double> safe_auths;
     double speed = 0;
     double location = 0;
-    double bspeed = 0;
-    double bauth = 5000;
+    double bspeed[] = new double[850];
+    double bauth[] = new double[850];
     double deceleration = -25;
     int mode = 1;
     ArrayList<ScheduleNode> schedule = new ArrayList();
@@ -24,12 +24,12 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         initComponents();
     }
     
-    public double getbauth(){
-        return bauth;
+    public double getbauth(int ID){
+        return bauth[ID];
     }
     
-    public double getbspeed(){
-        return bspeed;
+    public double getbspeed(int ID){
+        return bspeed[ID];
     }
     
     public void updateSpeed(double s){
@@ -42,13 +42,13 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         updateDisplay();
     }
     
-    public void updateBlockSpeed(double s){
-        bspeed = s;
+    public void updateBlockSpeed(double s,int ID){
+        bspeed[ID] = s;
         updateDisplay();
     }
     
-    public void updateBlockAuthority(double a){
-        bauth = a;
+    public void updateBlockAuthority(double a,int ID){
+        bauth[ID] = a;
         updateDisplay();
     }
 
@@ -1123,12 +1123,12 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         //Set Train info panel
         TrainSpeedField.setText(String.format("%5f",speed_in_mph) + " mph");
         TrainLocationField.setText(String.format("%5f",location_in_feet) + " ft");
-        BlockSpeedField.setText(String.format("%5f",bspeed * 2.23694) + " mph");
-        BlockAuthorityField.setText(String.format("%f",bauth * 3.28084) + " ft");
+        BlockSpeedField.setText(String.format("%5f",bspeed[curr_train_num] * 2.23694) + " mph");
+        BlockAuthorityField.setText(String.format("%f",bauth[curr_train_num] * 3.28084) + " ft");
         //Calculate and display block info
-        double speed_var = bspeed - speed;
+        double speed_var = bspeed[curr_train_num] - speed;
         SpeedVarianceField.setText(String.format("%5f",speed_var));
-        double auth_var = bauth - location;
+        double auth_var = bauth[curr_train_num] - location;
         AuthVarianceField.setText(String.format("%5f",auth_var));
     }
     
