@@ -101,57 +101,48 @@ public class TrainController {
     
     public void setPower()
     {
-        this.evaluateFailure();
-        
-        /*if(engineFailure ||  brakeFailure || signalPickupFailure)
+        //actual train velcity
+        vAct = train.getCurrentSpeed();   
+        //call redundant method to check
+        double powerCheck = setPowerRedundant(vAct,  authority, ctcSuggestedAuthority,mboCommandedAuthority, power, uk, ek);
+        //use min authority
+        authority = Math.min(ctcSuggestedAuthority,mboCommandedAuthority);       
+        /*if(authority <= 0)
         {
-            train.setPower(0);
-            
-        }
-        else
-        {*/
-            //actual train velcity
-            vAct = train.getCurrentSpeed();   
-            //call redundant method to check
-            double powerCheck = setPowerRedundant(vAct,  authority, ctcSuggestedAuthority,mboCommandedAuthority, power, uk, ek);
-            //use min authority
-            authority = Math.min(ctcSuggestedAuthority,mboCommandedAuthority);       
-            /*if(authority <= 0)
-            {
-                authority = 0.1;            
-            }    */            
+            authority = 0.1;            
+        }    */            
 
-            //Need to calculate a velocity such that train stops moving 
-            //(Vf=0) based on given authority (d) and trains max deceleration (a)
-            //Vf^2 = Vi^2 +2ad
-            //0 = Vi^2 +2ad
-            //Vi^2 = -2ad
-            //Vi = sqrt(-2ad) -> ommitting the - sign and using a positive value for deceleration(1.2)
+        //Need to calculate a velocity such that train stops moving 
+        //(Vf=0) based on given authority (d) and trains max deceleration (a)
+        //Vf^2 = Vi^2 +2ad
+        //0 = Vi^2 +2ad
+        //Vi^2 = -2ad
+        //Vi = sqrt(-2ad) -> ommitting the - sign and using a positive value for deceleration(1.2)
 
-            double vLimit = Math.sqrt(2*maxTrainDeceleration*authority);              
+        double vLimit = Math.sqrt(2*maxTrainDeceleration*authority);              
 
-            //decide what speed setpoint to use
-            velocitySetpoint = evaluateVelocity(vLimit);           
+        //decide what speed setpoint to use
+        velocitySetpoint = evaluateVelocity(vLimit);           
 
-            //check that setpoint is not greater than track speed limit or velocity limit      
-            if(power < maxTrainPower)//if pcm < pmax
-            {
-                 uk = uk + (T/2)*(ek + (velocitySetpoint - vAct));
-            }       
-            
-            ek = velocitySetpoint - vAct;            
-            power = (KP*ek) + (KI * uk);           
+        //check that setpoint is not greater than track speed limit or velocity limit      
+        if(power < maxTrainPower)//if pcm < pmax
+        {
+             uk = uk + (T/2)*(ek + (velocitySetpoint - vAct));
+        }       
 
-            if (Math.abs(power) < Math.abs(powerCheck) * 0.8 || Math.abs(power) > Math.abs(powerCheck) * 1.2) // If redundant power does not agree with this power by +/-20%, stop train
-            {
-                power = 0.0;
-            }        
-            /*if(power < 0)
-            {
-                power = 0;
-            }*/
-            train.setPower(power); 
-        //}
+        ek = velocitySetpoint - vAct;            
+        power = (KP*ek) + (KI * uk);           
+        //if there is a 10% difference in calculations, then check has failed.
+        if (Math.abs(power) < Math.abs(powerCheck) * 0.9 || Math.abs(power) > Math.abs(powerCheck) * 1.1) 
+        {
+            power = 0.0;
+        } 
+        
+        /*if(power < 0)
+        {
+            power = 0;
+        }*/
+        train.setPower(power);         
     }   
 
     
@@ -334,7 +325,7 @@ public class TrainController {
             this.failureMessage = train.failure;
             failFlag = true;
         }
-        if(failFlag)//this is causing problems
+        if(failFlag)
         {
             train.setFailureBrake(true);   
             //train.eBrake = true;
