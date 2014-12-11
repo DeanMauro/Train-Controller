@@ -56,16 +56,16 @@ public class TrainModel extends javax.swing.JFrame {
     double maxSpeed = 19.44;    //Train speed can't exceed 70 km/hr (19.44 m/s)
     double maxAcceleration = 1; //Train can accelerate past 1 m/s^2
     
-    public Vector<TrainController> trainList = new Vector();
+    public Vector<TrainModel> trainList = new Vector();
      public Vector<String> trainIDList = new Vector();
     //change to trainList.get(trainID);
-     private TrainController TM;
+     private TrainModel TM;
     
     /////////////////////////////////////////
     //Constructor
     /////////////////////////////////////////
     
-     void addToTrainList(int ID, TrainController t){
+     void addToTrainList(int ID, TrainModel t){
         this.trainList.add(t);
         updateTrainList(ID);
     }
@@ -92,6 +92,7 @@ public class TrainModel extends javax.swing.JFrame {
         initComponents();
         
         this.ID = trainID;
+        addToTrainList(trainID, this);
     }
         
     /////////////////////////////////////////
@@ -439,7 +440,7 @@ public class TrainModel extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(emergencyBrakeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(trainSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(trainSelect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(7, 7, 7)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(currentSpeedLB)
@@ -567,6 +568,14 @@ public class TrainModel extends javax.swing.JFrame {
 
     private void trainSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trainSelectActionPerformed
         // TODO add your handling code here:
+        //Extract train number
+        int id = trainSelect.getSelectedIndex();
+         
+        //Set TC to selected train
+        TM = trainList.get(id);
+        
+        //Update UI fields
+        updateFields();
     }//GEN-LAST:event_trainSelectActionPerformed
     
     public static void main(String args[]) {

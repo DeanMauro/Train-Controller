@@ -93,7 +93,7 @@
                       <Component id="emergencyBrakeButton" min="-2" pref="91" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Component id="trainSelect" min="-2" max="-2" attributes="0"/>
+                      <Component id="trainSelect" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="currentSpeedLB" alignment="3" min="-2" max="-2" attributes="0"/>
