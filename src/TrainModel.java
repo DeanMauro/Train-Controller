@@ -26,6 +26,7 @@ public class TrainModel extends javax.swing.JFrame {
     boolean inputEngineFailure = false;
     boolean inputSignalFailure = false;
     boolean inputEmergencyBrake = false;
+    boolean failureBrake = false;
     
     
     double passengerMass = 80.7;//Kilograms
@@ -123,7 +124,7 @@ public class TrainModel extends javax.swing.JFrame {
         atStation = b.isStation();
         stationName = b.getStationName();
         blockLength = b.getLength();
-        blockClosed = b.isClosed();
+        blockClosed = b.isClosed();        
     }
    
     
@@ -157,6 +158,11 @@ public class TrainModel extends javax.swing.JFrame {
     
     public void setConductorBrake(boolean b){
         this.conductorBrake = b;
+    }
+    
+    public void setFailureBrake(boolean b)
+    {
+        this.failureBrake = b;
     }
     
     public void setEBrake(boolean e){
@@ -203,17 +209,21 @@ public class TrainModel extends javax.swing.JFrame {
         currentForce = currentPower / currentSpeed;
     }
 
-    public void calculateAcceleration(){
+    public void calculateAcceleration(){       
         if(conductorBrake)
             currentAcceleration = -1.2;     // m/sec^2
         else if(eBrake)
             currentAcceleration = -2.73;    // m/sec^2
-        else if(inputBrakeFailure)
+       /* else if(inputBrakeFailure)
             currentAcceleration = 0;
         else if(currentSpeed==blockSpeedLimit)
             currentAcceleration = 0;
         else if(engineFailure)
-            currentAcceleration = 0;
+            currentAcceleration = 0;*/
+        else if(failureBrake)
+        {
+            currentAcceleration = -2.73;
+        }
         else
             currentAcceleration = currentForce / (mass+passengerMass);
         

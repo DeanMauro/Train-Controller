@@ -334,14 +334,16 @@ public class TrainController {
             this.failureMessage = train.failure;
             failFlag = true;
         }
-        if(failFlag)
+        if(failFlag)//this is causing problems
         {
-            train.setConductorBrake(true);            
+            train.setFailureBrake(true);   
+            //train.eBrake = true;
         }
         else
         {
-            train.setConductorBrake(false);
+            train.setFailureBrake(false);
             this.failureMessage="";
+            //train.eBrake = false;
         }
     }
     
