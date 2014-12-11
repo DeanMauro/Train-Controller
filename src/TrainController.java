@@ -100,28 +100,7 @@ public class TrainController {
         controllerSpeedSetpointMPS = speed*0.44704;
         setPower();
     }
-   
-    private boolean transmitLights(boolean tLight)
-    {
-        this.lightStatus = tLight;
-        //train.setLights(this.lightStatus);
-        return true;
-    }
-     
-    private boolean transmitDoors(boolean tDoor)
-    {
-        this.doorStatus = tDoor;
-        //train.setDoors(this.doorStatus);
-        return true;
-    }
-      
-    private boolean transmitBrake(boolean tBrake)
-    {
-        this.brakeStatus = tBrake;
-        //train.setBrake(this.brakeStatus);
-        return true;
-    }
-       
+    
     public void setPower()
     {
         this.evaluateFailure();
@@ -138,12 +117,10 @@ public class TrainController {
             double powerCheck = setPowerRedundant(vAct,  authority, ctcSuggestedAuthority,mboCommandedAuthority, power, uk, ek);
             //use min authority
             authority = Math.min(ctcSuggestedAuthority,mboCommandedAuthority);       
-            if(authority <= 0)
+            /*if(authority <= 0)
             {
                 authority = 0.1;            
-            }      
-
-            //
+            }    */            
 
             //Need to calculate a velocity such that train stops moving 
             //(Vf=0) based on given authority (d) and trains max deceleration (a)
@@ -152,24 +129,18 @@ public class TrainController {
             //Vi^2 = -2ad
             //Vi = sqrt(-2ad) -> ommitting the - sign and using a positive value for deceleration(1.2)
 
-            double vLimit = Math.sqrt(2*maxTrainDeceleration*authority);
-            //System.out.println("vlimit="+vLimit);        
+            double vLimit = Math.sqrt(2*maxTrainDeceleration*authority);              
 
             //decide what speed setpoint to use
-            velocitySetpoint = evaluateVelocity(vLimit);
-
-            //trying this temporarily
-
-            //velocitySetpoint = 15;
+            velocitySetpoint = evaluateVelocity(vLimit);           
 
             //check that setpoint is not greater than track speed limit or velocity limit      
             if(power < maxTrainPower)//if pcm < pmax
             {
                  uk = uk + (T/2)*(ek + (velocitySetpoint - vAct));
             }       
-            //System.out.println("uk="+uk);
-            ek = velocitySetpoint - vAct;
-            //System.out.println("ek="+ek);
+            
+            ek = velocitySetpoint - vAct;            
             power = (KP*ek) + (KI * uk);           
 
             if (Math.abs(power) < Math.abs(powerCheck) * 0.8 || Math.abs(power) > Math.abs(powerCheck) * 1.2) // If redundant power does not agree with this power by +/-20%, stop train
@@ -188,71 +159,59 @@ public class TrainController {
     private double setPowerRedundant(double vAct1, double authority1, double ctcSuggestedAuthority1, double mboCommandedAuthority1, double power1, double uk1, double ek1)
     {   
         authority1 = Math.min(ctcSuggestedAuthority1,mboCommandedAuthority1);       
-        if(authority1 <= 0)
+        /*if(authority1 <= 0)
         {
             authority1 = 0.1;            
-        }
+        }*/
                 
         double vLimit = Math.sqrt(2*maxTrainDeceleration*authority1);       
         double velocitySetpoint1 = evaluateVelocity(vLimit);
         
-        //trying this temporarily
-
-        //velocitySetpoint = 15;       
+        
         if(power1 < maxTrainPower)//if pcm < pmax
         {
              uk1 = uk1 + (T/2)*(ek1 + (velocitySetpoint1 - vAct1));
         }       
         ek1 = velocitySetpoint1 - vAct1;
-        //System.out.println("ek="+ek);
-        power1 = (KP*ek1) + (KI * uk1);
-      
-        //set power to kW to send to TrainModel
-        //power = power/1000;
+       
+        power1 = (KP*ek1) + (KI * uk1);      
+        
         if(power1 < 0)
         {
-            power1 = 0.1;
+            power1 = 0;
         }
         return power1;
     }
     
     public void setCtcAuthority(double auth)
     {
-        this.ctcSuggestedAuthority = auth;
-        //tcUI.ctcSuggestedAuthority.setText(String.format("%.2f", auth));
+        this.ctcSuggestedAuthority = auth;       
         setPower();        
     }
     
      public void setCtcSpeed(double speed)
     {
-        this.ctcSuggestedSpeed = speed;
-        //tcUI.ctcSuggestedAuthority.setText(String.format("%.2f", speed));
+        this.ctcSuggestedSpeed = speed;       
         setPower();        
     }
      
      public void setMboAuthority(double auth)
     {
         this.mboCommandedAuthority = auth;
-        
-       // tcUI.mboAuthorityDisplay.setText(String.format("%.2f", auth));
         setPower();        
     }
     
      public void setMboSpeed(double speed)
     {
         this.mboCommandedSpeed = speed;
-       
-       // tcUI.mboSpeedSetpoint.setText(String.format("%.2f", speed));
         setPower();        
     }
     
      public void setSpeedLimit(double sLimit)
      {         
          this.speedLimit = sLimit;
-       //  tcUI.speedLimitDisplay.setText(String.format("%.2f", sLimit));
          setPower();
-     }
-    
+     }    
     
     //evaluate whether to use ctcSpeed, mboSpeed, or ConductorSpeed
      public double evaluateVelocity(double calculatedLimit)
@@ -276,18 +235,20 @@ public class TrainController {
         Evaluate whether doors should be 
         allowed to be opened/closed       
         */
-        
-        if(train.atStation && vAct == 0 && !train.doorStatus && !fromConductor)
+        vAct = train.getCurrentSpeed();
+        int v = (int) vAct;
+        System.out.println("v: "+v);
+        if(train.atStation && v == 0 && !train.doorStatus && !fromConductor)
         {
             train.doorStatus = true;
             this.doorStatus = true;
         }
-        else if(vAct != 0 && train.doorStatus && !fromConductor)
+        else if(v != 0 && train.doorStatus && !fromConductor)
         {
             train.doorStatus = false;
             this.doorStatus = false;
         }
-        else if(vAct == 0 && train.doorStatus && fromConductor)
+        else if(v == 0 && !train.doorStatus && fromConductor)
         {
             train.doorStatus = true;
             this.doorStatus = true;
@@ -380,9 +341,5 @@ public class TrainController {
     public void evaluateEbrake()
     {
         eBrake = train.eBrake;        
-    }
-    
-  
-    
-    
+    }    
 }
