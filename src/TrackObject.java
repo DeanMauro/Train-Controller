@@ -93,15 +93,15 @@ public class TrackObject {
                 }
   
             }
-            System.out.println("Infrastructure");
+            //System.out.println("Infrastructure");
             for(int x = 0;x<numBlocks;x++)
             {
-                System.out.print((switchInfra[x][0]+1)+"\t"+switchInfra[x][1]+"\n");
+                //System.out.print((switchInfra[x][0]+1)+"\t"+switchInfra[x][1]+"\n");
             }
-            System.out.println("Switch Block");
+            //System.out.println("Switch Block");
             for(int x = 0;x<numBlocks;x++)
             {
-                System.out.print(switchBlock[x][0]+1+"\t"+switchBlock[x][1]+"\n");
+                //System.out.print(switchBlock[x][0]+1+"\t"+switchBlock[x][1]+"\n");
             }
             
             //set up track

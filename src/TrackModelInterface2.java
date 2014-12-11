@@ -538,7 +538,7 @@ public class TrackModelInterface2 extends JFrame
                         while (fileScan.hasNextLine()) 
                         {
                             String line = fileScan.nextLine();
-                            System.out.println(line);
+                            //System.out.println(line);
                             blockInfo = line.split(",");
                             //System.out.println("number of items:"+blockInfo.length);
 
