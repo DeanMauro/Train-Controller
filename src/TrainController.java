@@ -25,8 +25,14 @@ public class TrainController {
     public boolean doorStatus;
     public boolean lightStatus;
     public boolean brakeStatus;
-    public int failureCode;
-    public String failureInfo;
+   
+    boolean eBrake;                 //true means engaged and false means disengaged
+    boolean engineFailure;          //true means failed engine and false means okay
+    boolean brakeFailure;           //true means failed brakes and false means okay
+    boolean signalPickupFailure;    //true means failed antenna and false means okay
+    String failureMessage;
+    /*public int failureCode;
+    public String failureInfo[] = {};*/
     public String nextStop;
     
     
@@ -64,8 +70,12 @@ public class TrainController {
         doorStatus = false;
         lightStatus = false;
         brakeStatus = false;
-        failureCode = 0;
-        failureInfo = null;
+        
+        eBrake = false;                 //true means engaged and false means disengaged
+        engineFailure = false;          //true means failed engine and false means okay
+        brakeFailure = false;           //true means failed brakes and false means okay
+        signalPickupFailure = false;    //true means failed antenna and false means okay
+    
         power = 0; //watts
         vAct = 0; //m/s
         
@@ -75,10 +85,17 @@ public class TrainController {
         mboCommandedAuthority=0;
         controllerSpeedSetpoint = 0;
         
-        //maxTrainDeceleration = train.getMaxDeceleration();
-        //hardcoding for now
+              
         maxTrainDeceleration = 1.2;
         maxTrainPower = 120000;
+        
+        eBrake = false;                 //true means engaged and false means disengaged
+        engineFailure = false;          //true means failed engine and false means okay
+        brakeFailure = false;           //true means failed brakes and false means okay
+        signalPickupFailure = false;    //true means failed antenna and false means okay
+        failureMessage = "";
+        nextStop = "";
+        
     }
     
         
@@ -128,22 +145,10 @@ public class TrainController {
     public void setPower()
     {
         //actual train velcity
-        vAct = train.getCurrentSpeed();
-       //System.out.println("vAct=" +vAct);
-        //convert vAct to m/s        
+        vAct = train.getCurrentSpeed();        
         
-      //  tcUI.currentSpeedDisplay.setText(String.format("%.2f", vAct));
-        
-        //Need to calculate a velocity such that train stops moving 
-        //(Vf=0) based on given authority (d) and trains max deceleration (a)
-        //Vf^2 = Vi^2 +2ad
-        //0 = Vi^2 +2ad
-        //Vi^2 = -2ad
-        //Vi = sqrt(-2ad)
-        
-        authority = Math.max(ctcSuggestedAuthority,mboCommandedAuthority);
-        //authority = mboCommandedAuthority;
-        //authority = 5000;
+        //use min authority
+        authority = Math.min(ctcSuggestedAuthority,mboCommandedAuthority);       
         if(authority <= 0)
         {
             authority = 0.1;            
@@ -152,8 +157,17 @@ public class TrainController {
         this.evaluateVelocity();
         //double powerCheck = this.setPowerRedundant(vAct, authority, power, ek, uk);
         
+        //Need to calculate a velocity such that train stops moving 
+        //(Vf=0) based on given authority (d) and trains max deceleration (a)
+        //Vf^2 = Vi^2 +2ad
+        //0 = Vi^2 +2ad
+        //Vi^2 = -2ad
+        //Vi = sqrt(-2ad) -> ommitting the - sign and using a positive value for deceleration(1.2)
+        
         double vLimit = Math.sqrt(2*maxTrainDeceleration*authority);
        //System.out.println("vlimit="+vLimit);
+        
+        
         //decide what speed setpoint to use
         
         //trying this temporarily
@@ -326,23 +340,56 @@ public class TrainController {
        
     }
 
-    public void evaluateBrake(boolean brakeIn)
+    public void evaluateBrake()
     {
         /*
         Evaluate whether brake should be 
         allowed to be turned on or off       
         */
-        if(brakeIn)
+        if(this.brakeStatus)
         {
-            this.brakeStatus = true;
-            //setPower(0) ????
+            train.setConductorBrake(true);
         }
         else
         {
-            this.brakeStatus = false;
+            train.setConductorBrake(false);
+        }      
+       
+    } 
+    
+    public void evaluateFailure()
+    {
+        boolean failFlag = false;
+        if(train.brakeFailure)
+        {
+            this.brakeFailure = true;
+            this.failureMessage = train.failure;
         }
-       // this.transmitBrake(brakeIn);
-    }  
+        else if(train.engineFailure)
+        {
+            this.engineFailure = true;
+            this.failureMessage = train.failure;
+        }
+        else if(train.signalPickupFailure)
+        {
+            this.engineFailure = true;
+            this.failureMessage = train.failure;
+        }
+        if(failFlag)
+        {
+            train.setConductorBrake(true);
+        }
+    }
+    
+    public void setNextStop(String n)
+    {
+        this.nextStop = n;
+    }
+    
+    public void evaluateEbrake()
+    {
+        eBrake = train.eBrake;
+    }
     
     public int getID()
     {
