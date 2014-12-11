@@ -37,8 +37,8 @@ public class TrainController {
     private double maxTrainDeceleration;
 
     private double maxTrainPower;
-    private final double KP = 200;//proportional gain
-    private final double KI = 50;//integral gain
+    private final double KP = 8000;//proportional gain
+    private final double KI = 300;//integral gain
     private double uk = 0; //integral error
     private double ek = 0;//proportional error
     private double T = 0.1;
@@ -148,7 +148,7 @@ public class TrainController {
         
         //trying this temporarily
 
-        //velocitySetpoint = vLimit;
+        velocitySetpoint = 15;
 
         //check that setpoint is not greater than track speed limit or velocity limit    
         

@@ -43,12 +43,10 @@ class Wrapper {
 		
             //Add visible components
 	    officeFrame                 .add(office);
-            //trackModelFrame		.add(trackModelInterface);
             trainControllerFrame	.add(trainControllerUI);
 		
             //Reset JFrames
 	    officeFrame			.pack();
-            //trackModelFrame		.pack();
             trainControllerFrame	.pack();
 		
             //Make JFrames Visible
@@ -137,7 +135,7 @@ class Wrapper {
                   Train.setPosition(office.trainsOnTracks.get(i), currentTrain.getCurrentPosition());
                   
                   /*Update Train Controllers with new MBO Authorities*/
-                  mbo.updateBlockAuthority(trackModelInterface.getTrackModel().getNextStationDistance(i));
+                  //mbo.updateBlockAuthority(trackModelInterface.getTrackModel().getNextStationDistance(i));
                   //mbo.updateBlockSpeed(trackModelInterface.getTrackModel().getCurrentBlock().getBlockSpeed);
 
                   Train.setAuthority(office.trainsOnTracks.get(i), mbo.getbauth());
