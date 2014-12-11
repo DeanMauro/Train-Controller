@@ -92,7 +92,8 @@ class Wrapper {
             addStartButtonListener(mbo.StartButton);
             
             /*Track Model Listeners*/
-            addMBRBListener(mbo.MovingBlockRadio);
+            addMovingListener(mbo.MovingBlockRadio);
+            addFixedListener(mbo.FixedBlockRadio);
             
             /*TrainModel Listeners*/
             /*Train Controller Listeners*/
@@ -265,14 +266,24 @@ class Wrapper {
 	/////////////////////////////////
 	//MBO LISTENERS
 	/////////////////////////////////
-        private static void addMBRBListener(JRadioButton MovingBlockRadio){
+        private static void addMovingListener(JRadioButton MovingBlockRadio){
             // <editor-fold defaultstate="collapsed" desc="MBRB">
         MovingBlockRadio.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
                 if(((JRadioButton)e.getSource()).isSelected())
                     office.setMovingBlock();
-                else
+            }
+        });
+
+	}// </editor-fold> 
+        
+        private static void addFixedListener(JRadioButton FixedBlockRadio){
+            // <editor-fold defaultstate="collapsed" desc="MBRB">
+        FixedBlockRadio.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+                if(((JRadioButton)e.getSource()).isSelected())
                     office.setFixedBlock();
             }
         });
