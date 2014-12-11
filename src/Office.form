@@ -134,8 +134,8 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Component id="clockLayeredPane" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="208" max="32767" attributes="0"/>
-                      <Component id="TrainsScrollPane" min="-2" pref="300" max="-2" attributes="0"/>
+                      <EmptySpace pref="192" max="32767" attributes="0"/>
+                      <Component id="TrainsScrollPane" min="-2" pref="316" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
@@ -270,7 +270,7 @@
                     <Component class="javax.swing.JButton" name="buttonDecreaseClockSpeed">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Lucida Grande" size="12" style="0"/>
+                          <Font name="Lucida Grande" size="10" style="0"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="&lt;&lt;"/>
                       </Properties>
@@ -278,7 +278,7 @@
                     <Component class="javax.swing.JButton" name="buttonIncreaseClockSpeed">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Lucida Grande" size="12" style="0"/>
+                          <Font name="Lucida Grande" size="10" style="0"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="&gt;&gt;"/>
                       </Properties>

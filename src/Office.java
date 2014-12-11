@@ -164,16 +164,13 @@ public class Office extends javax.swing.JPanel {
         setOpaque(false);
 
         layeredPane.setPreferredSize(new java.awt.Dimension(1175, 1038));
-        layeredPane.setSize(new java.awt.Dimension(1175, 1038));
 
         topPanel.setBackground(new java.awt.Color(239, 241, 245));
         topPanel.setOpaque(false);
         topPanel.setPreferredSize(new java.awt.Dimension(920, 545));
-        topPanel.setSize(new java.awt.Dimension(920, 545));
 
         TrainsScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         TrainsScrollPane.setOpaque(false);
-        TrainsScrollPane.setViewportView(innerPanel);
 
         innerPanel.setOpaque(false);
         TrainsScrollPane.setViewportView(innerPanel);
@@ -185,10 +182,10 @@ public class Office extends javax.swing.JPanel {
         textClock.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textClock.setText("0:00");
 
-        buttonDecreaseClockSpeed.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        buttonDecreaseClockSpeed.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         buttonDecreaseClockSpeed.setText("<<");
 
-        buttonIncreaseClockSpeed.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        buttonIncreaseClockSpeed.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         buttonIncreaseClockSpeed.setText(">>");
 
         javax.swing.GroupLayout clockFrontPanelLayout = new javax.swing.GroupLayout(clockFrontPanel);
@@ -546,8 +543,8 @@ public class Office extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, topPanelLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(clockLayeredPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
-                .addComponent(TrainsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
+                .addComponent(TrainsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
             .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(topPanelLayout.createSequentialGroup()
@@ -577,7 +574,6 @@ public class Office extends javax.swing.JPanel {
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/background.png"))); // NOI18N
         background.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         background.setPreferredSize(new java.awt.Dimension(1175, 1032));
-        background.setSize(new java.awt.Dimension(1175, 1032));
 
         javax.swing.GroupLayout backPanelLayout = new javax.swing.GroupLayout(backPanel);
         backPanel.setLayout(backPanelLayout);
