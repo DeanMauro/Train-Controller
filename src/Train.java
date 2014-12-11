@@ -179,9 +179,9 @@ public class Train extends javax.swing.JPanel {
     public static double getSetRecommendedSpeed(Train t, double distance, double time){
     // <editor-fold defaultstate="collapsed" desc="Recommend Speed">
         t.recommendedSpeed = distance / time;
-        t.textSetSpeed.setText(String.valueOf(t.recommendedSpeed));
+        t.textSetSpeed.setText(String.valueOf(2.23694 * t.recommendedSpeed));
         t.recommendedAuthority = distance;
-        t.textSetAuthority.setText(String.valueOf(t.recommendedAuthority));
+        t.textSetAuthority.setText(String.valueOf(3.28084 * t.recommendedAuthority));
         
         return t.recommendedSpeed;
     }// </editor-fold>

@@ -90,9 +90,9 @@ public class TrainModel extends javax.swing.JFrame {
      
     public TrainModel(int trainID) {
         initComponents();
-        
+        System.out.println("TRAIN ID: " + trainID);
         this.ID = trainID;
-        addToTrainList(trainID, this);
+        //addToTrainList(trainID, this);
     }
         
     /////////////////////////////////////////

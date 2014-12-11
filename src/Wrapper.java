@@ -14,6 +14,7 @@ class Wrapper {
 	protected static MovingBlockOverlayUI mbo;
         
         protected static ArrayList<ScheduleNode> schedule;
+        protected static boolean fromMBO = false;
         protected static int numStations = 0;
         protected static int timerDelay = 1000;
         protected static ActionListener ClockListener;
@@ -118,14 +119,20 @@ class Wrapper {
               for(int i=0; i<numberOfTrains; i++){
                   currentTrain = trainModel.get(i);
                   
-                  /*Get destination station and transit time*/
-                  stationNum = office.trainsOnTracks.get(i).getStationNum();
-                  station = schedule.get(stationNum).getStop();
-                  timeToStation = schedule.get(stationNum).getTime().get(i);
-                  distToStation = trackModelInterface.getTrackModel().getNextSpecificStationDistance(i+1, station);
-                  trainController.get(i).setCtcSpeed(Train.getSetRecommendedSpeed(office.trainsOnTracks.get(i), distToStation, timeToStation));
+                  if(fromMBO){
+                     /*Get destination station and transit time*/
+                    stationNum = office.trainsOnTracks.get(i).getStationNum();
+                    station = schedule.get(stationNum).getStop();
+
+                    System.out.println("StationNum: " + stationNum);
+                    System.out.println("I "+i);
+                    timeToStation = schedule.get(stationNum).getTime().get(i);
+                    distToStation = trackModelInterface.getTrackModel().getNextSpecificStationDistance(i+1, station);
+                    trainController.get(i).setCtcSpeed(Train.getSetRecommendedSpeed(office.trainsOnTracks.get(i), distToStation, timeToStation));
+
+                    trainController.get(i).setCtcAuthority(Train.getRecommendedAuthority(office.trainsOnTracks.get(i)));
+                  }
                   
-                  trainController.get(i).setCtcAuthority(Train.getRecommendedAuthority(office.trainsOnTracks.get(i)));
                   
                   
                   /*Calculate Trains' new Speeds, Accelerations, Positions*/
@@ -190,7 +197,7 @@ class Wrapper {
             //Increment number of trains
             numberOfTrains++;
             //Create Train
-            trainModel.add(new TrainModel(numberOfTrains)); 
+            trainModel.add(new TrainModel(numberOfTrains));
             //Create Train Controller for new Train
             trainController.add(new TrainController(numberOfTrains, trainModel.lastElement()));
             //Add Train Controller to Train Controller UI's list
@@ -314,8 +321,9 @@ class Wrapper {
             Start.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e)
                 {
+                    fromMBO = true;
                     schedule = mbo.getSchedule();
-                    int numTrainsToSpawn = schedule.get(0).getTimes().length();
+                    int numTrainsToSpawn = schedule.get(0).getTime().size();
                     numStations = schedule.size();
 
                     StringBuffer s = new StringBuffer();
@@ -331,6 +339,7 @@ class Wrapper {
                     if(!timer.isRunning())
                         timer.start();
                     
+                    System.out.println("TRAINS: " + numTrainsToSpawn);
                     for(int i=0; i<numTrainsToSpawn; i++){
                         spawnTrain();
                     }
