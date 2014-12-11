@@ -257,7 +257,10 @@ public class TrainModel extends javax.swing.JFrame {
     public String getNextStation(){
         return nextStation;
     }
-    
+
+    public int getPassengerCount(){
+        return passengerCount;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
