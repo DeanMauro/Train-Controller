@@ -170,7 +170,7 @@ public class TrainModel extends javax.swing.JFrame {
             currentAcceleration = 0;
         else if(currentSpeed==blockSpeedLimit)
             currentAcceleration = 0;
-        else if(currentSpeed>blockSpeedLimit)
+        else if(currentSpeed>blockSpeedLimit && blockSpeedLimit != 0)
             currentSpeed = blockSpeedLimit;
         else
             currentAcceleration = currentForce / (mass+passengerMass);
