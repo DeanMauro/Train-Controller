@@ -467,6 +467,10 @@ public class TrackModelInterface2 extends JFrame
                 trainSpeed = 0;
                 totalDistance = 10000;
                 nodePostion = 0;
+                
+                for(int i=0; i<100; i++){
+                    trainDist[i][2] = 77;
+                }
             }
 
             //gets the current trains speed
@@ -567,13 +571,14 @@ public class TrackModelInterface2 extends JFrame
                             */
                         }
                         fileScan.close();
-                        if(i>0)
-                        {
-                            newBlock = new Block(blockInfo);
-                            newBlock.setYard(true);
-                            trackObject.addBlock(newBlock);
-                            i++;
-                        }
+//                        if(i>0)
+//                        {
+//                            newBlock = new Block(blockInfo);
+//                            newBlock.setYard(true);
+//                            i++;
+//                            newBlock.setBlockId(i);
+//                            trackObject.addBlock(newBlock);     
+//                        }
                         System.out.println("Num blocks: "+i);
                         numBlocks = i;
 
