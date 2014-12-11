@@ -353,8 +353,7 @@ public class TrainController {
         if(this.brakeStatus)
         {
             train.setConductorBrake(true);
-            this.brakeStatus = true;
-            this.power = 0;
+            this.brakeStatus = true;            
         }
         else
         {
