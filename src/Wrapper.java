@@ -9,7 +9,7 @@ import javax.swing.Timer;
 class Wrapper {
 	
 	protected static Office office;
-        protected static TrackModelInterface trackModelInterface;
+        protected static TrackModelInterface2 trackModelInterface;
 	protected static Vector<TrainModel> trainModel;
 	protected static Vector<TrainController> trainController;
         protected static TrainControllerUI trainControllerUI;
@@ -79,7 +79,7 @@ class Wrapper {
             
 		
             office 		= new Office();
-            trackModelInterface = new TrackModelInterface();
+            trackModelInterface = new TrackModelInterface2();
             trainModel          = new Vector();
             trainController     = new Vector();
             trainControllerUI   = new TrainControllerUI();
@@ -94,9 +94,6 @@ class Wrapper {
             addStartButtonListener(mbo.StartButton);
             
             /*Track Model Listeners*/
-            addBlockSpeedListener(trackModelInterface.trainSpeed);
-            addBlockLengthListener(trackModelInterface.trainLength);
-            addIsStationListener(trackModelInterface.trainIsStation);
             addMBRBListener(mbo.MovingBlockRadio);
             
             /*TrainModel Listeners*/
@@ -259,69 +256,6 @@ class Wrapper {
 	/////////////////////////////////
 	//TRACK MODEL LISTENERS
 	/////////////////////////////////
-        private static void addBlockSpeedListener(JTextField bs){
-            final JTextField blocky = bs;
-            // <editor-fold defaultstate="collapsed" desc="Block Speed">
-            bs.getDocument().addDocumentListener(new DocumentListener(){
-
-                public void changedUpdate(DocumentEvent documentEvent) {
-                    double speed = Double.parseDouble(blocky.getText());
-                    mbo.updateBlockSpeed(speed);
-                }
-                public void insertUpdate(DocumentEvent documentEvent) {
-                    double speed = Double.parseDouble(blocky.getText());
-                    mbo.updateBlockSpeed(speed);
-                }
-                public void removeUpdate(DocumentEvent documentEvent) {
-                    //double speed = Double.parseDouble(bs.getText());
-                    //mbo.updateBlockSpeed(speed);
-                }
-            });        
-    }// </editor-fold> 
-    
-        private static void addBlockLengthListener(JTextField trainLength){
-            // <editor-fold defaultstate="collapsed" desc="Block Length">
-            trainLength.getDocument().addDocumentListener(new DocumentListener(){
-        	
- 		      public void changedUpdate(DocumentEvent documentEvent) {
- 		        //double position = Double.parseDouble(trainLength.getText());
-                        //trackModel.updatePosition(position);
- 		      }
- 		      public void insertUpdate(DocumentEvent documentEvent) {
- 		        //double position = Double.parseDouble(trainLength.getText());
-                        //trackModel.updatePosition(position);
- 		      }
- 		      public void removeUpdate(DocumentEvent documentEvent) {
- 		        //double position = Double.parseDouble(trainLength.getText());
-                        //trackModel.updatePosition(position);
-		      }
- 		      
-            });        
-                      
-	}// </editor-fold> 
-    
-        private static void addIsStationListener(JTextField trainIsStation){
-            final JTextField s = trainIsStation;
-            // <editor-fold defaultstate="collapsed" desc="Is Station">
-            trainIsStation.getDocument().addDocumentListener(new DocumentListener(){
-        	
- 		      public void changedUpdate(DocumentEvent documentEvent) {
- 		        boolean position = Boolean.parseBoolean(s.getText());
-                        //trackModel.updatePosition(position);
- 		      }
- 		      public void insertUpdate(DocumentEvent documentEvent) {
- 		        //double position = Double.parseDouble(trainIsStation.getText());
-                        //trackModel.updatePosition(position);
- 		      }
- 		      public void removeUpdate(DocumentEvent documentEvent) {
- 		        //double position = Double.parseDouble(trainIsStation.getText());
-                        //trackModel.updatePosition(position);
-		      }
- 		      
-            });        
-                      
-	}// </editor-fold> 
-    
 	
 	/////////////////////////////////
 	//TRAIN MODEL LISTENERS
