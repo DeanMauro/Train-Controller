@@ -37,6 +37,7 @@ public class Block {
 	private boolean closed;
 	private int signalState;
 	private int crossingSigState;
+        public boolean twoFromStation;
 	
 	private boolean trainDetected;
 
@@ -432,6 +433,16 @@ public class Block {
         public int getEndY()
         {
             return endY;
+        }
+        
+        public void setTwoFromStation(boolean x)
+        {
+            twoFromStation = x;
+        }
+        
+        public boolean getTwoFromStation()
+        {
+            return twoFromStation;
         }
         
 }

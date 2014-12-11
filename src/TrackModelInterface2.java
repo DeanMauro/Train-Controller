@@ -543,6 +543,7 @@ public class TrackModelInterface2 extends JFrame
                             trainDistGreen[trainId-1][2] = b.getBlockId();
                         //trainDist[trainId-1][1] = 0;
                         System.out.println("on block: "+b.getBlockId());
+                        //isTwoFromStation(b);
                         redraw(b.getBlockId());
                         //trainDist[trainId-1][1] = 0;
                         break;
@@ -564,7 +565,39 @@ public class TrackModelInterface2 extends JFrame
 
                 }
             }
-
+            
+            //determines if the block is two from station
+            public void isTwoFromStation(Block b){
+                Block s, next;
+                s = b;
+                double distance = 0;
+                if(s.isStation())
+                {
+                    int a = s.getPrevBlockId();
+                    s =  trackObject.getBlock(a);
+                }
+                next = s;
+                int i = 0;
+                while(true)
+                {
+                    if(next.isStation())
+                    {
+                        i++;
+                        break;
+                    }
+                    else
+                    {
+                        //System.out.println(next.getPrevBlockId());
+                        next = trackObject.getBlock(next.getPrevBlockId());
+                        i++;
+                    }
+                }
+                if(i == 2)
+                    b.setTwoFromStation(true);
+                else
+                    b.setTwoFromStation(false);
+            }
+            
             //redraw with new color 
             public void redraw(int ID){
                 Block b = trackObject.getBlock(ID);
@@ -724,6 +757,7 @@ public class TrackModelInterface2 extends JFrame
                     else
                     {
                         distance += next.getLength();
+                        //System.out.println(next.getPrevBlockId());
                         next = trackObject.getBlock(next.getPrevBlockId());
                     }
                 }
