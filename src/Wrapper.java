@@ -45,6 +45,7 @@ class Wrapper {
             trackModelFrame		.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             trainControllerFrame	.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             mbo          		.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            ad                          .setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		
             //Add visible components
 	    officeFrame                 .add(office);
