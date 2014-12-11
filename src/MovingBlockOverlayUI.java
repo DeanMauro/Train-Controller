@@ -290,11 +290,11 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         ControlPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Control Mode", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 102, 255))); // NOI18N
 
         MovingBlockDisplay.setEditable(false);
-        MovingBlockDisplay.setBackground(new java.awt.Color(0, 255, 0));
+        MovingBlockDisplay.setBackground(new java.awt.Color(255, 0, 0));
         MovingBlockDisplay.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         MovingBlockDisplay.setText("Moving Block");
 
-        FixedBlockDisplay.setBackground(new java.awt.Color(255, 0, 0));
+        FixedBlockDisplay.setBackground(new java.awt.Color(0, 255, 0));
         FixedBlockDisplay.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         FixedBlockDisplay.setText("Fixed Block");
 
@@ -640,7 +640,6 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Block Control Mode", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 102, 255))); // NOI18N
 
         ControlMode.add(MovingBlockRadio);
-        MovingBlockRadio.setSelected(true);
         MovingBlockRadio.setText("Moving Block");
         MovingBlockRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -649,6 +648,7 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         });
 
         ControlMode.add(FixedBlockRadio);
+        FixedBlockRadio.setSelected(true);
         FixedBlockRadio.setText("Fixed Block");
         FixedBlockRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1189,11 +1189,11 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
     public javax.swing.JTextField MovingBlockDisplay;
     public javax.swing.JRadioButton MovingBlockRadio;
     public javax.swing.JButton NewScheduleButton;
-    private javax.swing.JPanel PassengerPanel;
+    public javax.swing.JPanel PassengerPanel;
     public javax.swing.JTextField SpeedVarianceField;
     public javax.swing.JButton StartButton;
     private javax.swing.JTextField StartTimeBox;
-    private javax.swing.JTextField TotalText;
+    public javax.swing.JTextField TotalText;
     public javax.swing.JComboBox TrainList;
     public javax.swing.JTextField TrainLocationField;
     public javax.swing.JTextField TrainSpeedField;
@@ -1201,7 +1201,7 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JFrame jFrame1;
     public javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
+    public javax.swing.JLabel jLabel10;
     public javax.swing.JLabel jLabel11;
     public javax.swing.JLabel jLabel12;
     public javax.swing.JLabel jLabel13;
