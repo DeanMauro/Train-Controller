@@ -341,5 +341,25 @@ public class TrainController {
     public void evaluateEbrake()
     {
         eBrake = train.eBrake;        
-    }    
+    }
+    
+    public double getMboAuthority()
+    {
+        return this.mboCommandedAuthority;
+    }
+    
+    public double getCtcAuthority()
+    {
+        return this.ctcSuggestedAuthority;
+    }
+    
+    public double getMboSpeed()
+    {
+        return this.mboCommandedSpeed;
+    }
+    
+    public double getCtcSpeed()
+    {
+        return this.ctcSuggestedSpeed;
+    }
 }

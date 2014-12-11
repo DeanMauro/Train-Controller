@@ -2,13 +2,7 @@
 import java.util.Vector;
 
 
-/**
- *
- * @author Brian
- */
-public class TrainControllerUI extends javax.swing.JPanel {
-
-    
+public class TrainControllerUI extends javax.swing.JPanel {    
     
     private double inputSpeed;
     private double lastSafeSpeedInput;
@@ -17,21 +11,13 @@ public class TrainControllerUI extends javax.swing.JPanel {
     private boolean inputBrake;
     private int currentID;
     
-     public Vector<TrainController> trainList = new Vector();
-     public Vector<String> trainIDList = new Vector();
-    //change to trainList.get(trainID);
-     private TrainController TC;
+    private TrainController TC;
     
-    /**
-     * Creates new form TrainControllerUI2
-     */
-    public TrainControllerUI() {
-        //this.TC = tc;
-        
-        //TC = trainList.get(0);
-        
-        initComponents();
-        //updateTrainList();
+    public Vector<TrainController> trainList = new Vector();
+    public Vector<String> trainIDList = new Vector();   
+     
+   public TrainControllerUI() {        
+        initComponents();       
     }
     
     void addToTrainList(int ID, TrainController t){
@@ -41,46 +27,33 @@ public class TrainControllerUI extends javax.swing.JPanel {
 
     public void updateTrainList(int ID)
     {   
-        trainIDList.add("Train " + String.valueOf(ID));
-        
+        trainIDList.add("Train " + String.valueOf(ID));        
         trainSelect.setModel(new javax.swing.DefaultComboBoxModel(trainIDList.toArray()));  
         TC = trainList.get(ID-1);
         updateFields();
-    }
-    
+    }   
     
     public void updateFields()
     {
         safeSpeedSetpointDisplay.setText(String.format("%.2f", convertToMPH(TC.velocitySetpoint)) +" MPH");
-        
-
         ctcSuggestedAuthority.setText(String.format("%.2f", convertToM(TC.ctcSuggestedAuthority)) +" M");
         ctcSuggestedSpeed.setText(String.format("%.2f", convertToMPH(TC.ctcSuggestedSpeed)) +" MPH");
         currentSpeedDisplay.setText(String.format("%.2f", convertToMPH(TC.vAct)) +" MPH");
-        
         doorStatusDisplay.setText( (TC.doorStatus) ? ("Open") : ("Closed") );
         inputDoorsButton.setText( (TC.doorStatus) ? ("CLOSE DOORS") : ("OPEN DOORS") );
         inputDoorsButton.setSelected( TC.doorStatus );
-        
         lightStatusDisplay.setText( (TC.lightStatus) ? ("On") : ("Off") );
         inputLightButton.setText( (TC.lightStatus) ? ("TURN LIGHTS OFF") : ("TURN LIGHTS ON") );
         inputLightButton.setSelected( TC.lightStatus );
-        
         inputBrakeButton.setText( (TC.brakeStatus) ? ("RELEASE BRAKE") : ("SET BRAKE") );
         inputBrakeButton.setSelected( TC.brakeStatus );
-        
         mboAuthorityDisplay.setText(String.format("%.2f", convertToM(TC.mboCommandedAuthority)) +" M");
         mboSpeedSetpoint.setText(String.format("%.2f", convertToMPH(TC.mboCommandedSpeed)) +" MPH");
         nextStopDisplay.setText(TC.nextStop);
-        failureMessageDisplay.setText(TC.failureMessage);
-        
-        
-        
+        failureMessageDisplay.setText(TC.failureMessage);        
         powerOutputDisplay.setText(String.format("%.2f", TC.power/1000)  +" kW");
-           
         speedLimitDisplay.setText(String.format("%.2f", convertToMPH(TC.speedLimit))  +" MPH");        
-        inputSpeedSpinner.setValue(TC.controllerSpeedSetpoint);        
-        
+        inputSpeedSpinner.setValue(TC.controllerSpeedSetpoint);
     }
     
     public double convertToMPH(double mps)
@@ -402,10 +375,7 @@ public class TrainControllerUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void inputSpeedSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_inputSpeedSpinnerStateChanged
-        // TODO add your handling code here:
-       // inputSpeed = inputSpeedSpinner.getValue().toString();
-        inputSpeed = Double.parseDouble(inputSpeedSpinner.getValue().toString());
-        //System.out.println("Speed Setpoint: "+inputSpeed);       
+        inputSpeed = Double.parseDouble(inputSpeedSpinner.getValue().toString());             
         if(inputSpeed < 0){ //cannot set speed to be lower than 0
             inputSpeedSpinner.setValue(0);
         }
@@ -445,26 +415,15 @@ public class TrainControllerUI extends javax.swing.JPanel {
     }//GEN-LAST:event_inputLightButtonActionPerformed
 
     private void inputBrakeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputBrakeButtonActionPerformed
-
         TC.brakeStatus = inputBrakeButton.isSelected();
-        TC.evaluateBrake();
-        
-        
-        /*if(inputBrake){
-            inputBrakeButton.setText("RELEASE BRAKE");
-        }
-        else{
-            inputBrakeButton.setText("SET BRAKE");
-        }*/
+        TC.evaluateBrake();        
     }//GEN-LAST:event_inputBrakeButtonActionPerformed
 
     private void trainSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trainSelectActionPerformed
         //Extract train number
-        int id = trainSelect.getSelectedIndex();
-         
+        int id = trainSelect.getSelectedIndex();         
         //Set TC to selected train
-        TC = trainList.get(id);
-        
+        TC = trainList.get(id);        
         //Update UI fields
         updateFields();
     }//GEN-LAST:event_trainSelectActionPerformed
