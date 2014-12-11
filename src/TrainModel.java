@@ -250,7 +250,13 @@ public class TrainModel extends javax.swing.JFrame {
         return blockSpeedLimit;
     }
     
+    public void setNextStation(String s){
+        nextStation = s;
+    }
     
+    public String getNextStation(){
+        return nextStation;
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
