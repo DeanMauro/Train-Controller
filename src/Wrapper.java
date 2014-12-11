@@ -26,7 +26,7 @@ class Wrapper {
         
         protected static int numberOfTrains = 0;
         
-        protected static Random randomGen;
+        protected static Random randomGen = new Random();
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * *
  * MAIN 
