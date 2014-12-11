@@ -641,6 +641,13 @@ public class TrackModelInterface2 extends JFrame
                 return trackObject.getNumBlocks();
             }
             
+            //gives ID of train....returns block train is on
+            public Block getBlockTrainIsOn(int ID)
+            {
+                Block b = trackObject.getBlock((int)trainDist[ID-1][2]);
+                return trackObject.getBlock((int)trainDist[ID-1][2]);
+            }
+            
             public TrackObject getTrackObject(){
                 return trackObject;
             }
