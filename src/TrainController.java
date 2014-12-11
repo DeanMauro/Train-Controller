@@ -98,6 +98,10 @@ public class TrainController {
         
     }
     
+    public int getID()
+    {
+        return trainID;        
+    }
         
    /* public TrainControllerUI getTrainControllerUI()
     {
@@ -303,18 +307,22 @@ public class TrainController {
         if(train.atStation && vAct == 0 && !train.doorStatus && !fromConductor)
         {
             train.doorStatus = true;
+            this.doorStatus = true;
         }
         else if(vAct != 0 && train.doorStatus && !fromConductor)
         {
             train.doorStatus = false;
+            this.doorStatus = false;
         }
         else if(vAct == 0 && train.doorStatus && fromConductor)
         {
             train.doorStatus = true;
+            this.doorStatus = true;
         }
         else if(train.doorStatus && fromConductor)
         {
             train.doorStatus = false;
+            this.doorStatus = false;
         }        
         
     }
@@ -324,19 +332,27 @@ public class TrainController {
         /*
         Evaluate whether lights should be 
         allowed to be turned on or off       
-        */
+        */      
         if(train.underground && !train.lightStatus && !fromConductor)
         {
             train.lightStatus = true;
+            this.lightStatus = true;
         }
         else if(!train.underground && train.lightStatus && !fromConductor)
         {
             train.lightStatus = false;
+            this.lightStatus = false;
         }
         else if(fromConductor && !train.lightStatus)
         {
            train.lightStatus = true;
-        }      
+           this.lightStatus = true;
+        }
+        else if(fromConductor && train.lightStatus && !train.underground)
+        {
+           train.lightStatus = false;
+           this.lightStatus = false;
+        } 
        
     }
 
@@ -349,10 +365,12 @@ public class TrainController {
         if(this.brakeStatus)
         {
             train.setConductorBrake(true);
+            this.brakeStatus = true;
         }
         else
         {
             train.setConductorBrake(false);
+            this.brakeStatus = false;
         }      
        
     } 
@@ -388,13 +406,10 @@ public class TrainController {
     
     public void evaluateEbrake()
     {
-        eBrake = train.eBrake;
+        eBrake = train.eBrake;        
     }
     
-    public int getID()
-    {
-        return trainID;        
-    }
+  
     
     
 }
