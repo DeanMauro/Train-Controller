@@ -170,6 +170,7 @@ class Wrapper {
             trainControllerUI.addToTrainList(numberOfTrains, trainController.lastElement());
             //Display new train in Office
             office.addTrain(numberOfTrains);
+            mbo.addTrain(numberOfTrains);
             
             if(!timer.isRunning())
                 timer.start();
