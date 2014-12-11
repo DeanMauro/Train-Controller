@@ -18,29 +18,24 @@ public class TrainController {
     
     public double velocitySetpoint;
     public double vAct;
-    public double authority;
-    
-    public double speedLimit;    
+    public double authority;    
+    public double speedLimit; 
     
     public boolean doorStatus;
     public boolean lightStatus;
-    public boolean brakeStatus;
-   
+    public boolean brakeStatus;   
     boolean eBrake;                 //true means engaged and false means disengaged
     boolean engineFailure;          //true means failed engine and false means okay
     boolean brakeFailure;           //true means failed brakes and false means okay
     boolean signalPickupFailure;    //true means failed antenna and false means okay
     String failureMessage;
-    /*public int failureCode;
-    public String failureInfo[] = {};*/
-    public String nextStop;
     
-    
+    public String nextStop;    
     public double power;
     
     //variables for power calculation       
     private double maxTrainDeceleration;
-    private double maxTrainPower;
+    private double maxTrainPower;    
     private final double KP = 1000;//proportional gain
     private final double KI = 300;//integral gain
     private double uk = 0; //integral error
@@ -51,44 +46,25 @@ public class TrainController {
     public double ctcSuggestedAuthority;
     public double mboCommandedSpeed;
     public double mboCommandedAuthority;
-    public double controllerSpeedSetpoint;
-    
+    public double controllerSpeedSetpoint;    
     
     public TrainController(int ID, TrainModel newTrain)
     {
         trainID = ID;
+        train = newTrain;         
                
-        //tcUI = new TrainControllerUI(this);
-        train = newTrain; 
-       
-        velocitySetpoint = 0;     
-       
-        
+        velocitySetpoint = 0; 
         speedLimit = 0;
-        
         authority = 0;//m
+        
         doorStatus = false;
         lightStatus = false;
-        brakeStatus = false;
-        
+        brakeStatus = false;        
         eBrake = false;                 //true means engaged and false means disengaged
         engineFailure = false;          //true means failed engine and false means okay
         brakeFailure = false;           //true means failed brakes and false means okay
         signalPickupFailure = false;    //true means failed antenna and false means okay
     
-        power = 0; //watts
-        vAct = 0; //m/s
-        
-        ctcSuggestedSpeed=0;
-        ctcSuggestedAuthority=0;
-        mboCommandedSpeed=0;
-        mboCommandedAuthority=0;
-        controllerSpeedSetpoint = 0;
-        
-              
-        maxTrainDeceleration = 1.2;
-        maxTrainPower = 120000;
-        
         eBrake = false;                 //true means engaged and false means disengaged
         engineFailure = false;          //true means failed engine and false means okay
         brakeFailure = false;           //true means failed brakes and false means okay
@@ -96,17 +72,24 @@ public class TrainController {
         failureMessage = "";
         nextStop = "";
         
+        power = 0; //watts
+        vAct = 0; //m/s
+        
+        ctcSuggestedSpeed=0;
+        ctcSuggestedAuthority=0;
+        mboCommandedSpeed=0;
+        mboCommandedAuthority=0;
+        controllerSpeedSetpoint = 0;        
+              
+        maxTrainDeceleration = 1.2;
+        maxTrainPower = 120000;  
+        
     }
     
     public int getID()
     {
         return trainID;        
-    }
-        
-   /* public TrainControllerUI getTrainControllerUI()
-    {
-        return this.tcUI;
-    }*/
+    } 
     
     public void setControllerSpeedSetpoint(double speed)
     {
@@ -114,17 +97,6 @@ public class TrainController {
         setPower();
     }
    
-    /*private void initUI()
-    {
- //       java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new TrainControllerUI().setVisible(true);
-//            }
-//            
-//        });
-        
-    }*/
-    
     private boolean transmitLights(boolean tLight)
     {
         this.lightStatus = tLight;
@@ -156,9 +128,8 @@ public class TrainController {
         if(authority <= 0)
         {
             authority = 0.1;            
-        } 
+        }      
         
-        this.evaluateVelocity();
         //double powerCheck = this.setPowerRedundant(vAct, authority, power, ek, uk);
         
         //Need to calculate a velocity such that train stops moving 
@@ -169,20 +140,17 @@ public class TrainController {
         //Vi = sqrt(-2ad) -> ommitting the - sign and using a positive value for deceleration(1.2)
         
         double vLimit = Math.sqrt(2*maxTrainDeceleration*authority);
-       //System.out.println("vlimit="+vLimit);
-        
+        //System.out.println("vlimit="+vLimit);        
         
         //decide what speed setpoint to use
+        velocitySetpoint = evaluateVelocity(vLimit);
         
         //trying this temporarily
-       velocitySetpoint = vLimit;
+        velocitySetpoint = vLimit;
        
         //check that setpoint is not greater than track speed limit or velocity limit
-        /*if(velocitySetpoint > Math.min(speedLimit, vLimit))
-        {
-            velocitySetpoint = Math.min(speedLimit, vLimit);
-        }*/
-        //System.out.println("velSetpoint="+velocitySetpoint);
+       
+        
        // tcUI.safeSpeedSetpointDisplay.setText(String.valueOf(velocitySetpoint));
         
         if(power < maxTrainPower)//if pcm < pmax
@@ -213,7 +181,10 @@ public class TrainController {
         
         //set power to kW to send to TrainModel
         //power = power/1000;
-        
+        if(power < 0)
+        {
+            power = 0.1;
+        }
         train.setPower(power); 
     }
     
@@ -227,7 +198,7 @@ public class TrainController {
         double vLimit = Math.sqrt(2*maxTrainDeceleration*auth);
        //System.out.println("vlimit="+vLimit);
         //decide what speed setpoint to use
-        this.evaluateVelocity();
+        velocitySetpoint = this.evaluateVelocity(vLimit);
         //try this
         velocitySetpoint = vLimit;
         //check that setpoint is not greater than track speed limit or velocity limit
@@ -289,10 +260,27 @@ public class TrainController {
     
     
     //evaluate whether to use ctcSpeed, mboSpeed, or ConductorSpeed
-     public void evaluateVelocity()
+     public double evaluateVelocity(double calculatedLimit)
      {
-         velocitySetpoint = Math.max(mboCommandedSpeed,controllerSpeedSetpoint);         
+         
+       /* velocitySetpoint = Math.max(trainOperatorVelocity, ctcOperatorVelocity); // Selects faster of two velocities.
+
+        if (velocitySetpoint > Math.min(Math.min(trackLimit, TRAIN_LIMIT), authorityVelocityLimit)) // If the operator sends a dangerous velocity,
+        {
+            velocitySetpoint = Math.min(Math.min(trackLimit, TRAIN_LIMIT), authorityVelocityLimit); // set to next highest allowable velocity
+        }
+         
+        double v = Math.max(mboCommandedSpeed,controllerSpeedSetpoint);         
+        return v;*/
+        double mboOrCtc, v;
+        mboOrCtc = Math.max(this.controllerSpeedSetpoint,this.ctcSuggestedSpeed);
+        v = Math.max(mboOrCtc,this.controllerSpeedSetpoint);
         
+        if(v > Math.min(this.speedLimit, calculatedLimit))
+        {
+            v = Math.min(this.speedLimit, calculatedLimit);
+        }
+        return v;
      }
              
          
