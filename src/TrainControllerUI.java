@@ -413,24 +413,28 @@ public class TrainControllerUI extends javax.swing.JPanel {
         if(TC.doorStatus){
             inputDoorsButton.setText("CLOSE DOORS");
             doorStatusDisplay.setText("Open");
+            inputDoorsButton.setSelected(true);
         }
         else{
             inputDoorsButton.setText("OPEN DOORS");
             doorStatusDisplay.setText("Closed");
+            inputDoorsButton.setSelected(false);
         }
     }//GEN-LAST:event_inputDoorsButtonActionPerformed
 
     private void inputLightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputLightButtonActionPerformed
 
         inputLights = inputLightButton.isSelected();
-        TC.evaluateLights(true);
+        TC.evaluateLights(true);        
         if(TC.lightStatus){
             inputLightButton.setText("TURN LIGHTS OFF");
             lightStatusDisplay.setText("On");
+            inputLightButton.setSelected(true);
         }
         else{
             inputLightButton.setText("TURN LIGHTS ON");
             lightStatusDisplay.setText("Off");
+            inputLightButton.setSelected(false);
         }
     }//GEN-LAST:event_inputLightButtonActionPerformed
 
