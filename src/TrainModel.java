@@ -40,8 +40,8 @@ public class TrainModel extends javax.swing.JFrame {
     double initSpeed = .001;    //Meters/sec.
     int currentTime = 0;        //Seconds
     double deltaT=1;            //Seconds
-    double currentSpeedLimite;
-    double blockSpeedLimite;
+    double currentSpeedLimit;
+    double blockSpeedLimit;
     boolean isUnderGround;
     boolean isStation;
     String stationName;
@@ -76,7 +76,7 @@ public class TrainModel extends javax.swing.JFrame {
     }
     
     public void updateBlockItems(Block b){
-        blockSpeedLimite = b.getSpeedLimit();
+        blockSpeedLimit = b.getSpeedLimit();
         isUnderGround = b.isUnderground();
         isStation = b.isStation();
         stationName = b.getStationName();
@@ -168,10 +168,10 @@ public class TrainModel extends javax.swing.JFrame {
             currentAcceleration = -2.73;    // m/sec^2
         else if(inputBrakeFailure)
             currentAcceleration = 0;
-        else if(currentSpeed==blockSpeedLimite)
+        else if(currentSpeed==blockSpeedLimit)
             currentAcceleration = 0;
-        else if(currentSpeed>blockSpeedLimite)
-            currentAcceleration = -0.1;
+        else if(currentSpeed>blockSpeedLimit)
+            currentSpeed = blockSpeedLimit;
         else
             currentAcceleration = currentForce / (mass+passengerMass);
         
