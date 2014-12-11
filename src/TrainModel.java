@@ -170,8 +170,6 @@ public class TrainModel extends javax.swing.JFrame {
             currentAcceleration = 0;
         else if(currentSpeed==blockSpeedLimit)
             currentAcceleration = 0;
-        else if(currentSpeed>blockSpeedLimit && blockSpeedLimit != 0)
-            currentSpeed = blockSpeedLimit;
         else
             currentAcceleration = currentForce / (mass+passengerMass);
         
@@ -182,8 +180,11 @@ public class TrainModel extends javax.swing.JFrame {
     }
 
     public void calculateSpeed(){
-        currentSpeed = currentSpeed + (currentAcceleration * deltaT);
-        
+        if(currentSpeed>blockSpeedLimit && blockSpeedLimit != 0){
+            currentSpeed = blockSpeedLimit;
+        }else{
+            currentSpeed = currentSpeed + (currentAcceleration * deltaT);
+        }
         if(currentSpeed > 19.44)            //Max speed can't
             currentSpeed = 19.44;           //exceed 19.44 m/s
     }
