@@ -111,12 +111,21 @@ class Wrapper {
               TrainModel currentTrain;
               String station;
               double timeToStation;
+              int stationNum;
+              double distToStation;
               mbo.updateTrainList(trainModel);
               
               for(int i=0; i<numberOfTrains; i++){
                   currentTrain = trainModel.get(i);
-                  station = schedule.get(currentTrain).getStop();
-                  timeToStation = schedule.get(i).getTime().get()
+                  
+                  /*Get destination station and transit time*/
+                  stationNum = office.trainsOnTracks.get(i).getStationNum();
+                  station = schedule.get(stationNum).getStop();
+                  timeToStation = schedule.get(stationNum).getTime().get(i);
+                  distToStation = trackModelInterface.getTrackModel().getNextSpecificStationDistance(i+1, station);
+                  trainController.get(i).setCtcSpeed(Train.getSetRecommendedSpeed(office.trainsOnTracks.get(i), distToStation, timeToStation));
+                  
+                  trainController.get(i).setCtcAuthority(Train.getRecommendedAuthority(office.trainsOnTracks.get(i)));
                   
                   
                   /*Calculate Trains' new Speeds, Accelerations, Positions*/
@@ -152,8 +161,6 @@ class Wrapper {
 
                   /*Update Train Controllers*/
                   trainController.get(i).setSpeedLimit(currentTrain.getSpeedLimit());
-                  trainController.get(i).setCtcAuthority(Train.getAuthority(office.trainsOnTracks.get(i)));
-                  trainController.get(i).setCtcSpeed(Train.getSpeed(office.trainsOnTracks.get(i)));
                   trainController.get(i).setMboAuthority(mbo.getbauth(i));
                   trainController.get(i).setMboSpeed(mbo.getbspeed(i));
                   
@@ -307,11 +314,12 @@ class Wrapper {
             Start.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e)
                 {
+                    schedule = mbo.getSchedule();
                     int numTrainsToSpawn = schedule.get(0).getTimes().length();
                     numStations = schedule.size();
 
                     StringBuffer s = new StringBuffer();
-                    schedule = mbo.getSchedule();
+                    
 
                     for(ScheduleNode n : schedule){
                         s.append(n.getStop());

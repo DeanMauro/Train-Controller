@@ -2,7 +2,6 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
-import java.util.Vector;
 import javax.swing.AbstractAction;
 import javax.swing.JCheckBox;
 import javax.swing.event.DocumentEvent;
@@ -177,10 +176,23 @@ public class Train extends javax.swing.JPanel {
         return Double.parseDouble(position[0]);
     }// </editor-fold> 
     
-    public static void getSetRecommendedSpeed(Train t, double distance, double time){
+    public static double getSetRecommendedSpeed(Train t, double distance, double time){
     // <editor-fold defaultstate="collapsed" desc="Recommend Speed">
         t.recommendedSpeed = distance / time;
+        t.textSetSpeed.setText(String.valueOf(t.recommendedSpeed));
+        t.recommendedAuthority = distance;
+        t.textSetAuthority.setText(String.valueOf(t.recommendedAuthority));
+        
+        return t.recommendedSpeed;
     }// </editor-fold>
+    
+    public static double getRecommendedAuthority(Train t){
+        return t.recommendedAuthority;
+    }
+    
+    public int getStationNum(){
+        return stationNum;
+    }
     
         
         
