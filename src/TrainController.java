@@ -23,7 +23,8 @@ public class TrainController {
     
     public boolean doorStatus;
     public boolean lightStatus;
-    public boolean brakeStatus;   
+    public boolean brakeStatus;  
+    public boolean conductorLight;
     boolean eBrake;                 //true means engaged and false means disengaged
     boolean engineFailure;          //true means failed engine and false means okay
     boolean brakeFailure;           //true means failed brakes and false means okay
@@ -61,7 +62,8 @@ public class TrainController {
         
         doorStatus = false;
         lightStatus = false;
-        brakeStatus = false;        
+        brakeStatus = false; 
+        conductorLight = false;
         eBrake = false;                 //true means engaged and false means disengaged
         engineFailure = false;          //true means failed engine and false means okay
         brakeFailure = false;           //true means failed brakes and false means okay
@@ -226,7 +228,6 @@ public class TrainController {
         }
         return v;
      }
-             
          
      
     public void evaluateDoors(boolean fromConductor)
@@ -237,7 +238,7 @@ public class TrainController {
         */
         vAct = train.getCurrentSpeed();
         int v = (int) vAct;
-        System.out.println("v: "+v);
+       
         if(train.atStation && v == 0 && !train.doorStatus && !fromConductor)
         {
             train.doorStatus = true;
@@ -272,7 +273,7 @@ public class TrainController {
             train.lightStatus = true;
             this.lightStatus = true;
         }
-        else if(!train.underground && train.lightStatus && !fromConductor)
+        else if(!train.underground && train.lightStatus && !fromConductor && !conductorLight)
         {
             train.lightStatus = false;
             this.lightStatus = false;
@@ -281,6 +282,7 @@ public class TrainController {
         {
            train.lightStatus = true;
            this.lightStatus = true;
+           this.conductorLight = true;
         }
         else if(fromConductor && train.lightStatus && !train.underground)
         {
