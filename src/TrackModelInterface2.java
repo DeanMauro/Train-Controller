@@ -395,7 +395,7 @@ public class TrackModelInterface2 extends JFrame
                             trainDistRed[trainId-1][2] = b.getBlockId();
                         else
                             trainDistGreen[trainId-1][2] = b.getBlockId();
-                        System.out.println("on block: "+b.getBlockId());
+                        //System.out.println("on block: "+b.getBlockId());
                         redraw(b.getBlockId());
                         break;
                     }
@@ -452,10 +452,10 @@ public class TrackModelInterface2 extends JFrame
             public void redraw(int ID){
                 Block b = trackObject.getBlock(ID);
                 b.setTrainDetected(true);
-                System.out.println("on block: "+b.getBlockId()+1);
-                System.out.println("on block: "+b.getBlockId()+2);
+                //System.out.println("on block: "+b.getBlockId()+1);
+                //System.out.println("on block: "+b.getBlockId()+2);
                 repaint();
-                System.out.println("on block: "+b.getBlockId()+3);
+                //System.out.println("on block: "+b.getBlockId()+3);
             }
             
             //import csv track file
