@@ -87,7 +87,7 @@ public class TrainModel extends javax.swing.JFrame {
         lightStatusDisplay.setText( (TM.lightStatus) ? ("On") : ("Off") );
         nextStationDisplay.setText(nextStation);
         currentSpeedDisplay.setText(String.format("%.2f",TM.currentSpeed));
-        currentPositionDisplay.setText(String.valueOf(TM.currentPosition));
+        currentPositionDisplay.setText(String.format("%.2f",TM.currentPosition));
         passengerCountDisplay.setText(String.valueOf(passengerCount));
         
     }
@@ -210,6 +210,8 @@ public class TrainModel extends javax.swing.JFrame {
         else if(inputBrakeFailure)
             currentAcceleration = 0;
         else if(currentSpeed==blockSpeedLimit)
+            currentAcceleration = 0;
+        else if(engineFailure)
             currentAcceleration = 0;
         else
             currentAcceleration = currentForce / (mass+passengerMass);
