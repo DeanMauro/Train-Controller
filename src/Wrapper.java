@@ -122,10 +122,12 @@ class Wrapper {
               double distToStation;
               double ctcSpeed = 0;
               mbo.updateTrainList(trainModel);
+                       
               
               for(int i=0; i<numberOfTrains; i++){
                   currentTrain = trainModel.get(i);
-                
+                  
+                  trainModel.get(0).updateFields();
                   /*Calculate Trains' new Speeds, Accelerations, Positions*/
                   currentTrain.update(totalSeconds);
                   
@@ -138,6 +140,7 @@ class Wrapper {
                   
                   /*Calculate Trains' block position*/
                   currentTrain.updateBlockItems(trackModelInterface.getTrackModel().getBlockTrainIsOn(i+1));
+                  
                   
                   /*Update MBO*/
                   mbo.updateSpeed(currentTrain.getCurrentSpeed());
@@ -202,7 +205,7 @@ class Wrapper {
               
               //trackModelInterface.getTrackModel().redraw();
               trainControllerUI.updateFields();              
-
+              
 
 
             }
