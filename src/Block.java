@@ -185,22 +185,6 @@ public class Block {
 		this.infrastructure = infrastructure;
 	}
 
-//	public boolean isBiDirectional() {
-//		return BiDirectional;
-//	}
-//
-//	public void setBiDirectional(boolean biDirectional) {
-//		BiDirectional = biDirectional;
-//	}
-//
-//	public boolean isCanGoToTwoPlaces() {
-//		return canGoToTwoPlaces;
-//	}
-//
-//	public void setCanGoToTwoPlaces(boolean canGoToTwoPlaces) {
-//		this.canGoToTwoPlaces = canGoToTwoPlaces;
-//	}
-
 	public int getNextBlockId() {
 		return NextBlockId;
 	}
@@ -225,13 +209,11 @@ public class Block {
 		this.blockSwitchId2 = nextBlockSwitchId;
 	}
 
-        public int getBlockSwitchID1()
-        {
+        public int getBlockSwitchID1(){
             return this.blockSwitchId1;
         }
         
-        public int getBlockSwitchID2()
-        {
+        public int getBlockSwitchID2(){
             return this.blockSwitchId2;
         }
         
@@ -367,95 +349,73 @@ public class Block {
 		this.cumElevation = cumElevation;
 	}
 	
-	public int[] getPossibleNextBlocks()
-	{
+	public int[] getPossibleNextBlocks(){
 		int[] next = {NextBlockId, thirdNextBlockId};
 		return next;
 	}
 	
-	public int[] getPossiblePrevBlocks()
-	{
+	public int[] getPossiblePrevBlocks(){
 		// change this for redline
 		int[] prev = {SecondNextBlockId, -1};
 		return prev;
 	}
 	
-	public boolean isClosed()
-	{
+	public boolean isClosed(){
 		return closed;
 	}
 	
-	public void setClosed(boolean closed)
-	{
+	public void setClosed(boolean closed){
 		this.closed = closed;
 	}
 	
-	/*
-	 * Signal States
-	 * 1 - Super Green
-	 * 2 - Green
-	 * 3 - Yellow
-	 * 4 - Red
-	 * *//////////
-	public void setSignalState(int state)
-	{
+	public void setSignalState(int state){
 		signalState = state;
 	}
 	
-	public int getSignalState()
-	{
+	public int getSignalState(){
 		return signalState;
 	}
 	
-	// 0 - Crossing sig off
-	// 1 - Crossing sig on
-	public void setCrossingSignalState(int state)
-	{
+	public void setCrossingSignalState(int state){
 		crossingSigState = state;
 	}
 	
-	public int getCrossingSignalState()
-	{
+	public int getCrossingSignalState(){
 		return crossingSigState;
 	}
         
-        public int getStartX()
-        {
+        public int getStartX(){
             return startX;
         }
-        public int getStartY()
-        {
+        
+        public int getStartY(){
             return startY;
         }
-        public int getEndX()
-        {
+        
+        public int getEndX(){
             return endX;
         }
-        public int getEndY()
-        {
+        
+        public int getEndY(){
             return endY;
         }
         
-        public void setTwoFromStation(boolean x)
-        {
+        public void setTwoFromStation(boolean x){
             twoFromStation = x;
         }
         
-        public boolean getTwoFromStation()
-        {
+        public boolean getTwoFromStation(){
             return twoFromStation;
         }
         
-        public void setFailState()
-        {
+        public void setFailState(){
             if(failState)
                 failState = false;
             else
                 failState = true;
         }
         
-        public boolean getFailState()
-        {
+        public boolean getFailState(){
             return failState;
         }
 }

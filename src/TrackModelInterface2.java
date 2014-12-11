@@ -41,8 +41,6 @@ public class TrackModelInterface2 extends JFrame
 	
 	private TrackModel trackModel;
 	private ArrayList<JLabel> mObjectPropertyLabels;
-	private ArrayList<JButton> mFailureModeButtons;
-	private Object mSelectedObject;
         int lineColor = 0;
         int[][] locationRed;
         int IDID = 0;
@@ -50,8 +48,7 @@ public class TrackModelInterface2 extends JFrame
         private Line2D.Double line2d;
         private Point2D point1;
 	
-	public static void main(String[] args)
-	{
+	public static void main(String[] args){
 		SwingUtilities.invokeLater(new Runnable()
 		{
 			@Override
@@ -107,99 +104,11 @@ public class TrackModelInterface2 extends JFrame
                                        System.out.println("Bad File");
                                    
                                    repaint();
-//			    	      BufferedReader bufferedReader = new BufferedReader(new FileReader(chooser.getSelectedFile()));
-//			    	      String line = "";
-//			    	      
-//			    	      int lineNumber = 0;
-//			    	      while ((line = bufferedReader.readLine()) != null)
-//			    	      {
-//			    	    	  	 lineNumber++;
-//			    	    	  	 
-//			    	    	  	 // skip title line
-//			    	    	  	 if (lineNumber == 1)
-//			    	    	  		 continue;
-//			    	    	  	 
-//			    	    	     String[] values = line.split(",");
-//			    	    	     
-//			    	    	     TrackBlock b = new TrackBlock(values[0], values[1], Integer.parseInt(values[2]));
-//			    	    	     if (b.getLine().equals(TrackModel.LINE_GREEN))
-//			    	    	    	 	b.mPaintColor = Color.GREEN;
-//			    	    	     else if (b.getLine().equals(TrackModel.LINE_RED))
-//			    	    	    	 	b.mPaintColor = Color.RED;
-//			    	    	     else
-//			    	    	    	 	continue;
-//			    	    	     
-//			    	    	     b.setLength(Float.parseFloat(values[3]));
-//			    	    	     b.setGrade(Float.parseFloat(values[4]));
-//			    	    	     b.setSpeedLimit(Integer.parseInt(values[5]));
-//			    	    	     
-//			    	    	     if (values[6].contains("SWITCH"))
-//			    	    	    	 	b.setIsSwitch(true);
-//			    	    	     else
-//			    	    	    	 	b.setIsSwitch(false);
-//			    	    	     if (values[6].contains("UNDERGROUND"))
-//			    	    	    	 	b.setUnderground(true);
-//			    	    	     else
-//			    	    	    	 	b.setUnderground(false);
-//			    	    	     
-//			    	    	     b.setElevation(Float.parseFloat(values[7]));
-//			    	    	     b.setCumulativeElevation(Float.parseFloat(values[8]));
-//			    	    	     
-//			    	    	     b.setPreviousBlockNumber(0, Integer.parseInt(values[9]));
-//			    	    	     b.setNextBlockNumber(0, Integer.parseInt(values[10]));
-//			    	    	     b.setPreviousBlockNumber(1, Integer.parseInt(values[11]));
-//			    	    	     b.setNextBlockNumber(1, Integer.parseInt(values[12]));
-//			    	    	     
-//			    	    	     // get normal drawing coordinates
-//			    	    	     b.mX1 = Integer.parseInt(values[13]);
-//			    	    	     b.mY1 = Integer.parseInt(values[14]);
-//			    	    	     b.mX2 = Integer.parseInt(values[15]);
-//			    	    	     b.mY2 = Integer.parseInt(values[16]);
-//			    	    	     
-//			    	    	     // get other drawing coordinates
-//			    	    	     b.mOtherX1 = Integer.parseInt(values[17]);
-//			    	    	     b.mOtherY1 = Integer.parseInt(values[18]);
-//			    	    	     b.mOtherX2 = Integer.parseInt(values[19]);
-//			    	    	     b.mOtherY2 = Integer.parseInt(values[20]);
-//			    	    	     
-//			    	    	     mTrackModel.addTrackBlock(b.getLine(), b.getBlockNumber(), b);
-//			    	    	     if (TrackModel.DEBUG) System.out.println("TrackModel: Added block number " + b.getBlockNumber());
-//			    	      }
-//			    	      
-//			    	      bufferedReader.close();
-//			    	      
-//			    	      // add yard
-//			    	      TrackYard y = new TrackYard(630, 320);
-//			    	      mTrackModel.setTrackYard(y);
-//			    	      
-//			    	      // repaint display
-//			    	      repaint();
-//			    	      
-//			    	      mTrackModel.setupTrackController();
-//			    	      
-//			    	      /* testing stuff */
-//			    	      
-////			    	      int[] switches = mTrackModel.getSwitchBlocks("Green");
-////			    	      for (int i : switches)
-////			    	    	  	System.out.println("TrackModel: Switch at block number " + i);
-//			    	      
-//			    	      int[] blockPath = mTrackModel.getBlockPath(TrackModel.LINE_GREEN, false);
-//			    	      System.out.print("TrackModel: path = ");
-//			    	      for (int i = 0; i < blockPath.length; i++)
-//			    	      {
-//			    	    	  	System.out.print(blockPath[i]);
-//			    	    	  	if (i != blockPath.length - 1)
-//				    	    	  	System.out.print("->");
-//			    	    	  	else
-//			    	    	  		System.out.println();
-//			    	      }
-
 			       }
 			       catch (Exception e2)
 			       {
 			    	      e2.printStackTrace();
 			       }
-			    //}
 			}
 		});
                 buttons.add(importTrack);
@@ -338,51 +247,6 @@ public class TrackModelInterface2 extends JFrame
                                     g2d.draw(new Line2D.Double(b.getStartX(),b.getStartY(),b.getEndX(),b.getEndY()));
                                 }
                                 
-				
-				// if there is a selected object
-				if (mSelectedObject != null)
-				{
-                                    System.out.println("hey hey hey");
-					// cast graphics to graphics2d and set stroke
-//					g2d.setStroke(new BasicStroke(3));
-//					
-//					// if the object is a track block
-//					if (mSelectedObject instanceof Block)
-//					{
-//						// cast object to a track block
-//						Block b = (Block) mSelectedObject;
-//						// set color and draw line
-//						//g2d.setColor(b.mPaintColor);
-//						//g2d.drawLine(b.mX1, b.mY1, b.mX2, b.mY2);
-//						
-//						// enable failure mode buttons
-//						for (JButton button : mFailureModeButtons)
-//							button.setEnabled(true);
-//					}
-					
-					// else if the object is a track yard
-//					else if (mSelectedObject instanceof TrackYard)
-//					{
-//						// cast object to a track block
-//						y = (TrackYard) mSelectedObject;
-//						
-//						// set color and draw rectangle
-//						g2d.setColor(Color.BLACK);
-//						g2d.drawRect(y.mX, y.mY, y.mWidth, y.mHeight);
-//						
-//						// disable failure mode buttons
-//						for (JButton button : mFailureModeButtons)
-//							button.setEnabled(false);
-//					}
-				}
-//				
-				// else there is no selected object
-				else
-				{
-					// disable failure mode buttons
-//					for (JButton button : mFailureModeButtons)
-//						button.setEnabled(false);
-				}
                         }
 		};
 		map.addMouseListener(new MouseListener(){
@@ -393,43 +257,12 @@ public class TrackModelInterface2 extends JFrame
 				int clickX = e.getX();
 				int clickY = e.getY();
                                 
-				
-				// check if clicked green track block
-//				for (TrackBlock b : mTrackModel.getTrackBlocks(TrackModel.LINE_GREEN))
-//				{
-//					if (new Line2D.Double(b.mX1, b.mY1, b.mX2, b.mY2).intersects(clickX - 3, clickY - 3, 7, 7))
-//					{
-//						if (TrackModel.DEBUG) System.out.println("TrackModel: found clicked object = green block");
-//						
-//						mObjectPropertyLabels.get(0).setText(mLabelStrings[0] + " Block");
-//						mObjectPropertyLabels.get(1).setText(mLabelStrings[1] + " " + b.getLine());
-//						mObjectPropertyLabels.get(2).setText(mLabelStrings[2] + " " + b.getSection());
-//						mObjectPropertyLabels.get(3).setText(mLabelStrings[3]);
-//						mObjectPropertyLabels.get(4).setText(mLabelStrings[4] + " " + (b.getLength() * 3.28084)); // m to ft
-//						mObjectPropertyLabels.get(5).setText(mLabelStrings[5] + " " + (b.getSpeedLimit() * 0.621371)); // km/hr to mi/hr
-//						mObjectPropertyLabels.get(6).setText(mLabelStrings[6] + " " + b.getGrade());
-//						mObjectPropertyLabels.get(7).setText(mLabelStrings[7] + " " + (b.getElevation() * 3.28084)); // m to ft
-//						mObjectPropertyLabels.get(8).setText(mLabelStrings[8] + " " + (b.getCumulativeElevation() * 3.28084)); // m to ft
-//						mObjectPropertyLabels.get(9).setText(mLabelStrings[9] + " " + b.isUnderground());
-//						
-//						// mark selected object and repaint
-//						mSelectedObject = b;
-//						repaint();
-//						return;
-//					}
-//				}
-				
-				// check if clicked red track block
-				// TODO: repeat clicked algorithm for red blocks
-
-				// check if clicked track yard
-				//TrackYard y = mTrackModel.getTrackYard();
 				for (int i = 1; i<trackModel.getTrackObject().getNumBlocks();i++)       
 				{
                                         Block b = trackModel.getTrackObject().getBlock(i);
 					if (new Line2D.Double(b.getStartX(), b.getStartY(), b.getEndX(), b.getEndY()).intersects(clickX -3 , clickY-3, 7, 7))
 					{
-						System.out.println("Intersects");
+						//System.out.println("Intersects");
 						mObjectPropertyLabels.get(0).setText(mLabelStrings[0] + " Block");
 						mObjectPropertyLabels.get(1).setText(mLabelStrings[1] + " " + trackModel.getTrackObject().getLine());
 						mObjectPropertyLabels.get(2).setText(mLabelStrings[2] + " " + b.getSection());
@@ -442,7 +275,6 @@ public class TrackModelInterface2 extends JFrame
 						mObjectPropertyLabels.get(9).setText(mLabelStrings[9] + " " + b.isUnderground());
 						
 						// mark selected object and repaint
-						mSelectedObject = b;
 						repaint();
 						return;
 					}
@@ -452,7 +284,6 @@ public class TrackModelInterface2 extends JFrame
                                         }
 				}
 				
-				//if (TrackModel.DEBUG) System.out.println("no objects selected");
 				
 				// reset labels
 				for (int i = 0; i < mLabelStrings.length; i++)
@@ -461,7 +292,6 @@ public class TrackModelInterface2 extends JFrame
 				}
 				
 				// unmark current selected object and repaint
-				mSelectedObject = null;
 				repaint();
 			}
 
@@ -492,7 +322,6 @@ public class TrackModelInterface2 extends JFrame
 		// add panels to content pane
 		//contentPane.add(buttons, BorderLayout.NORTH);
 		contentPane.add(map, BorderLayout.PAGE_START);
-		
 		
 		// show frame
 		setVisible(true);
@@ -549,38 +378,25 @@ public class TrackModelInterface2 extends JFrame
                     newDist = totalDistance - trainDistRed[trainId-1][1];
                 else
                     newDist = totalDistance - trainDistGreen[trainId-1][1];
-                //System.out.println("new distance: "+ newDist);
-                //trainDist[trainId-1][1] += newDist;
-                //System.out.println("train distance: "+ trainDist[trainId-1][1]);
                 double blockLength = 0;
                 int blockSpeed = 0;
                 Block b;
                 while(true)
                 {
-                    //System.out.println("1");
-
                     if(getLineColor() == 0)
                         b = trackObject.getBlock((int)trainDistRed[trainId-1][2]);
                     else
                         b = trackObject.getBlock((int)trainDistGreen[trainId-1][2]);
-                    //System.out.println("on block: "+b.getBlockId());
-                    //System.out.println("2");
                     blockLength = b.getLength();
-                    //System.out.println("block length: "+ blockLength);
-                    //System.out.println("postion: "+ postion);
                     blockSpeed = b.getSpeedLimit();
-                    //System.out.println("block length: "+ blockLength);
                     if(blockLength > newDist)
                     {
                         if(getLineColor() == 0)
                             trainDistRed[trainId-1][2] = b.getBlockId();
                         else
                             trainDistGreen[trainId-1][2] = b.getBlockId();
-                        //trainDist[trainId-1][1] = 0;
                         System.out.println("on block: "+b.getBlockId());
-                        //isTwoFromStation(b);
                         redraw(b.getBlockId());
-                        //trainDist[trainId-1][1] = 0;
                         break;
                     }
                     else
@@ -589,8 +405,7 @@ public class TrackModelInterface2 extends JFrame
                             trainDistRed[trainId-1][1] += blockLength;
                         else
                             trainDistGreen[trainId-1][1] += blockLength;
-                        newDist -= blockLength;//trainDist[trainId-1][1] -= blockLength;
-                        //newDist -= blockLength;
+                        newDist -= blockLength;
                         b.setTrainDetected(false);
                         if(getLineColor() == 0)
                             trainDistRed[trainId-1][2] = trackObject.getBlock((int)trainDistRed[trainId-1][2]).getPrevBlockId();
@@ -661,7 +476,6 @@ public class TrackModelInterface2 extends JFrame
                             String line = fileScan.nextLine();
                             //System.out.println(line);
                             blockInfo = line.split(",");
-                            //System.out.println("number of items:"+blockInfo.length);
 
                             trackLineColor=blockInfo[0];
                             trackObject.setLine(blockInfo[0]);
@@ -688,14 +502,6 @@ public class TrackModelInterface2 extends JFrame
                             */
                         }
                         fileScan.close();
-//                        if(i>0)
-//                        {
-//                            newBlock = new Block(blockInfo);
-//                            newBlock.setYard(true);
-//                            i++;
-//                            newBlock.setBlockId(i);
-//                            trackObject.addBlock(newBlock);     
-//                        }
                         System.out.println("Num blocks: "+i);
                         numBlocks = i;
 
@@ -792,7 +598,6 @@ public class TrackModelInterface2 extends JFrame
                     else
                     {
                         distance += next.getLength();
-                        //System.out.println(next.getPrevBlockId());
                         next = trackObject.getBlock(next.getPrevBlockId());
                     }
                 }
@@ -863,7 +668,6 @@ public class TrackModelInterface2 extends JFrame
                     }
                     else
                     {
-                        //System.out.println(next.getPrevBlockId());
                         next = trackObject.getBlock(next.getPrevBlockId());
                     }
                 }
