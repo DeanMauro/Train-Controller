@@ -123,7 +123,7 @@ class Wrapper {
                   trackModelInterface.getTrackModel().updatePosition(currentTrain.getCurrentPosition());
                   trackModelInterface.getTrackModel().updateTrainId(currentTrain.getID());
                   trackModelInterface.getTrackModel().findBlockID();
-                  
+
                   /*Calculate Trains' block position*/
                   currentTrain.updateBlockItems(trackModelInterface.getTrackModel().getBlockTrainIsOn(i+1));
 
@@ -135,6 +135,11 @@ class Wrapper {
                   /*Update Office*/
                   Train.setSpeed(office.trainsOnTracks.get(i), currentTrain.getCurrentSpeed());
                   Train.setPosition(office.trainsOnTracks.get(i), currentTrain.getCurrentPosition());
+                  
+                  /*Update Train Controllers with new MBO Authorities*/
+                  mbo.updateBlockAuthority(trackModelInterface.getTrackModel().getNextStationDistance(i));
+                  //mbo.updateBlockSpeed(trackModelInterface.getTrackModel().getCurrentBlock().getBlockSpeed);
+
                   Train.setAuthority(office.trainsOnTracks.get(i), mbo.getbauth());
 
                   /*Update Train Controllers*/

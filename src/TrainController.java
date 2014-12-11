@@ -24,7 +24,6 @@ public class TrainController {
     public boolean doorStatus;
     public boolean lightStatus;
     public boolean brakeStatus;   
-   
     boolean eBrake;                 //true means engaged and false means disengaged
     boolean engineFailure;          //true means failed engine and false means okay
     boolean brakeFailure;           //true means failed brakes and false means okay
@@ -151,7 +150,6 @@ public class TrainController {
 
         //velocitySetpoint = vLimit;
 
-       
         //check that setpoint is not greater than track speed limit or velocity limit    
         
       

@@ -216,34 +216,94 @@ public class TrackObject {
                     Block b = getBlock(i);
                     if(i == 1)
                     {
-                        b.setNextBlockId(12);
-                        b.setPrevBlockId(i+1);
+                        b.setPrevBlockId(12);
+                        b.setNextBlockId(i+1);
                     }
                     else if(i == 12)
                     {
                         b.setNextBlockId(11);
-                        b.setPrevBlockId(1);
+                        b.setPrevBlockId(13);
                     }
                     else
                     {
-                        b.setNextBlockId(i-1);
-                        b.setPrevBlockId(i+1);
+                        b.setPrevBlockId(i-1);
+                        b.setNextBlockId(i+1);
                     }
 
                 }
                 
                 //create switchs
                 Block b;
-                //switch 1
-                b = getBlock(12);
-                b.setBlockSwitchId1(13);
-                b.setBlockSwitchId2(1);
-                b.setPrevBlockId(13);
+                
+                //switch 0
+                b = getBlock(62);
+                b.setBlockSwitchId1(61);
+                b.setBlockSwitchId2(152);
+                b.setPrevBlockId(63);
+                b.setCurrentlySwitchedTo(2);
+                b.setNextBlockId(152);
+                b = getBlock(152);
+                b.setPrevBlockId(62);
+                
+                
+                //switch 4
+                b = getBlock(76);
+                b.setBlockSwitchId1(77);
+                b.setBlockSwitchId2(107);
+                b.setPrevBlockId(77);
                 b.setCurrentlySwitchedTo(1);
-                b.setNextBlockId(11);
-                b = getBlock(13);
-                b.setPrevBlockId(14);
-                b.setNextBlockId(12);
+                b.setNextBlockId(107);
+                b = getBlock(77);
+                b.setPrevBlockId(78);
+                b.setNextBlockId(76);
+                
+                
+                //switch 4
+                b = getBlock(76);
+                b.setBlockSwitchId1(77);
+                b.setBlockSwitchId2(107);
+                b.setPrevBlockId(77);
+                b.setCurrentlySwitchedTo(1);
+                b.setNextBlockId(107);
+                b = getBlock(77);
+                b.setPrevBlockId(78);
+                b.setNextBlockId(76);
+                
+                
+                
+                //switch 5
+                b = getBlock(86);
+                b.setBlockSwitchId1(85);
+                b.setBlockSwitchId2(100);
+                b.setPrevBlockId(85);
+                b.setCurrentlySwitchedTo(1);
+                b.setNextBlockId(100);
+//                b = getBlock(13);
+//                b.setPrevBlockId(14);
+//                b.setNextBlockId(12);
+                
+                
+                //switch 2
+                b = getBlock(29);
+                b.setBlockSwitchId1(28);
+                b.setBlockSwitchId2(150);
+                b.setPrevBlockId(30);
+                b.setCurrentlySwitchedTo(1);
+                b.setNextBlockId(28);
+                b = getBlock(150);
+                b.setPrevBlockId(29);
+                b.setNextBlockId(149);
+                
+                //switch 3
+                b = getBlock(29);
+                b.setBlockSwitchId1(28);
+                b.setBlockSwitchId2(150);
+                b.setPrevBlockId(30);
+                b.setCurrentlySwitchedTo(1);
+                b.setNextBlockId(28);
+                b = getBlock(150);
+                b.setPrevBlockId(29);
+                b.setNextBlockId(149);
                 
                 
             }

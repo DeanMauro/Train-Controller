@@ -35,6 +35,7 @@ public class TrackModelInterface2 extends JFrame
 
 	private final static int WINDOW_WIDTH = 500;
 	private final static int WINDOW_HEIGHT = 600;
+        JComponent map;
 	
 	private final String[] mLabelStrings = new String[] {"Type:", "Line:", "Section:", "Direction:", "Length (ft):", "Speed Limit (mph):", "Grade (%):", "Elevation (ft): ", "Cumulative Elevation (ft):", "is Underground:", "Train Present:", "Track Heater:"};
 	
@@ -236,7 +237,7 @@ public class TrackModelInterface2 extends JFrame
 	
 		
 		// this is the canvas component where the track is painted
-		JComponent map = new JComponent(){
+		map = new JComponent(){
 			@Override
 			public void paintComponent(Graphics g){
 //				System.out.println("painting canvas");
@@ -377,34 +378,46 @@ public class TrackModelInterface2 extends JFrame
 				// TODO: repeat clicked algorithm for red blocks
 
 				// check if clicked track yard
-//				TrackYard y = mTrackModel.getTrackYard();
-//				if ((y != null) && (new Rectangle2D.Double(y.mX, y.mY, y.mWidth, y.mHeight).intersects(clickX - 3, clickY - 3, 7, 7)))
-//				{
-//					if (TrackModel.DEBUG) System.out.println("TrackModel: found clicked object = yard");
-//					
-//					mObjectPropertyLabels.get(0).setText(mLabelStrings[0] + " YARD");
-//					for (int i = 1; i < mLabelStrings.length; i++)
-//					{
-//						mObjectPropertyLabels.get(i).setText(mLabelStrings[i] + " N/A");
-//					}
-//					
-//					// mark selected object and repaint
-//					mSelectedObject = y;
-//					repaint();
-//					return;
-//				}
+				//TrackYard y = mTrackModel.getTrackYard();
+				for (int i = 1; i<trackModel.getTrackObject().getNumBlocks();i++)       
+				{
+                                        Block b = trackModel.getTrackObject().getBlock(i);
+					if (new Line2D.Double(b.getStartX(), b.getStartY(), b.getEndX(), b.getEndY()).intersects(clickX -3 , clickY-3, 7, 7))
+					{
+						System.out.println("Intersects");
+						mObjectPropertyLabels.get(0).setText(mLabelStrings[0] + " Block");
+						mObjectPropertyLabels.get(1).setText(mLabelStrings[1] + " " + trackModel.getTrackObject().getLine());
+						mObjectPropertyLabels.get(2).setText(mLabelStrings[2] + " " + b.getSection());
+						mObjectPropertyLabels.get(3).setText(mLabelStrings[3]);
+						mObjectPropertyLabels.get(4).setText(mLabelStrings[4] + " " + (b.getLength() * 3.28084)); // m to ft
+						mObjectPropertyLabels.get(5).setText(mLabelStrings[5] + " " + (b.getSpeedLimit() * 0.621371)); // km/hr to mi/hr
+						mObjectPropertyLabels.get(6).setText(mLabelStrings[6] + " " + b.getGrade());
+						mObjectPropertyLabels.get(7).setText(mLabelStrings[7] + " " + (b.getElevation() * 3.28084)); // m to ft
+						mObjectPropertyLabels.get(8).setText(mLabelStrings[8] + " " + (b.getCumElevation() * 3.28084)); // m to ft
+						mObjectPropertyLabels.get(9).setText(mLabelStrings[9] + " " + b.isUnderground());
+						
+						// mark selected object and repaint
+						mSelectedObject = b;
+						repaint();
+						return;
+					}
+                                        else
+                                        {
+                                            //System.out.println("Intersects NOT");
+                                        }
+				}
 				
-//				if (TrackModel.DEBUG) System.out.println("no objects selected");
-//				
-//				// reset labels
-//				for (int i = 0; i < mLabelStrings.length; i++)
-//				{
-//					mObjectPropertyLabels.get(i).setText(mLabelStrings[i]);
-//				}
-//				
-//				// unmark current selected object and repaint
-//				mSelectedObject = null;
-//				repaint();
+				//if (TrackModel.DEBUG) System.out.println("no objects selected");
+				
+				// reset labels
+				for (int i = 0; i < mLabelStrings.length; i++)
+				{
+					mObjectPropertyLabels.get(i).setText(mLabelStrings[i]);
+				}
+				
+				// unmark current selected object and repaint
+				mSelectedObject = null;
+				repaint();
 			}
 
 			@Override
@@ -642,8 +655,7 @@ public class TrackModelInterface2 extends JFrame
             }
             
             //gives ID of train....returns block train is on
-            public Block getBlockTrainIsOn(int ID)
-            {
+            public Block getBlockTrainIsOn(int ID){
                 Block b = trackObject.getBlock((int)trainDist[ID-1][2]);
                 return trackObject.getBlock((int)trainDist[ID-1][2]);
             }
@@ -651,10 +663,75 @@ public class TrackModelInterface2 extends JFrame
             public TrackObject getTrackObject(){
                 return trackObject;
             }
+            
+            //get distance to next station from train block
+            public double getNextStationDistance(int ID){
+                Block b = trackObject.getBlock((int)trainDist[ID-1][2]);
+                Block s, next;
+                s =  trackObject.getBlock((int)trainDist[ID-1][2]);
+                double distance = 0;
+                if(s.isStation())
+                {
+                    int a = s.getPrevBlockId();
+                    s =  trackObject.getBlock(a);
+                }
+                next = s;
+                while(true)
+                {
+                    if(next.isStation())
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        distance += next.getLength();
+                        next = trackObject.getBlock(next.getPrevBlockId());
+                    }
+                }
+                return distance;
+            }
+            
+            //get distance to next specific station from train block
+            public double getNextSpecificStationDistance(int ID, String name){
+                Block b = trackObject.getBlock((int)trainDist[ID-1][2]);
+                Block s, next;
+                s =  trackObject.getBlock((int)trainDist[ID-1][2]);
+                double distance = 0;
+                if(s.isStation())
+                {
+                    int a = s.getPrevBlockId();
+                    s =  trackObject.getBlock(a);
+                }
+                next = s;
+                while(true)
+                {
+                    if(next.isStation() && next.getStationName().equals(name))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        distance += next.getLength();
+                        next = trackObject.getBlock(next.getPrevBlockId());
+                    }
+                    if(distance>5000)
+                    {
+                        return 0;
+                    }
+                }
+                return distance;
+            }
         }
         
         //getter for the track model so the wrapper has access
         public TrackModel getTrackModel(){
             return trackModel;
+        }
+        
+        public JComponent getMap(){
+            JComponent map2;
+            map2 = new JComponent() {};
+            map2 = map;
+            return map2;
         }
 }
