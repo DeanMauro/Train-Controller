@@ -492,6 +492,7 @@ public class TrainModel extends javax.swing.JFrame {
     private void brakeFailureButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brakeFailureButtonActionPerformed
         // TODO add your handling code here:
         inputBrakeFailure = brakeFailureButton.isSelected();
+        setBrakeFailure(inputBrakeFailure);
         if(inputBrakeFailure){
             brakeFailureButton.setText("Fix Failure");
             brakeFailureDisplay.setText("Applied");
@@ -514,6 +515,7 @@ public class TrainModel extends javax.swing.JFrame {
     private void engineFailureButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_engineFailureButtonActionPerformed
         // TODO add your handling code here:
         inputEngineFailure = engineFailureButton.isSelected();
+        setEngineFailure(inputEngineFailure);
         if(inputEngineFailure){
             engineFailureButton.setText("Fix Failure");
             engineFailureDisplay.setText("Applied");
@@ -527,6 +529,7 @@ public class TrainModel extends javax.swing.JFrame {
     private void signalFailureButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signalFailureButtonActionPerformed
         // TODO add your handling code here:
         inputSignalFailure = signalFailureButton.isSelected();
+        setSignalPickupFailure(inputSignalFailure);
         if(inputSignalFailure){
             signalFailureButton.setText("Engine Failure");
             signalFailureDisplay.setText("Applied");

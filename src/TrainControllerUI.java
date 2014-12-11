@@ -55,8 +55,8 @@ public class TrainControllerUI extends javax.swing.JPanel {
         speedLimitDisplay.setText(String.format("%.2f", convertToMPH(TC.speedLimit))  +" MPH");        
         inputSpeedSpinner.setValue(TC.controllerSpeedSetpoint);
         
-        eBrakeDisplay.setText( (TC.brakeStatus) ? ("On") : ("Off") );
-        resetEbrakeButton.setVisible(TC.brakeStatus);
+        eBrakeDisplay.setText( (TC.eBrakeStatus) ? ("On") : ("Off") );
+        resetEbrakeButton.setVisible(TC.eBrakeStatus);
     }
     
     public double convertToMPH(double mps)
