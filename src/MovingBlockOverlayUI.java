@@ -13,7 +13,7 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
     double speed = 0;
     double location = 0;
     double bspeed = 0;
-    double bauth = 0;
+    double bauth = 5000;
     double deceleration = -25;
     int mode = 1;
     ArrayList<ScheduleNode> schedule = new ArrayList();
