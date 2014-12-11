@@ -255,17 +255,31 @@ public class TrackModelInterface2 extends JFrame
                                 
 
                                // draw blocks
-                                if(lineColor == 0)//red
-                                    g2d.setColor(Color.RED);
-                                else
-                                    g2d.setColor(Color.GREEN);
-                                   
                                 g2d.setStroke(new BasicStroke(2f));
-                                //g2d.scale(1.75,1.75);
-                                //g2d.translate(-140, -100);
+                                g2d.scale(1.75,1.75);
+                                g2d.translate(-140, -100);
                                 for(int i = 1; i< trackModel.getNumBlocks();i++)
                                 {
                                     Block b = trackModel.getTrackObject().getBlock(i);
+                                    if(b.isStation())
+                                    {
+                                        g2d.setColor(Color.BLUE);
+                                    }
+                                    else if(b.isTrainDetected())
+                                    {
+                                        g2d.setColor(Color.BLACK);
+                                    }
+                                    else
+                                    {
+                                        if(lineColor == 0)//red
+                                        {
+                                            g2d.setColor(Color.RED);
+                                        }
+                                        else
+                                        {
+                                            g2d.setColor(Color.GREEN);
+                                        }
+                                    }
                                     g2d.draw(new Line2D.Double(b.getStartX(),b.getStartY(),b.getEndX(),b.getEndY()));
                                 }
                                 
@@ -611,5 +625,10 @@ public class TrackModelInterface2 extends JFrame
             public TrackObject getTrackObject(){
                 return trackObject;
             }
+        }
+        
+        //getter for the track model so the wrapper has access
+        public TrackModel getTrackModel(){
+            return trackModel;
         }
 }
