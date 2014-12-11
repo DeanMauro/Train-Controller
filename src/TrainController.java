@@ -121,9 +121,11 @@ public class TrainController {
        
     public void setPower()
     {
-        //actual train velcity
-        vAct = train.getCurrentSpeed();        
         
+        //actual train velcity
+        vAct = train.getCurrentSpeed();   
+        //call redundant method to check
+        double powerCheck = setPowerRedundant(vAct,  authority, ctcSuggestedAuthority,mboCommandedAuthority, power, uk, ek);
         //use min authority
         authority = Math.min(ctcSuggestedAuthority,mboCommandedAuthority);       
         if(authority <= 0)
@@ -131,7 +133,7 @@ public class TrainController {
             authority = 0.1;            
         }      
         
-        //double powerCheck = this.setPowerRedundant(vAct, authority, power, ek, uk);
+        //
         
         //Need to calculate a velocity such that train stops moving 
         //(Vf=0) based on given authority (d) and trains max deceleration (a)
@@ -150,75 +152,57 @@ public class TrainController {
 
         velocitySetpoint = 15;
 
-        //check that setpoint is not greater than track speed limit or velocity limit    
-        
-      
+        //check that setpoint is not greater than track speed limit or velocity limit      
         if(power < maxTrainPower)//if pcm < pmax
         {
              uk = uk + (T/2)*(ek + (velocitySetpoint - vAct));
-        }
-       
+        }       
         //System.out.println("uk="+uk);
         ek = velocitySetpoint - vAct;
         //System.out.println("ek="+ek);
-        power = (KP*ek) + (KI * uk);
-        //System.out.println("power="+power);
+        power = (KP*ek) + (KI * uk);           
         
-        //Add redundant power check here
-        /*if(powerCheck == power)
+        if (Math.abs(power) < Math.abs(powerCheck) * 0.8 || Math.abs(power) > Math.abs(powerCheck) * 1.2) // If redundant power does not agree with this power by +/-20%, stop train
         {
-           // tcUI.powerOutputDisplay.setText(String.format("%.2f", power));
-        
-            //set power to kW to send to TrainModel
-            //power = power/1000;
-            train.setPower(power); 
-        }
-        else
-        {
-            train.setPower();
-        }  */  
-      
-        
-        //set power to kW to send to TrainModel
-        //power = power/1000;
+            power = 0.0;
+        }        
         if(power < 0)
         {
-            power = 0.1;
+            power = 0;
         }
         train.setPower(power); 
-    }
+    }   
+
     
-    private double setPowerRedundant(double v, double auth, double pow, double ek1, double uk1)
-    {       
-        if(auth <= 0)
+    private double setPowerRedundant(double vAct1, double authority1, double ctcSuggestedAuthority1, double mboCommandedAuthority1, double power1, double uk1, double ek1)
+    {   
+        authority1 = Math.min(ctcSuggestedAuthority1,mboCommandedAuthority1);       
+        if(authority1 <= 0)
         {
-            auth = 0.1;            
-        }        
-        
-        double vLimit = Math.sqrt(2*maxTrainDeceleration*auth);
-       //System.out.println("vlimit="+vLimit);
-        //decide what speed setpoint to use
-        velocitySetpoint = this.evaluateVelocity(vLimit);
-        //try this
-        velocitySetpoint = vLimit;
-        //check that setpoint is not greater than track speed limit or velocity limit
-        if(velocitySetpoint > Math.min(speedLimit, vLimit))
-        {
-            velocitySetpoint = Math.min(speedLimit, vLimit);
+            authority1 = 0.1;            
         }
-       // System.out.println("velSetpoint="+velocitySetpoint);
-       
+                
+        double vLimit = Math.sqrt(2*maxTrainDeceleration*authority1);       
+        double velocitySetpoint1 = evaluateVelocity(vLimit);
         
-        if(pow < maxTrainPower)//if pcm < pmax
+        //trying this temporarily
+
+        //velocitySetpoint = 15;       
+        if(power1 < maxTrainPower)//if pcm < pmax
         {
-             uk1 = uk1 + (T/2)*(ek1 + (velocitySetpoint - v));
-        }
-       
-       // System.out.println("uk="+uk);
-        ek1 = velocitySetpoint - v;
+             uk1 = uk1 + (T/2)*(ek1 + (velocitySetpoint1 - vAct1));
+        }       
+        ek1 = velocitySetpoint1 - vAct1;
         //System.out.println("ek="+ek);
-        pow = (KP*ek1) + (KI * uk1);
-        return pow; 
+        power1 = (KP*ek1) + (KI * uk1);
+      
+        //set power to kW to send to TrainModel
+        //power = power/1000;
+        if(power1 < 0)
+        {
+            power1 = 0.1;
+        }
+        return power1;
     }
     
     public void setCtcAuthority(double auth)
@@ -262,18 +246,8 @@ public class TrainController {
     //evaluate whether to use ctcSpeed, mboSpeed, or ConductorSpeed
      public double evaluateVelocity(double calculatedLimit)
      {
-         
-       /* velocitySetpoint = Math.max(trainOperatorVelocity, ctcOperatorVelocity); // Selects faster of two velocities.
-
-        if (velocitySetpoint > Math.min(Math.min(trackLimit, TRAIN_LIMIT), authorityVelocityLimit)) // If the operator sends a dangerous velocity,
-        {
-            velocitySetpoint = Math.min(Math.min(trackLimit, TRAIN_LIMIT), authorityVelocityLimit); // set to next highest allowable velocity
-        }
-         
-        double v = Math.max(mboCommandedSpeed,controllerSpeedSetpoint);         
-        return v;*/
         double mboOrCtc, v;
-        mboOrCtc = Math.max(this.controllerSpeedSetpoint,this.ctcSuggestedSpeed);
+        mboOrCtc = Math.max(this.mboCommandedSpeed,this.ctcSuggestedSpeed);
         v = Math.max(mboOrCtc,this.controllerSpeedSetpoint);
         
         if(v > Math.min(this.speedLimit, calculatedLimit))
