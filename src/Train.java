@@ -12,12 +12,16 @@ import javax.swing.event.DocumentListener;
 public class Train extends javax.swing.JPanel {
     static DecimalFormat d1 = new DecimalFormat("#.#");
     static DecimalFormat d0 = new DecimalFormat("#");
+    double recommendedSpeed = 0;
+    double recommendedAuthority = 0;
+    int stationNum = 0;
 
     public Train(int numTrain) {
         initComponents();
         labelTrainNum.setText("Train "+numTrain);
         this.buttonSend.setActionCommand(String.valueOf(numTrain));  //Set Action Command to be the
                                                                      //train ID
+        
         addListeners(this);
     }
 
@@ -132,7 +136,6 @@ public class Train extends javax.swing.JPanel {
         });
     }// </editor-fold>
     
-    
     public static void setSpeed(Train t, double speed){
     // <editor-fold defaultstate="collapsed" desc="Set Speed">
         t.textSpeed.setText(d1.format(speed * 2.23694) + " mph");
@@ -173,10 +176,23 @@ public class Train extends javax.swing.JPanel {
         return Double.parseDouble(position[0]);
     }// </editor-fold> 
     
-    public static void getRecommendedSpeed(Train t, double distance){
+    public static double getSetRecommendedSpeed(Train t, double distance, double time){
     // <editor-fold defaultstate="collapsed" desc="Recommend Speed">
+        t.recommendedSpeed = distance / time;
+        t.textSetSpeed.setText(String.valueOf(t.recommendedSpeed));
+        t.recommendedAuthority = distance;
+        t.textSetAuthority.setText(String.valueOf(t.recommendedAuthority));
         
+        return t.recommendedSpeed;
     }// </editor-fold>
+    
+    public static double getRecommendedAuthority(Train t){
+        return t.recommendedAuthority;
+    }
+    
+    public int getStationNum(){
+        return stationNum;
+    }
     
         
         

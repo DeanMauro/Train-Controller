@@ -40,4 +40,8 @@ public class ScheduleNode {
         
         return timeString.toString();
     }
+    
+    public ArrayList<Double> getTime(){
+        return times;
+    }
 }

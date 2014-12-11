@@ -14,6 +14,7 @@ class Wrapper {
 	protected static MovingBlockOverlayUI mbo;
         
         protected static ArrayList<ScheduleNode> schedule;
+        protected static int numStations = 0;
         protected static int timerDelay = 1000;
         protected static ActionListener ClockListener;
         protected static int seconds = 0;
@@ -108,10 +109,24 @@ class Wrapper {
               
             /*Calculate new train metrics*/
               TrainModel currentTrain;
+              String station;
+              double timeToStation;
+              int stationNum;
+              double distToStation;
               mbo.updateTrainList(trainModel);
               
               for(int i=0; i<numberOfTrains; i++){
                   currentTrain = trainModel.get(i);
+                  
+                  /*Get destination station and transit time*/
+                  stationNum = office.trainsOnTracks.get(i).getStationNum();
+                  station = schedule.get(stationNum).getStop();
+                  timeToStation = schedule.get(stationNum).getTime().get(i);
+                  distToStation = trackModelInterface.getTrackModel().getNextSpecificStationDistance(i+1, station);
+                  trainController.get(i).setCtcSpeed(Train.getSetRecommendedSpeed(office.trainsOnTracks.get(i), distToStation, timeToStation));
+                  
+                  trainController.get(i).setCtcAuthority(Train.getRecommendedAuthority(office.trainsOnTracks.get(i)));
+                  
                   
                   /*Calculate Trains' new Speeds, Accelerations, Positions*/
                   currentTrain.update(totalSeconds);
@@ -122,17 +137,21 @@ class Wrapper {
                   trackModelInterface.getTrackModel().updateTrainId(currentTrain.getID());
                   trackModelInterface.getTrackModel().findBlockID();
 
+                  
                   /*Calculate Trains' block position*/
                   currentTrain.updateBlockItems(trackModelInterface.getTrackModel().getBlockTrainIsOn(i+1));
-
+                  
                   /*Update MBO*/
                   mbo.updateSpeed(currentTrain.getCurrentSpeed());
                   mbo.updatePosition(currentTrain.getCurrentPosition());
                   mbo.updateBlockAuthority(trackModelInterface.getTrackModel().getNextStationDistance(currentTrain.getID()), i);
                   mbo.updateBlockSpeed(trackModelInterface.getTrackModel().getBlockTrainIsOn(currentTrain.getID()).getSpeedLimit(),i);
+                  
+                  
                   /*Update Office*/
                   Train.setSpeed(office.trainsOnTracks.get(i), currentTrain.getCurrentSpeed());
                   Train.setPosition(office.trainsOnTracks.get(i), currentTrain.getCurrentPosition());
+                  
                   
                   /*Update Train Controllers with new MBO Authorities*/
                   //mbo.updateBlockAuthority(trackModelInterface.getTrackModel().getNextStationDistance(i));
@@ -142,8 +161,6 @@ class Wrapper {
 
                   /*Update Train Controllers*/
                   trainController.get(i).setSpeedLimit(currentTrain.getSpeedLimit());
-                  trainController.get(i).setCtcAuthority(Train.getAuthority(office.trainsOnTracks.get(i)));
-                  trainController.get(i).setCtcSpeed(Train.getSpeed(office.trainsOnTracks.get(i)));
                   trainController.get(i).setMboAuthority(mbo.getbauth(i));
                   trainController.get(i).setMboSpeed(mbo.getbspeed(i));
                   if(trackModelInterface.getTrackModel().getBlockTrainIsOn(currentTrain.getID()).isStation())
@@ -300,11 +317,12 @@ class Wrapper {
             Start.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e)
                 {
-                    if(!timer.isRunning())
-                        timer.start();
+                    schedule = mbo.getSchedule();
+                    int numTrainsToSpawn = schedule.get(0).getTimes().length();
+                    numStations = schedule.size();
 
                     StringBuffer s = new StringBuffer();
-                    schedule = mbo.getSchedule();
+                    
 
                     for(ScheduleNode n : schedule){
                         s.append(n.getStop());
@@ -312,6 +330,15 @@ class Wrapper {
                     }
 
                     office.textSchedule.setText(s.toString());
+                    
+                    if(!timer.isRunning())
+                        timer.start();
+                    
+                    for(int i=0; i<numTrainsToSpawn; i++){
+                        spawnTrain();
+                    }
+                    
+                    
                 }
             });
 
