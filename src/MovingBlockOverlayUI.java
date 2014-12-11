@@ -1047,7 +1047,7 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         TrainSpeedField.setText(String.format("%5f",speed_in_mph) + " mph");
         TrainLocationField.setText(String.format("%5f",location_in_feet) + " ft");
         if(mode == 1) updateToMovingBlock();
-        BlockSpeedField.setText(String.format("%5f",bspeed[curr_train_num] * 2.23694) + " mph");
+        BlockSpeedField.setText(String.format("%5f",bspeed[curr_train_num] * .621371) + " mph");
         BlockAuthorityField.setText(String.format("%f",bauth[curr_train_num] * 3.28084) + " ft");
         
         //Calculate and display block info
