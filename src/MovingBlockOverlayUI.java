@@ -1117,17 +1117,19 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         int curr_train_num = Integer.parseInt((String)TrainList.getSelectedItem()) - 1;
         curr_train = trains.get(curr_train_num);
         speed = curr_train.getCurrentSpeed();
+        double speed_in_mph = speed * 2.23694;
         location = curr_train.getCurrentPosition();
+        double location_in_feet = location * 3.28084;
         //Set Train info panel
-        TrainSpeedField.setText(String.valueOf(speed));
-        TrainLocationField.setText(String.valueOf(location));
-        BlockSpeedField.setText(String.valueOf(bspeed));
-        BlockAuthorityField.setText(String.valueOf(bauth));
+        TrainSpeedField.setText(String.format("%5f",speed_in_mph) + " mph");
+        TrainLocationField.setText(String.format("%5f",location_in_feet) + " ft");
+        BlockSpeedField.setText(String.format("%5f",bspeed * 2.23694) + " mph");
+        BlockAuthorityField.setText(String.format("%f",bauth * 3.28084) + " ft");
         //Calculate and display block info
         double speed_var = bspeed - speed;
-        SpeedVarianceField.setText(String.valueOf(speed_var));
+        SpeedVarianceField.setText(String.format("%5f",speed_var));
         double auth_var = bauth - location;
-        AuthVarianceField.setText(String.valueOf(auth_var));
+        AuthVarianceField.setText(String.format("%5f",auth_var));
         
        
     }
