@@ -105,18 +105,19 @@ public class TrackObject {
             }
             
             //set up track
-            for(int i = 1;i<numBlocks+1;i++)
-            {
-                Block b = getBlock(i);
-                if(i!= numBlocks)
-                    b.setNextBlockId(i+1);
-                if(i!= numBlocks)
-                    b.setPrevBlockId(i-1);
-
-            }
+            
             
             if(getLine().equals("Red"))
             {
+                for(int i = 1;i<numBlocks+1;i++)
+                {
+                    Block b = getBlock(i);
+                    if(i!= numBlocks)
+                        b.setNextBlockId(i+1);
+                    if(i!= numBlocks)
+                        b.setPrevBlockId(i-1);
+
+                }
                 //create station list
                 for(int i = 1;i<numBlocks;i++)
                 {
@@ -202,6 +203,15 @@ public class TrackObject {
             }
             if(getLine().equals("Green"))
             {
+                for(int i = 1;i<numBlocks+1;i++)
+                {
+                    Block b = getBlock(i);
+                    if(i!= numBlocks)
+                        b.setPrevBlockId(i+1);
+                    if(i!= numBlocks)
+                        b.setNextBlockId(i-1);
+
+                }
                 for(int i = 1;i<numBlocks;i++)
                 {
                     Block b = getBlock(i);
@@ -275,7 +285,7 @@ public class TrackObject {
                 b = getBlock(86);
                 b.setBlockSwitchId1(85);
                 b.setBlockSwitchId2(100);
-                b.setPrevBlockId(85);
+                b.setPrevBlockId(87);
                 b.setCurrentlySwitchedTo(1);
                 b.setNextBlockId(100);
 //                b = getBlock(13);
