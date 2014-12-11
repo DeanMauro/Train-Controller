@@ -4,7 +4,6 @@ import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import javax.swing.AbstractAction;
 import javax.swing.JCheckBox;
-import javax.swing.JRadioButton;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -115,11 +114,19 @@ public class Train extends javax.swing.JPanel {
           });
         
         
+    //Start off with fields disabled
+        textSetSpeed.setEnabled(false);
+        textSetAuthority.setEnabled(false);
+        
         t.checkAuto.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
                 if(((JCheckBox)e.getSource()).isSelected()){
-                    
+                    textSetSpeed.setEnabled(false);
+                    textSetAuthority.setEnabled(false);
+                }else{
+                    textSetSpeed.setEnabled(true);
+                    textSetAuthority.setEnabled(true);
                 }
             }
         });
@@ -165,6 +172,11 @@ public class Train extends javax.swing.JPanel {
         
         return Double.parseDouble(position[0]);
     }// </editor-fold> 
+    
+    public static void getRecommendedSpeed(Train t, double distance){
+    // <editor-fold defaultstate="collapsed" desc="Recommend Speed">
+        
+    }// </editor-fold>
     
         
         
@@ -269,6 +281,7 @@ public class Train extends javax.swing.JPanel {
         buttonReroute.setText("Reroute");
         buttonReroute.setEnabled(false);
 
+        checkAuto.setBackground(new java.awt.Color(255, 51, 51));
         checkAuto.setForeground(new java.awt.Color(204, 255, 204));
         checkAuto.setSelected(true);
         checkAuto.setText("Auto Mode");
