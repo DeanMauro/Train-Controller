@@ -6,18 +6,16 @@ import java.util.*;
  * @author jom84
  */
 public class MovingBlockOverlayUI extends javax.swing.JFrame {
-    TrainModel curr_train;
-    Vector<TrainModel> trains = new Vector();
-    ArrayList<Double> safe_speeds;
-    ArrayList<Double> safe_auths;
-    double speed = 0;
-    double location = 0;
-    double bspeed[] = new double[850];
-    double bauth[] = new double[850];
-    double deceleration = -1.2;
-    int mode = 0;
-    int[] passengers = new int[850];
-    ArrayList<ScheduleNode> schedule = new ArrayList();
+    TrainModel curr_train; //curr train to display on UI
+    Vector<TrainModel> trains = new Vector();  //keeps list of trains
+    double speed = 0; //speed of train being displayed
+    double location = 0; //loc of train being displayed
+    double bspeed[] = new double[850]; //array for safe block speeds
+    double bauth[] = new double[850]; //array for safe block auths
+    double deceleration = -1.2; //max train decel
+    int mode = 0; //fixed = 0 missed = 1
+    int[] passengers = new int[850]; //array for containers num of pass on each train
+    ArrayList<ScheduleNode> schedule = new ArrayList(); //schedule for trains
     /**
      * Creates new form MovingBlockOverlayUI
      */
@@ -25,34 +23,41 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         initComponents();
     }
     
+    //returns safe block auth for given train
     public double getbauth(int ID){
         return bauth[ID];
     }
     
+    //returns safe block auth for given train
     public double getbspeed(int ID){
         return bspeed[ID];
     }
     
+    //updates current train speed
     public void updateSpeed(double s){
         speed = s;
         updateDisplay();
     }
     
+    //updates current train pos
     public void updatePosition(double p){
         location = p;
         updateDisplay();
     }
     
+    //updates safe block speed for given train
     public void updateBlockSpeed(double s,int ID){
         bspeed[ID] = s;
         updateDisplay();
     }
     
+    //updates safe block auth for given train
     public void updateBlockAuthority(double a,int ID){
         bauth[ID] = a;
         updateDisplay();
     }
     
+    //updates pass count
     public void updatePassengerCount(int pass, int ID){
         passengers[ID] = pass;
         updateDisplay();
@@ -154,18 +159,13 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        PassengerPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Passenger Movement", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 13), new java.awt.Color(0, 102, 255))); // NOI18N
+        PassengerPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Passenger Movement", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 102, 255))); // NOI18N
 
         jLabel10.setText("Passengers Currently Onboard:");
 
         TotalText.setEditable(false);
         TotalText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TotalText.setText("0");
-        TotalText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TotalTextActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout PassengerPanelLayout = new javax.swing.GroupLayout(PassengerPanel);
         PassengerPanel.setLayout(PassengerPanelLayout);
@@ -173,7 +173,7 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
             PassengerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PassengerPanelLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 164, Short.MAX_VALUE)
+                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(PassengerPanelLayout.createSequentialGroup()
                 .addGap(68, 68, 68)
@@ -199,7 +199,7 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
 
         jLabel1.setText("Select Train:");
 
-        InfoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Train And Block Information", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 13), new java.awt.Color(0, 102, 255))); // NOI18N
+        InfoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Train And Block Information", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 102, 255))); // NOI18N
 
         jLabel11.setText("Train Speed:");
 
@@ -212,29 +212,14 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         jLabel15.setText("Speed Variance:");
 
         TrainSpeedField.setEditable(false);
-        TrainSpeedField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TrainSpeedFieldActionPerformed(evt);
-            }
-        });
 
         TrainLocationField.setEditable(false);
 
         BlockSpeedField.setEditable(false);
-        BlockSpeedField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BlockSpeedFieldActionPerformed(evt);
-            }
-        });
 
         BlockAuthorityField.setEditable(false);
 
         SpeedVarianceField.setEditable(false);
-        SpeedVarianceField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SpeedVarianceFieldActionPerformed(evt);
-            }
-        });
 
         jLabel24.setText("Auth Variance:");
 
@@ -293,7 +278,7 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        ControlPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Control Mode", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 13), new java.awt.Color(0, 102, 255))); // NOI18N
+        ControlPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Control Mode", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 102, 255))); // NOI18N
 
         MovingBlockDisplay.setEditable(false);
         MovingBlockDisplay.setBackground(new java.awt.Color(255, 0, 0));
@@ -325,7 +310,7 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Train Scheduler", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 13), new java.awt.Color(0, 102, 255))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Train Scheduler", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 102, 255))); // NOI18N
 
         sLabel9.setForeground(new java.awt.Color(238, 238, 238));
         sLabel9.setText("GLENBURY");
@@ -350,18 +335,6 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
 
         sLabel16.setForeground(new java.awt.Color(238, 238, 238));
         sLabel16.setText("OVERBROOK");
-
-        sBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sBox2ActionPerformed(evt);
-            }
-        });
-
-        sBox6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sBox6ActionPerformed(evt);
-            }
-        });
 
         sLabel17.setForeground(new java.awt.Color(238, 238, 238));
         sLabel17.setText("INGLEWOOD");
@@ -419,22 +392,11 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
 
         jLabel18.setText("Start Time:");
 
-        StartTimeBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                StartTimeBoxActionPerformed(evt);
-            }
-        });
-
         sBox9.setEditable(false);
 
         sBox10.setEditable(false);
 
         sBox11.setEditable(false);
-        sBox11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sBox11ActionPerformed(evt);
-            }
-        });
 
         sBox12.setEditable(false);
 
@@ -443,22 +405,12 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         sBox14.setEditable(false);
 
         sBox15.setEditable(false);
-        sBox15.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sBox15ActionPerformed(evt);
-            }
-        });
 
         sBox16.setEditable(false);
 
         sBox17.setEditable(false);
 
         sBox18.setEditable(false);
-        sBox18.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sBox18ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -644,7 +596,7 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
                     .addComponent(StartButton)))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Block Control Mode", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 13), new java.awt.Color(0, 102, 255))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Block Control Mode", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 102, 255))); // NOI18N
 
         ControlMode.add(MovingBlockRadio);
         MovingBlockRadio.setText("Moving Block");
@@ -731,25 +683,13 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TrainSpeedFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrainSpeedFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TrainSpeedFieldActionPerformed
-
-    private void SpeedVarianceFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpeedVarianceFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SpeedVarianceFieldActionPerformed
-
+    /*Sets new selected item as train to display when train JComboBox is toggled*/
     private void TrainListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrainListActionPerformed
-        /*String new_label = (String)TrainList.getSelectedItem();
+        String new_label = (String)TrainList.getSelectedItem();
         TrainList.setSelectedItem(new_label);
-        
-        int index = Integer.parseInt(new_label)-1;
-        MBOTrain train_to_show = trains.get(index);
-        //curr_train = train_to_show;
-        
-        updateDisplay();*/
     }//GEN-LAST:event_TrainListActionPerformed
 
+    /*Changes operating mode to fixed or moving*/
     private void MovingBlockRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MovingBlockRadioActionPerformed
         MovingBlockDisplay.setBackground(Color.GREEN);
         FixedBlockDisplay.setBackground(Color.RED);
@@ -758,6 +698,7 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         updateDisplay();
     }//GEN-LAST:event_MovingBlockRadioActionPerformed
 
+    /*Changes operating mode to fixed or moving*/
     private void FixedBlockRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FixedBlockRadioActionPerformed
         FixedBlockDisplay.setBackground(Color.GREEN);
         MovingBlockDisplay.setBackground(Color.RED);
@@ -765,10 +706,7 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         updateDisplay();
     }//GEN-LAST:event_FixedBlockRadioActionPerformed
 
-    private void BlockSpeedFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlockSpeedFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BlockSpeedFieldActionPerformed
-
+    /*Creates schedule based on user input*/
     private void AddScheduleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddScheduleButtonActionPerformed
         String line = (String)LineSelectBox.getSelectedItem();
         if(line.equals("Red")){
@@ -883,10 +821,12 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_AddScheduleButtonActionPerformed
 
+    /*Prints schedule to System.out*/
     private void ViewScheduleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewScheduleButtonActionPerformed
         System.out.println(schedule);
     }//GEN-LAST:event_ViewScheduleButtonActionPerformed
 
+    /*Creates new schedule, deleting old one if one exists*/
     private void NewScheduleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewScheduleButtonActionPerformed
         String line = (String)LineSelectBox.getSelectedItem();
         if(line.equals("Red")){
@@ -1004,30 +944,7 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         LineSelectBox.setEnabled(false);
     }//GEN-LAST:event_NewScheduleButtonActionPerformed
 
-    private void sBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sBox6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sBox6ActionPerformed
-
-    private void sBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sBox2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sBox2ActionPerformed
-
-    private void StartTimeBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartTimeBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_StartTimeBoxActionPerformed
-
-    private void sBox11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sBox11ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sBox11ActionPerformed
-
-    private void sBox15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sBox15ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sBox15ActionPerformed
-
-    private void sBox18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sBox18ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sBox18ActionPerformed
-
+    //Selects red line or green line and updates stop list
     private void LineSelectBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LineSelectBoxActionPerformed
         String new_label = (String)LineSelectBox.getSelectedItem();
         TrainList.setSelectedItem(new_label);
@@ -1104,10 +1021,6 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_LineSelectBoxActionPerformed
 
-    private void TotalTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TotalTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TotalTextActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -1120,6 +1033,7 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         });
     }
     
+    //Updates display on every clock tick
     public void updateDisplay(){
         //Get current train info
         int curr_train_num = Integer.parseInt((String)TrainList.getSelectedItem()) - 1;
@@ -1143,15 +1057,17 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         AuthVarianceField.setText(String.format("%5f",auth_var) + " ft");
     }
     
+    //Adds train to list of trains
     public void addTrain(int ID){
         TrainList.addItem(String.valueOf(ID));
     }
     
+    //Updates train list on each clock tick
     public void updateTrainList(Vector<TrainModel> TL){
         trains = TL;
     }
 
-    
+    //Calculates safe authority for given train
     public double calculateSafeAuthority(TrainModel curr_train){
         double loc1 = curr_train.getCurrentPosition();
         double speed1 = curr_train.getCurrentSpeed();
@@ -1168,6 +1084,7 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         return -(loc2 - (distance + loc1));
     }
     
+    //Calculates safe speed for given train
     public double calculateSafeSpeed(TrainModel curr_train){
         double loc1 = curr_train.getCurrentPosition();
         double speed1 = curr_train.getCurrentSpeed();
@@ -1182,10 +1099,12 @@ public class MovingBlockOverlayUI extends javax.swing.JFrame {
         return speed2;
     }
 
+    //Gets schedule to send to MBO
     public ArrayList getSchedule(){
         return schedule;
     }
     
+    //Changes display values to moving block values
     public void updateToMovingBlock(){
         for(int i = 0; i < trains.size(); i++){
             bauth[i] = calculateSafeAuthority(trains.get(i));
