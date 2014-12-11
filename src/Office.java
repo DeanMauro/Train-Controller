@@ -319,9 +319,11 @@ public class Office extends javax.swing.JPanel {
         labelFixed.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         labelFixed.setText("Fixed Block:");
 
+        radioMoving.setBackground(new java.awt.Color(153, 153, 255));
         buttongroupMovingFixed.add(radioMoving);
         radioMoving.setEnabled(false);
 
+        radioFixed.setBackground(new java.awt.Color(153, 153, 255));
         buttongroupMovingFixed.add(radioFixed);
         radioFixed.setSelected(true);
         radioFixed.setEnabled(false);
